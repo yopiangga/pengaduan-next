@@ -1,11 +1,18 @@
 import { Loading } from "components/all/Loading";
+import Navbar from "components/all/Navbar";
+import Sidebar from "components/all/Sidebar";
+import Main from "components/dashboard/Main";
 import { useEffect } from "react";
 
 export default function Dashboard() {
 
     return (
-        <div className="page home-page">
-            <h1 className="text-yellow">Hai semua!</h1>
+        <div className="page px-4 pt-4 w-full h-screen bg-light">
+            <Sidebar />
+            <div className="content w-full pb-10 pl-16 bg-light ">
+                <Navbar />
+                <Main />
+            </div>
         </div>
     )
 }
