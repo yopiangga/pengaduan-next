@@ -1,7 +1,7 @@
 import { Loading } from "components/all/Loading";
 import { useEffect } from "react";
 
-export default function Beranda() {
+export default function Dashboard() {
 
     return (
         <div className="page home-page">
