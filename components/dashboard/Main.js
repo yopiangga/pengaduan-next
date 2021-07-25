@@ -38,7 +38,7 @@ class Main extends Component {
                                 </div>
                             </div>
                             <div className="description mb-3">
-                                <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
+                                <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
                             </div>
                             <div className="taggar mb-3 flex">
                                 <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen">
@@ -65,11 +65,11 @@ class Main extends Component {
                                 </div>
                                 <div className="action flex items-center">
                                     <div className="time text-sm flex items-center">
-                                        <FiCalendar />
+                                        <FiCalendar className="text-darkGreen" />
                                         <h4 className="ml-1">25 July 21</h4>
                                     </div>
-                                    <div className="font-medium ml-2 flex items-center">
-                                        <FiLink />
+                                    <div className="font-medium text-sm ml-2 flex items-center">
+                                        <FiLink className="text-darkGreen" />
                                         <h4 className="font-medium ml-1">500</h4>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@ class Main extends Component {
                                 </div>
                             </div>
                             <div className="description mb-3">
-                                <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
+                                <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
                             </div>
                             <div className="taggar mb-3 flex">
                                 <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen">
@@ -116,11 +116,11 @@ class Main extends Component {
                                 </div>
                                 <div className="action flex items-center">
                                     <div className="time text-sm flex items-center">
-                                        <FiCalendar />
+                                        <FiCalendar className="text-darkGreen" />
                                         <h4 className="ml-1">25 July 21</h4>
                                     </div>
-                                    <div className="font-medium ml-2 flex items-center">
-                                        <FiLink />
+                                    <div className="font-medium text-sm ml-2 flex items-center">
+                                        <FiLink className="text-darkGreen" />
                                         <h4 className="font-medium ml-1">500</h4>
                                     </div>
                                 </div>
@@ -142,7 +142,7 @@ class Main extends Component {
                                 </div>
                             </div>
                             <div className="description mb-3">
-                                <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
+                                <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
                             </div>
                             <div className="taggar mb-3 flex">
                                 <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen">
@@ -172,11 +172,11 @@ class Main extends Component {
                                 </div>
                                 <div className="action flex items-center">
                                     <div className="time text-sm flex items-center">
-                                        <FiCalendar />
+                                        <FiCalendar className="text-darkGreen" />
                                         <h4 className="ml-1">25 July 21</h4>
                                     </div>
-                                    <div className="font-medium ml-2 flex items-center">
-                                        <FiLink />
+                                    <div className="font-medium text-sm ml-2 flex items-center">
+                                        <FiLink className="text-darkGreen" />
                                         <h4 className="font-medium ml-1">500</h4>
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@ class Main extends Component {
                                 </div>
                             </div>
                             <div className="description mb-3">
-                                <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
+                                <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
                             </div>
                             <div className="taggar mb-3 flex">
                                 <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen">
@@ -220,11 +220,11 @@ class Main extends Component {
                                 </div>
                                 <div className="action flex items-center">
                                     <div className="time text-sm flex items-center">
-                                        <FiCalendar />
+                                        <FiCalendar className="text-darkGreen" />
                                         <h4 className="ml-1">25 July 21</h4>
                                     </div>
-                                    <div className="font-medium ml-2 flex items-center">
-                                        <FiLink />
+                                    <div className="font-medium text-sm ml-2 flex items-center">
+                                        <FiLink className="text-darkGreen" />
                                         <h4 className="font-medium ml-1">500</h4>
                                     </div>
                                 </div>
@@ -244,7 +244,7 @@ class Main extends Component {
                                 </div>
                             </div>
                             <div className="description mb-3">
-                                <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
+                                <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
                             </div>
                             <div className="taggar mb-3 flex">
                                 <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen">
@@ -271,11 +271,11 @@ class Main extends Component {
                                 </div>
                                 <div className="action flex items-center">
                                     <div className="time text-sm flex items-center">
-                                        <FiCalendar />
+                                        <FiCalendar className="text-darkGreen" />
                                         <h4 className="ml-1">25 July 21</h4>
                                     </div>
-                                    <div className="font-medium ml-2 flex items-center">
-                                        <FiLink />
+                                    <div className="font-medium text-sm ml-2 flex items-center">
+                                        <FiLink className="text-darkGreen" />
                                         <h4 className="font-medium ml-1">500</h4>
                                     </div>
                                 </div>
@@ -292,7 +292,7 @@ class Main extends Component {
                                 </div>
                             </div>
                             <div className="description mb-3">
-                                <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
+                                <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
                             </div>
                             <div className="taggar mb-3 flex">
                                 <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen">
@@ -322,11 +322,11 @@ class Main extends Component {
                                 </div>
                                 <div className="action flex items-center">
                                     <div className="time text-sm flex items-center">
-                                        <FiCalendar />
+                                        <FiCalendar className="text-darkGreen" />
                                         <h4 className="ml-1">25 July 21</h4>
                                     </div>
-                                    <div className="font-medium ml-2 flex items-center">
-                                        <FiLink />
+                                    <div className="font-medium text-sm ml-2 flex items-center">
+                                        <FiLink className="text-darkGreen" />
                                         <h4 className="font-medium ml-1">500</h4>
                                     </div>
                                 </div>
@@ -346,7 +346,7 @@ class Main extends Component {
                                 </div>
                             </div>
                             <div className="description mb-3">
-                                <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
+                                <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
                             </div>
                             <div className="taggar mb-3 flex">
                                 <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen">
@@ -376,11 +376,11 @@ class Main extends Component {
                                 </div>
                                 <div className="action flex items-center">
                                     <div className="time text-sm flex items-center">
-                                        <FiCalendar />
+                                        <FiCalendar className="text-darkGreen" />
                                         <h4 className="ml-1">25 July 21</h4>
                                     </div>
-                                    <div className="font-medium ml-2 flex items-center">
-                                        <FiLink />
+                                    <div className="font-medium text-sm ml-2 flex items-center">
+                                        <FiLink className="text-darkGreen" />
                                         <h4 className="font-medium ml-1">500</h4>
                                     </div>
                                 </div>
@@ -397,7 +397,7 @@ class Main extends Component {
                                 </div>
                             </div>
                             <div className="description mb-3">
-                                <p className="">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
+                                <p className="text-sm">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Illo odit ipsum rerum ratione consequatur minima!</p>
                             </div>
                             <div className="taggar mb-3 flex">
                                 <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen">
@@ -424,11 +424,11 @@ class Main extends Component {
                                 </div>
                                 <div className="action flex items-center">
                                     <div className="time text-sm flex items-center">
-                                        <FiCalendar />
+                                        <FiCalendar className="text-darkGreen" />
                                         <h4 className="ml-1">25 July 21</h4>
                                     </div>
-                                    <div className="font-medium ml-2 flex items-center">
-                                        <FiLink />
+                                    <div className="font-medium text-sm ml-2 flex items-center">
+                                        <FiLink className="text-darkGreen" />
                                         <h4 className="font-medium ml-1">500</h4>
                                     </div>
                                 </div>

@@ -14,8 +14,12 @@ module.exports = {
         destination: '/'
       },
       {
-        source: '/auth',
-        destination: '/auth'
+        source: '/login',
+        destination: '/login'
+      },
+      {
+        source: '/register',
+        destination: '/register'
       },
       {
         source: '/create-complaint',

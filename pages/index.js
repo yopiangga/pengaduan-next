@@ -2,17 +2,24 @@ import { Loading } from "components/all/Loading";
 import Navbar from "components/all/Navbar";
 import Sidebar from "components/all/Sidebar";
 import Main from "components/dashboard/Main";
-import { useEffect } from "react";
+import { Component, useEffect } from "react";
 
-export default function Dashboard() {
+class Dashboard extends Component {
+    constructor(props){
+        super(props);
+    }
+    render(){
 
-    return (
-        <div className="page px-4 pt-4 w-full h-screen bg-light">
-            <Sidebar />
-            <div className="content w-full pb-10 pl-16 bg-light ">
-                <Navbar />
-                <Main />
+        return (
+            <div className="page px-4 pt-4 w-full h-screen bg-light">
+                <Sidebar />
+                <div className="content w-full pb-10 pl-16 bg-light ">
+                    <Navbar />
+                    <Main />
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
+
+export default Dashboard;

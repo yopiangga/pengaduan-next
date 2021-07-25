@@ -8,7 +8,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <AppWrapper>
       <Header />  
-      <main className="font-sans text-gray-700">
+      <main className="font-sans text-dark">
         <Layout>
           <Component {...pageProps} />
         </Layout>
