@@ -1,3 +1,4 @@
+
 import { Loading } from "components/all/Loading";
 import { Component, useEffect } from "react";
 import logo2 from 'public/assets/images/logo2.png'
@@ -7,7 +8,7 @@ import ilustration1 from 'public/assets/images/ilustration-1.png'
 import { tsParticles } from "tsparticles";
 import Particles from 'react-particles-js';
 
-class Login extends Component {
+class Main extends Component {
     constructor(props){
         super(props);
     }
@@ -82,4 +83,4 @@ class Login extends Component {
     }
 }
 
-export default Login;
+export default Main;

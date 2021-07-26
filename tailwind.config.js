@@ -49,9 +49,11 @@ module.exports = {
   },
   variants: {
     width: ["responsive", "hover", "focus", "group-hover"],
+    height: ["responsive", "hover", "focus", "group-hover"],
     extend: {
       position: ['hover', 'focus'],
       maxWidth: ['hover', 'focus'],
+      transitionDelay: ['hover', 'focus'],
     },
   },
   corePlugins: {
