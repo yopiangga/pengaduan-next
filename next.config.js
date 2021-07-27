@@ -3,7 +3,7 @@ module.exports = {
   reactStrictMode: true,
   images: {
     loader: 'imgix',
-    path: '',
+    path: 'http://pengaduan.petikdua.store/',
     domain: ''
   },
 

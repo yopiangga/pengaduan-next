@@ -56,7 +56,7 @@ class Main extends Component {
                                 <button className="w-full h-12 bg-darkGreen rounded-lg font-medium text-white">Login</button>
                             </div>
                             <div className="form-group mb-7">
-                                <Link href="/login"><a>Don't have an account yet? <span className="text-darkGreen hover:underline">Sign Up</span></a></Link>
+                                <Link href="/login"><a>Do not have an account yet? <span className="text-darkGreen hover:underline">Sign Up</span></a></Link>
                             </div>
                         </form>
                     </div>

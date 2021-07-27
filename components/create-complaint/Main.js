@@ -85,7 +85,7 @@ class Main extends Component {
                                 <div className="row flex w-11/12 mb-5">
                                     <div className="col w-full">
                                         <div className="form-group flex items-center">
-                                            <iframe name="RoutePlanner" width="100%" height="100%" src="https://www.google.com/maps?z=12&amp;f=d&amp;output=embed&amp;ll=52.355518,-1.174320" />
+                                        <iframe name="RoutePlanner" width="100%" height="100%" src="https://www.google.com/maps?z=12&amp&f=d&amp&output=embed&amp&ll=52.355518,-1.174320" />
                                         </div>
                                     </div>
                                 </div>

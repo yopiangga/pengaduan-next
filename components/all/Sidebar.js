@@ -21,37 +21,37 @@ class Sidebar extends Component {
                     <div className="menu">
                         <ul>
                             <Link href="/">
-                                <div className="w-full cursor-pointer h-12 bg-darkGreen bg-opacity-10 text-darkGreen flex justify-center items-center text-xl">
+                                <a className={(this.props.menu == 'dashboard') ? "w-full cursor-pointer h-12 bg-darkGreen bg-opacity-10 text-darkGreen flex justify-center items-center text-xl" : "w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen"}>
                                     <FiHome />
-                                </div>
+                                </a>
                             </Link>
                             <Link href="/create-complaint">
-                                <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen">
+                                <a className={(this.props.menu == 'create-complaint') ? "w-full cursor-pointer h-12 bg-darkGreen bg-opacity-10 text-darkGreen flex justify-center items-center text-xl" : "w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen"}>
                                     <FiEdit />
-                                </div>
+                                </a>
                             </Link>
                             <Link href="/my-complaint">
-                                <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen">
+                                <a className={(this.props.menu == 'my-complaint') ? "w-full cursor-pointer h-12 bg-darkGreen bg-opacity-10 text-darkGreen flex justify-center items-center text-xl" : "w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen"}>
                                     <FiFileText />
-                                </div>
+                                </a>
                             </Link>
                             <Link href="/chat">
-                                <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen">
+                                <a className={(this.props.menu == 'chat') ? "w-full cursor-pointer h-12 bg-darkGreen bg-opacity-10 text-darkGreen flex justify-center items-center text-xl" : "w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen"}>
                                     <FiMessageSquare />
-                                </div>
+                                </a>
                             </Link>
                             <Link href="/my-profile">
-                                <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen">
+                                <a className={(this.props.menu == 'my-profile') ? "w-full cursor-pointer h-12 bg-darkGreen bg-opacity-10 text-darkGreen flex justify-center items-center text-xl" : "w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen"}>
                                     <FiUser />
-                                </div>
+                                </a>
                             </Link>
                         </ul>
                     </div>
                     <div className="logout h-20">
                         <Link href="/login">
-                            <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl">
+                            <a className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl">
                                 <FiLogOut />
-                            </div>
+                            </a>
                         </Link>
                     </div>
                 </div>

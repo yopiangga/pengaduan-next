@@ -56,7 +56,7 @@ class Main extends Component {
                         </div>
 
                         <div className="maps mb-10 w-full h-96">
-                            <iframe name="RoutePlanner" width="100%" height="100%" src="https://www.google.com/maps?z=12&amp;f=d&amp;output=embed&amp;ll=52.355518,-1.174320" />
+                            <iframe name="RoutePlanner" width="100%" height="100%" src="https://www.google.com/maps?z=12&amp&f=d&amp&output=embed&amp&ll=52.355518,-1.174320" />
                         </div>
 
                         <div className="comment">
