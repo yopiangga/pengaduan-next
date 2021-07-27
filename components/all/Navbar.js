@@ -2,7 +2,7 @@ const { Component } = require("react");
 const { FaRegBell } = require("react-icons/fa");
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
-import { FiChevronDown, FiHeart, FiMessageCircle, FiThumbsUp } from 'react-icons/fi';
+import { FiChevronDown, FiHeart, FiLogOut, FiMessageCircle, FiThumbsUp } from 'react-icons/fi';
 
 class Navbar extends Component {
     constructor(props) {
@@ -11,8 +11,8 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div className="h-16 w-full pr-24 fixed z-50 ">
-                <div className="content-nav bg-white h-full w-full rounded-lg shadow-3xl flex justify-between">
+            <div className="h-16 left-20 right-4 fixed z-50 shadow-sm">
+                <div className="content-nav bg-white h-full w-full rounded-lg flex justify-between">
                     <div className="name-page h-full flex items-center">
                         <h3 className="text-xl font-medium ml-3">Dashboard</h3>
                     </div>
@@ -55,7 +55,7 @@ class Navbar extends Component {
                                 </ul>
                             </div>
                         </div>
-                        <div className="h-16 mr-3 cursor-pointer bg-white flex items-center">
+                        <div className="h-16 mr-3 cursor-pointer bg-white flex items-center relative">
                             <div className="image rounded-full h-10 w-10 mr-3 overflow-hidden bg-light">
                                 <Image src={example} height="100" width="100" alt="user" />
                             </div>
@@ -65,6 +65,20 @@ class Navbar extends Component {
                             </div>
                             <div className="icon text-xl">
                                 <FiChevronDown />
+                            </div>
+
+                            <div className="py-1 rounded-b-lg hidden rounded-tr-lg top-16 right-0 absolute bg-white shadow-lg">
+                                <ul>
+                                    <li className="flex items-center mb-1 py-1 px-3 cursor-pointer hover:bg-gray-50">
+                                        <div className="circle rounded-full w-10 h-10 mr-3 bg-opacity-20 flex justify-center items-center text-xl">
+                                            <FiLogOut />
+                                        </div>
+                                        <div className="text">
+                                            <h4 className="text-sm">Log Out</h4>
+                                        </div>
+                                    </li>
+                                    
+                                </ul>
                             </div>
                         </div>
                     </div>
