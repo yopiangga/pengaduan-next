@@ -1,7 +1,7 @@
 const { Component } = require("react");
 import Image from 'next/image';
 import logo from 'public/assets/images/logo.png'
-import { FiEdit, FiFileText, FiHome, FiLogOut, FiMessageCircle, FiUser } from 'react-icons/fi'
+import { FiEdit, FiFileText, FiHome, FiLogOut, FiMessageCircle, FiMessageSquare, FiUser } from 'react-icons/fi'
 import Link from 'next/link'
 
 class Sidebar extends Component {
@@ -35,7 +35,7 @@ class Sidebar extends Component {
                             </Link>
                             <Link href="/chat">
                                 <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl hover:bg-darkGreen hover:bg-opacity-10 hover:text-darkGreen">
-                                    <FiMessageCircle />
+                                    <FiMessageSquare />
                                 </div>
                             </Link>
                             <Link href="/chat">
