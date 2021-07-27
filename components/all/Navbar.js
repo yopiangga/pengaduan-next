@@ -11,7 +11,7 @@ class Navbar extends Component {
 
     render() {
         return (
-            <div className="h-16 w-full pr-24 fixed">
+            <div className="h-16 w-full pr-24 fixed z-50 ">
                 <div className="content-nav bg-white h-full w-full rounded-lg shadow-3xl flex justify-between">
                     <div className="name-page h-full flex items-center">
                         <h3 className="text-xl font-medium ml-3">Dashboard</h3>

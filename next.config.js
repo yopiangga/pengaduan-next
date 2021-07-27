@@ -34,10 +34,17 @@ module.exports = {
         destination: '/chat'
       },
       {
+        source: '/my-complaint',
+        destination: '/my-complaint'
+      },
+      {
         source: '/my-profile',
         destination: '/my-profile'
       },
-      
+      {
+        source: '/tag/:id',
+        destination: '/tag/[id]'
+      },
     ]
   }
 }
