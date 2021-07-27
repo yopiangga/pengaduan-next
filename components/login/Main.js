@@ -34,7 +34,7 @@ class Main extends Component {
                         <div className="logo h-20 w-14 px-1 pt-2 my-5">
                             <Image src={logo} alt="logo-light" />
                         </div>
-                        <h3 className="text-2xl font-medium mb-3">Create Account</h3>
+                        <h3 className="text-2xl font-medium mb-3">Login</h3>
                         <p className="mb-10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, eius.</p>
 
                         <div className="auth-google w-full h-12 mb-5 border border-gray-200 rounded-lg flex justify-center items-center cursor-pointer hover:border-darkGreen">
@@ -45,9 +45,7 @@ class Main extends Component {
                         <h3 className="text-lg font-medium text-center mb-5 text-gray-400">-- OR --</h3>
 
                         <form className="">
-                            <div className="form-group mb-7">
-                                <input type="text" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Full Name" />
-                            </div>
+                            
                             <div className="form-group mb-7">
                                 <input type="email" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Email Address" />
                             </div>
@@ -58,7 +56,7 @@ class Main extends Component {
                                 <button className="w-full h-12 bg-darkGreen rounded-lg font-medium text-white">Login</button>
                             </div>
                             <div className="form-group mb-7">
-                                <Link href="/login"><a>Already have an account ? <span className="text-darkGreen hover:underline">Log In</span></a></Link>
+                                <Link href="/login"><a>Don't have an account yet? <span className="text-darkGreen hover:underline">Sign Up</span></a></Link>
                             </div>
                         </form>
                     </div>
