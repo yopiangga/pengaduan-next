@@ -11,8 +11,8 @@ class Main extends Component {
     render() {
         return (
             <div className="pt-20">
-                <div className="content flex w-full">
-                    <div className="left w-3/4 pr-5">
+                <div className="content flex laptop:flex-row mobile:flex-col w-full">
+                    <div className="left laptop:w-3/4 mobile:w-full laptop:pr-5">
                         <div className="image w-full mb-5 bg-white">
                             <Image src={example} alt="image complaint" />
                         </div>
@@ -38,6 +38,15 @@ class Main extends Component {
 
                         <div className="title mb-5">
                             <h1 className="font-medium text-2xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, quae!</h1>
+                        </div>
+
+                        <div className="row mb-5 mobile:flex laptop:hidden">
+                            <div className="col w-full">
+                                <div className="form-group flex">
+                                    <button className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
+                                    <button className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
+                                </div>
+                            </div>
                         </div>
 
                         <div className="description mb-5">
@@ -112,7 +121,7 @@ class Main extends Component {
                         </div>
                     </div>
 
-                    <div className="right w-1/4 flex justify-center">
+                    <div className="right laptop:w-1/4 mobile:w-full laptop:flex mobile:hidden justify-center">
                         <div className="bg-white rounded-lg p-4 fixed w-72">
                             <div className="mb-5">
                                 <h3 className="mb-2 font-medium text-xl text-center">Form Support</h3>

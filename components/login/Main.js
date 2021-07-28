@@ -54,7 +54,7 @@ class Main extends Component {
 
         return (
             <div className="page w-full relative h-screen bg-darkGreen flex justify-between">
-                <div className="left flex justify-center w-1/2 bg-white">
+                <div className="left flex justify-center laptop:w-1/2 mobile:w-full bg-white">
                     <div className="content w-3/4 h-full">
 
                         <div className="logo h-20 w-14 px-1 pt-2 my-5">
@@ -87,7 +87,7 @@ class Main extends Component {
                         </form>
                     </div>
                 </div>
-                <div className="right w-1/2 flex justify-center relative">
+                <div className="right w-1/2 laptop:flex justify-center relative mobile:hidden">
                     <section className="bg-main absolute z-0 w-full h-screen flex items-center">
                         <Particles width={'100%'} height={'100%'} params={options} style={{width: '100%', height: '100%'}} />
                     </section>

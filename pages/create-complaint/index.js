@@ -13,7 +13,7 @@ class CreateComplaint extends Component {
         return (
             <div className="page px-4 pt-4 w-full bg-light">
                 <Sidebar menu="create-complaint" />
-                <div className="content w-full pl-16 bg-light ">
+                <div className="content w-full tablet:pl-16 mobile:pl-0 bg-light ">
                     <Navbar />
                     <div className="w-full pt-20">
                         <Main />

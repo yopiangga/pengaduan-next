@@ -52,7 +52,7 @@ class Main extends Component {
 
         return (
             <div className="page w-full relative h-screen bg-darkGreen flex justify-between">
-                <div className="left flex justify-center w-1/2 bg-white">
+                <div className="left flex justify-center laptop:w-1/2 mobile:w-full bg-white">
                     <div className="content w-3/4 h-full">
 
                         <div className="logo h-20 w-14 px-1 pt-2 my-5">
@@ -79,7 +79,7 @@ class Main extends Component {
                                 <input type="password" name="password" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Password" />
                             </div>
                             <div className="form-group mb-5">
-                                <button className="w-full h-12 bg-darkGreen rounded-lg font-medium text-white">Login</button>
+                                <button className="w-full h-12 bg-darkGreen rounded-lg font-medium text-white">Create Account</button>
                             </div>
                             <div className="form-group mb-7">
                                 <h4>Already have an account ? <Link href="/login"><a className="text-darkGreen hover:underline">Log In</a></Link></h4>
@@ -87,7 +87,7 @@ class Main extends Component {
                         </form>
                     </div>
                 </div>
-                <div className="right w-1/2 flex justify-center relative">
+                <div className="right w-1/2 laptop:flex mobile:hidden justify-center relative">
                     <section className="bg-main absolute z-0 w-full h-screen flex items-center">
                         <Particles width={'100%'} height={'100%'} params={options} style={{width: '100%', height: '100%'}} />
                     </section>

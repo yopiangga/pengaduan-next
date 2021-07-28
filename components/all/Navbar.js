@@ -43,7 +43,7 @@ class Navbar extends Component {
                                 <h6 className="text-white text-xs font-medium text-center">5</h6>
                             </div>
 
-                            <div className="notification py-3 w-80 hidden rounded-b-lg rounded-tr-lg top-16 mobile:-right-20 absolute bg-white shadow-lg">
+                            <div className="notification py-3 w-80 hidden rounded-b-lg rounded-tr-lg top-16 mobile:-right-24 absolute bg-white shadow-lg">
                                 <ul>
                                     <li className="flex items-center mb-1 py-1 px-3 cursor-pointer hover:bg-gray-50">
                                         <div className="circle rounded-full w-10 h-10 mr-3 bg-orange bg-opacity-20 flex justify-center items-center text-xl text-orange">

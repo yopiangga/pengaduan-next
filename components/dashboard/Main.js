@@ -73,7 +73,7 @@ function Main() {
                                 <div className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                     <FiMoreHorizontal />
                                 </div>
-                                <div className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                <div className="laptop:laptop:-right-14 py-3 mobile:right-0 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                     <ul>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -129,7 +129,7 @@ function Main() {
                                 <div className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                     <FiMoreHorizontal />
                                 </div>
-                                <div className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                <div className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                     <ul>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -185,7 +185,7 @@ function Main() {
                                 <div className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                     <FiMoreHorizontal />
                                 </div>
-                                <div className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                <div className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                     <ul>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -241,7 +241,7 @@ function Main() {
                                 <div className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                     <FiMoreHorizontal />
                                 </div>
-                                <div className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                <div className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                     <ul>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -297,7 +297,7 @@ function Main() {
                                 <div className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                     <FiMoreHorizontal />
                                 </div>
-                                <div className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                <div className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                     <ul>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -353,7 +353,7 @@ function Main() {
                                 <div className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                     <FiMoreHorizontal />
                                 </div>
-                                <div className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                <div className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                     <ul>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -409,7 +409,7 @@ function Main() {
                                 <div className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                     <FiMoreHorizontal />
                                 </div>
-                                <div className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                <div className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                     <ul>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -465,7 +465,7 @@ function Main() {
                                 <div className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                     <FiMoreHorizontal />
                                 </div>
-                                <div className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                <div className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                     <ul>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                         <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -526,7 +526,7 @@ function Main() {
                                     <div onClick={() => handleMoreAction(1)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                         <FiMoreHorizontal />
                                     </div>
-                                    <div id="more-action-1" className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                    <div id="more-action-1" className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                         <ul>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -582,7 +582,7 @@ function Main() {
                                     <div onClick={() => handleMoreAction()} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                         <FiMoreHorizontal />
                                     </div>
-                                    <div id="more-action" className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                    <div id="more-action" className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                         <ul>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -644,7 +644,7 @@ function Main() {
                                     <div onClick={() => handleMoreAction()} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                         <FiMoreHorizontal />
                                     </div>
-                                    <div id="more-action" className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                    <div id="more-action" className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                         <ul>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -702,7 +702,7 @@ function Main() {
                                     <div onClick={() => handleMoreAction()} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                         <FiMoreHorizontal />
                                     </div>
-                                    <div id="more-action" className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                    <div id="more-action" className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                         <ul>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -760,7 +760,7 @@ function Main() {
                                     <div onClick={() => handleMoreAction()} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                         <FiMoreHorizontal />
                                     </div>
-                                    <div id="more-action" className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                    <div id="more-action" className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                         <ul>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -815,7 +815,7 @@ function Main() {
                                     <div onClick={() => handleMoreAction()} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                         <FiMoreHorizontal />
                                     </div>
-                                    <div id="more-action" className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                    <div id="more-action" className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                         <ul>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -876,7 +876,7 @@ function Main() {
                                     <div onClick={() => handleMoreAction()} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                         <FiMoreHorizontal />
                                     </div>
-                                    <div id="more-action" className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                    <div id="more-action" className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                         <ul>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
@@ -934,7 +934,7 @@ function Main() {
                                     <div onClick={() => handleMoreAction()} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                         <FiMoreHorizontal />
                                     </div>
-                                    <div id="more-action" className="-right-40 py-3 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                    <div id="more-action" className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                         <ul>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Favorit</li>
                                             <li className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
