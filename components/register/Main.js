@@ -51,11 +51,11 @@ class Main extends Component {
         }
 
         return (
-            <div className="page w-full relative h-screen bg-darkGreen flex justify-between">
-                <div className="left flex justify-center laptop:w-1/2 mobile:w-full bg-white">
+            <div className="page w-full relative bg-darkGreen flex justify-between ">
+                <div className="left flex justify-center laptop:w-1/2 mobile:w-full bg-white mobile:py-10">
                     <div className="content w-3/4 h-full">
 
-                        <div className="logo h-20 w-14 px-1 pt-2 my-5">
+                        <div className="logo h-20 w-14 px-1 pt-2 laptop:my-5">
                             <Image src={logo} alt="logo-light" />
                         </div>
                         <h3 className="text-2xl font-medium mb-3">Create Account</h3>
@@ -63,7 +63,7 @@ class Main extends Component {
 
                         <div className="auth-google w-full h-12 mb-5 border border-gray-200 rounded-lg flex justify-center items-center cursor-pointer hover:border-darkGreen">
                             <Image src={googleImage} width="20" height="20" alt="google" />
-                            <h4 className="font-medium ml-3">Authentication with Google Account</h4>
+                            <h4 className="font-medium ml-3">Sign Up with Google</h4>
                         </div>
 
                         <h3 className="text-lg font-medium text-center mb-5 text-gray-400">-- OR --</h3>
