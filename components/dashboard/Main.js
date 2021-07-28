@@ -40,9 +40,9 @@ function Main() {
 
     return (
         <div className="pt-20">
-            <div className="header flex justify-between mb-5">
-                <h1 className="text-3xl font-medium">New Complaint</h1>
-                <div className="filter flex relative">
+            <div className="header flex tablet:flex-row mobile:flex-col justify-between mb-5">
+                <h1 className="text-3xl font-medium tablet:mb-0 mobile:mb-5">New Complaint</h1>
+                <div className="filter flex relative justify-end">
                     <div onClick={handleFilter} className="box cursor-pointer h-10 px-3 bg-white rounded-md flex justify-center items-center">
                         <h4 className="font-medium text-sm mr-1">Filter</h4>
                         <FiChevronDown className="text-xl" />
@@ -64,8 +64,8 @@ function Main() {
             </div>
             {
                 (style == 1) ?
-                    <div onClick={handleClose} className="grid grid-cols-4 style-1">
-                        <div className="card w-11/12 p-3 box-border bg-white rounded-lg mb-4">
+                    <div onClick={handleClose} className="grid desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 style-1">
+                        <div className="card tabelt:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
                             <div className="header flex mb-1 relative">
                                 <div className="title">
                                     <h4 className="font-medium text-md cursor-pointer hover:underline">Pencemaran Lingkungan di daerah Pegunungan</h4>
@@ -121,7 +121,7 @@ function Main() {
                             </div>
                         </div>
 
-                        <div className="card w-11/12 p-3 box-border bg-white rounded-lg mb-4">
+                        <div className="card tabelt:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
                             <div className="header flex mb-1 relative">
                                 <div className="title">
                                     <h4 className="font-medium text-md cursor-pointer hover:underline">Pencemaran Lingkungan di daerah Pegunungan</h4>
@@ -177,7 +177,7 @@ function Main() {
                             </div>
                         </div>
 
-                        <div className="card w-11/12 p-3 box-border bg-white rounded-lg mb-4">
+                        <div className="card tabelt:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
                             <div className="header flex mb-1 relative">
                                 <div className="title">
                                     <h4 className="font-medium text-md cursor-pointer hover:underline">Pencemaran Lingkungan di daerah Pegunungan</h4>
@@ -233,7 +233,7 @@ function Main() {
                             </div>
                         </div>
 
-                        <div className="card w-11/12 p-3 box-border bg-white rounded-lg mb-4">
+                        <div className="card tabelt:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
                             <div className="header flex mb-1 relative">
                                 <div className="title">
                                     <h4 className="font-medium text-md cursor-pointer hover:underline">Pencemaran Lingkungan di daerah Pegunungan</h4>
@@ -289,7 +289,7 @@ function Main() {
                             </div>
                         </div>
 
-                        <div className="card w-11/12 p-3 box-border bg-white rounded-lg mb-4">
+                        <div className="card tabelt:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
                             <div className="header flex mb-1 relative">
                                 <div className="title">
                                     <h4 className="font-medium text-md cursor-pointer hover:underline">Pencemaran Lingkungan di daerah Pegunungan</h4>
@@ -345,7 +345,7 @@ function Main() {
                             </div>
                         </div>
 
-                        <div className="card w-11/12 p-3 box-border bg-white rounded-lg mb-4">
+                        <div className="card tabelt:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
                             <div className="header flex mb-1 relative">
                                 <div className="title">
                                     <h4 className="font-medium text-md cursor-pointer hover:underline">Pencemaran Lingkungan di daerah Pegunungan</h4>
@@ -401,7 +401,7 @@ function Main() {
                             </div>
                         </div>
 
-                        <div className="card w-11/12 p-3 box-border bg-white rounded-lg mb-4">
+                        <div className="card tabelt:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
                             <div className="header flex mb-1 relative">
                                 <div className="title">
                                     <h4 className="font-medium text-md cursor-pointer hover:underline">Pencemaran Lingkungan di daerah Pegunungan</h4>
@@ -457,7 +457,7 @@ function Main() {
                             </div>
                         </div>
 
-                        <div className="card w-11/12 p-3 box-border bg-white rounded-lg mb-4">
+                        <div className="card tabelt:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
                             <div className="header flex mb-1 relative">
                                 <div className="title">
                                     <h4 className="font-medium text-md cursor-pointer hover:underline">Pencemaran Lingkungan di daerah Pegunungan</h4>
@@ -514,8 +514,8 @@ function Main() {
                         </div>
                     </div>
                     :
-                    <div onClick={handleClose} className="grid grid-cols-4 style-2">
-                        <div className="open w-11/12">
+                    <div onClick={handleClose} className="grid desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 style-2">
+                        <div className="open tablet:w-11/12 mobile:w-full">
                             <h3 className="font-medium text-lg mb-5">Open</h3>
 
                             <div className="card w-full p-3 bg-white rounded-lg mb-4">
@@ -633,7 +633,7 @@ function Main() {
                             </div>
 
                         </div>
-                        <div className="progress w-11/12">
+                        <div className="progress tablet:w-11/12 mobile:w-full">
                             <h3 className="font-medium text-lg mb-5">In Progress</h3>
 
                             <div className="card w-full p-3 bg-white rounded-lg mb-4">
@@ -749,7 +749,7 @@ function Main() {
                                 </div>
                             </div>
                         </div>
-                        <div className="complete w-11/12">
+                        <div className="complete tablet:w-11/12 mobile:w-full">
                             <h3 className="font-medium text-lg mb-5">Complete</h3>
 
                             <div className="card w-full p-3 bg-white rounded-lg mb-4">
@@ -865,7 +865,7 @@ function Main() {
                                 </div>
                             </div>
                         </div>
-                        <div className="done w-11/12">
+                        <div className="done tablet:w-11/12 mobile:w-full">
                             <h3 className="font-medium text-lg mb-5">Done</h3>
 
                             <div className="card w-full p-3 bg-white rounded-lg mb-4">
