@@ -6,6 +6,7 @@ class Register extends Component {
         super(props);
     }
     render(){
+        document.title = "Register - Complaint"
 
         const options = {
             particles: {

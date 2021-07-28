@@ -7,10 +7,34 @@ import Link from 'next/link'
 import ilustration1 from 'public/assets/images/ilustration-1.png'
 import { tsParticles } from "tsparticles";
 import Particles from 'react-particles-js';
+import googleImage from 'public/assets/images/google.png'
 
 class Main extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            fullname: '',
+            email: '',
+            password: ''
+        }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleRegisterEmail = this.handleRegisterEmail.bind(this);
+    }
+
+    handleChange(event){
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+    
+    handleRegisterEmail(event){
+        event.preventDefault();
+        
+        if(this.state.email == '' || this.state.password == '' || this.state.fullname == ''){
+
+        } else {
+            Router.push('/');
+        }
     }
     render() {
 
@@ -38,27 +62,27 @@ class Main extends Component {
                         <p className="mb-10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, eius.</p>
 
                         <div className="auth-google w-full h-12 mb-5 border border-gray-200 rounded-lg flex justify-center items-center cursor-pointer hover:border-darkGreen">
-                            <Image src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1200px-Google_%22G%22_Logo.svg.png" width="20" height="20" alt="google" />
+                            <Image src={googleImage} width="20" height="20" alt="google" />
                             <h4 className="font-medium ml-3">Authentication with Google Account</h4>
                         </div>
 
                         <h3 className="text-lg font-medium text-center mb-5 text-gray-400">-- OR --</h3>
 
-                        <form className="">
+                        <form onSubmit={this.handleRegisterEmail}>
                             <div className="form-group mb-7">
-                                <input type="text" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Full Name" />
+                                <input type="text" name="fullname" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Full Name" />
                             </div>
                             <div className="form-group mb-7">
-                                <input type="email" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Email Address" />
+                                <input type="email" name="email" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Email Address" />
                             </div>
                             <div className="form-group mb-7">
-                                <input type="password" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Password" />
+                                <input type="password" name="password" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Password" />
                             </div>
-                            <div className="form-group mb-7">
+                            <div className="form-group mb-5">
                                 <button className="w-full h-12 bg-darkGreen rounded-lg font-medium text-white">Login</button>
                             </div>
                             <div className="form-group mb-7">
-                                <Link href="/login"><a>Already have an account ? <span className="text-darkGreen hover:underline">Log In</span></a></Link>
+                                <h4>Already have an account ? <Link href="/login"><a className="text-darkGreen hover:underline">Log In</a></Link></h4>
                             </div>
                         </form>
                     </div>
