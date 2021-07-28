@@ -3,22 +3,29 @@ import { FiSearch } from "react-icons/fi";
 import {BiCheckDouble} from "react-icons/bi"
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
+import $ from 'jquery';
 
 class Users extends Component {
     constructor(props) {
         super(props);
     }
+
+    handleSelectContact(){
+        $('.message').removeClass('mobile:hidden');
+        $('.contact').addClass('hidden').removeClass('flex');
+    }
+
     render() {
 
         return (
-            <div className="w-1/3 h-full relative flex flex-col items-center">
-                <div className="search w-4/5 h-12 relative flex justify-center items-center rounded-xl bg-white">
+            <div className="contact laptop:w-1/3 mobile:w-full h-full relative flex flex-col items-center">
+                <div className="search laptop:w-4/5 mobile:w-full h-12 relative flex justify-center items-center rounded-xl bg-white">
                     <input type="text" name="" id="" className="w-full outline-none px-3" placeholder="Search" />
                     <FiSearch className="absolute right-3 text-gray-400 text-lg" />
                 </div>
                 <div className="users w-full absolute top-16 bottom-0 right-0 overflow-scroll flex flex-col items-center">
 
-                    <div className="user w-4/5 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer hover:w-11/12 hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                    <div onClick={this.handleSelectContact} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             <Image src={example} height="100" width="100" alt="user" />
                         </div>
@@ -32,7 +39,7 @@ class Users extends Component {
                         </div>
                     </div>
 
-                    <div className="user w-4/5 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer hover:w-11/12 hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                    <div onClick={this.handleSelectContact} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             <Image src={example} height="100" width="100" alt="user" />
                         </div>
@@ -45,7 +52,7 @@ class Users extends Component {
                             <BiCheckDouble className="text-darkGreen" />
                         </div>
                     </div>
-                    <div className="user w-4/5 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer hover:w-11/12 hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                    <div onClick={this.handleSelectContact} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             <Image src={example} height="100" width="100" alt="user" />
                         </div>
@@ -58,7 +65,7 @@ class Users extends Component {
                             <BiCheckDouble className="text-darkGreen" />
                         </div>
                     </div>
-                    <div className="user w-4/5 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer hover:w-11/12 hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                    <div onClick={this.handleSelectContact} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             <Image src={example} height="100" width="100" alt="user" />
                         </div>
@@ -71,7 +78,7 @@ class Users extends Component {
                             <BiCheckDouble className="text-darkGreen" />
                         </div>
                     </div>
-                    <div className="user w-4/5 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer hover:w-11/12 hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                    <div onClick={this.handleSelectContact} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             <Image src={example} height="100" width="100" alt="user" />
                         </div>
@@ -84,7 +91,7 @@ class Users extends Component {
                             <BiCheckDouble className="text-darkGreen" />
                         </div>
                     </div>
-                    <div className="user w-4/5 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer hover:w-11/12 hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                    <div onClick={this.handleSelectContact} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             <Image src={example} height="100" width="100" alt="user" />
                         </div>
@@ -97,7 +104,7 @@ class Users extends Component {
                             <BiCheckDouble className="text-darkGreen" />
                         </div>
                     </div>
-                    <div className="user w-4/5 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer hover:w-11/12 hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                    <div onClick={this.handleSelectContact} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             <Image src={example} height="100" width="100" alt="user" />
                         </div>
@@ -111,7 +118,7 @@ class Users extends Component {
                         </div>
                     </div>
 
-                    <div className="user w-4/5 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer hover:w-11/12 hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                    <div onClick={this.handleSelectContact} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             <Image src={example} height="100" width="100" alt="user" />
                         </div>
@@ -124,7 +131,7 @@ class Users extends Component {
                             <BiCheckDouble className="text-darkGreen" />
                         </div>
                     </div>
-                    <div className="user w-4/5 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer hover:w-11/12 hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                    <div onClick={this.handleSelectContact} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             <Image src={example} height="100" width="100" alt="user" />
                         </div>

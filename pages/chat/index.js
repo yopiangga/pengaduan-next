@@ -7,17 +7,19 @@ import { Component, useEffect } from "react";
 class Chat extends Component {
     constructor(props){
         super(props);
+
+        this.setState({
+            display: 1
+        })
     }
     render(){
         
         return (
             <div className="page px-4 pt-4 w-full h-screen bg-light">
                 <Sidebar menu="chat" />
-                <div className="content w-full pl-16 bg-light ">
+                <div className="content w-full tablet:pl-16 mobile:pl-0 bg-light ">
                     <Navbar menu="chat"/>
                     <div className="w-full h-screen pt-20">
-                        {/* <h1 className="text-3xl font-medium">Chat</h1> */}
-
                         <div className="flex w-full h-full">
                             <Users />
                             <Message />

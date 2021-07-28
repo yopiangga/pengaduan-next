@@ -1,17 +1,24 @@
 import { Component, useEffect } from "react";
-import { FiCheck, FiSearch, FiSend } from "react-icons/fi";
+import { FiCheck, FiSearch, FiSend, FiX } from "react-icons/fi";
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
+import $ from 'jquery';
 
 class Message extends Component {
     constructor(props) {
         super(props);
     }
+
+    handleContact(){
+        $('.message').addClass('mobile:hidden');
+        $('.contact').removeClass('hidden').addClass('flex');
+    }
+
     render() {
 
         return (
-            <div className="w-2/3 h-full relative flex flex-col">
-                <div className="user w-11/12 h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative">
+            <div className="message laptop:w-2/3 mobile:w-full h-full relative laptop:flex mobile:hidden flex-col">
+                <div className="user laptop:w-11/12 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative">
                     <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                         <Image src={example} height="100" width="100" alt="user" />
                     </div>
@@ -19,9 +26,12 @@ class Message extends Component {
                         <h4 className="font-bold text-sm">Alfian Prisma Y</h4>
                         <p className="text-xs">Lorem ipsum dolor sit amet.</p>
                     </div>
+                    <div onClick={this.handleContact} className="icon text-xl w-12 flex flex-col items-end absolute right-2">
+                            <FiX className="text-dark" />
+                        </div>
                 </div>
 
-                <div className="users w-11/12 bg-white absolute top-20 bottom-4 flex flex-col items-center rounded-lg">
+                <div className="users laptop:w-11/12 mobile:w-full bg-white absolute top-20 bottom-4 flex flex-col items-center rounded-lg">
 
                     <div className="absolute top-4 bottom-20 left-3 right-3 overflow-scroll">
 
