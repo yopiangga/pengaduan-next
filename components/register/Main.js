@@ -1,6 +1,6 @@
 
 import { Loading } from "components/all/Loading";
-import { Component, useEffect } from "react";
+import { Component, useEffect, useState } from "react";
 import logo from 'public/assets/images/logo.png'
 import Image from 'next/image';
 import Link from 'next/link'
@@ -8,37 +8,19 @@ import ilustration1 from 'public/assets/images/ilustration-1.png'
 import { tsParticles } from "tsparticles";
 import Particles from 'react-particles-js';
 import googleImage from 'public/assets/images/google.png'
+import firebase from 'firebase'
+import $ from 'jquery'
+import { useRouter } from "next/router";
+import { useAppContext } from "components/states/GlobalStates";
 
-class Main extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            fullname: '',
-            email: '',
-            password: ''
-        }
-        this.handleChange = this.handleChange.bind(this);
-        this.handleRegisterEmail = this.handleRegisterEmail.bind(this);
-    }
+function Main() {
 
-    handleChange(event){
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
-    
-    handleRegisterEmail(event){
-        event.preventDefault();
-        
-        if(this.state.email == '' || this.state.password == '' || this.state.fullname == ''){
+    const {url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser} = useAppContext();
+    const [userRegis, setUserRegis] = useState({idUser: "", fullname: "", email: "", address: "", roleUser: "", typeLogin: "", picture: ""})
 
-        } else {
-            Router.push('/');
-        }
-    }
-    render() {
+    const router = useRouter();
 
-        const options = {
+    const options = {
             particles: {
                 number: {
                     value: 70,
@@ -49,6 +31,60 @@ class Main extends Component {
                 },
             }
         }
+
+    const handleChange = (event) => {
+        setUserRegis({
+            ...userRegis,
+            [event.target.name]: event.target.value
+        })
+    }
+    
+    const handleRegisterEmail = (event) => {
+        event.preventDefault();
+        $('.bg-loading').removeClass('hidden').addClass('flex');
+        if (userRegis.fullname == null || userRegis.email == null | userRegis.password == null) {
+
+        } else {
+            firebase.auth().createUserWithEmailAndPassword(userRegis.email, userRegis.password)
+                .then((res) => {
+                    // console.log(res)
+                    createData(res.user, userRegis.fullname)
+                    $('.bg-loading').removeClass('flex').addClass('hidden');
+                })
+                .catch((error) => {
+                    console.log(error)
+                    $('.bg-loading').removeClass('flex').addClass('hidden');
+                });
+        }
+    }
+
+     const createData = (data, fullname) => {
+        firebase.firestore().collection("users").doc(data.uid.toString()).set({
+            fullname: fullname, 
+            email: data.email, 
+            address: "", 
+            roleUser: "2", 
+            typeLogin: "2", 
+            picture: "default"
+        })
+        .then(() => {
+            setDetailUser({
+                idUser: data.uid, 
+                fullname: fullname, 
+                email: data.email, 
+                address: "", 
+                roleUser: "2", 
+                typeLogin: "2", 
+                picture: "default",
+                work: ""
+            })
+            router.push('/')
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+
+      }   
 
         return (
             <div className="page w-full relative bg-darkGreen flex justify-between ">
@@ -68,18 +104,18 @@ class Main extends Component {
 
                         <h3 className="text-lg font-medium text-center mb-5 text-gray-400">-- OR --</h3>
 
-                        <form onSubmit={this.handleRegisterEmail}>
+                        <form onSubmit={handleRegisterEmail}>
                             <div className="form-group mb-7">
-                                <input type="text" name="fullname" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Full Name" />
+                                <input type="text" name="fullname" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Full Name" value={userRegis.fullname} onChange={handleChange} />
                             </div>
                             <div className="form-group mb-7">
-                                <input type="email" name="email" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Email Address" />
+                                <input type="email" name="email" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Email Address" value={userRegis.email} onChange={handleChange} />
                             </div>
                             <div className="form-group mb-7">
-                                <input type="password" name="password" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Password" />
+                                <input type="password" name="password" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Password" value={userRegis.password} onChange={handleChange} />
                             </div>
                             <div className="form-group mb-5">
-                                <button className="w-full h-12 bg-darkGreen rounded-lg font-medium text-white">Create Account</button>
+                                <button type="submit" className="w-full h-12 bg-darkGreen rounded-lg font-medium text-white">Create Account</button>
                             </div>
                             <div className="form-group mb-7">
                                 <h4>Already have an account ? <Link href="/login"><a className="text-darkGreen hover:underline">Log In</a></Link></h4>
@@ -100,7 +136,6 @@ class Main extends Component {
                 </div>
             </div>
         )
-    }
 }
 
 export default Main;

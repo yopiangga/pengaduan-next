@@ -10,14 +10,13 @@ import Particles from 'react-particles-js';
 import googleImage from 'public/assets/images/google.png'
 import $ from 'jquery'
 import { useAppContext } from "components/states/GlobalStates";
-import { useRouter } from "next/router";
-import { auth } from "shared/Firebase";
+import Router from "next/router";
+import firebase from 'firebase'
 
 function Main() {
 
-    const { url, setUrl, isLogin, setIsLogin } = useAppContext();
+    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [userLogin, setUserLogin] = useState({ email: "", password: "" });
-    const router = useRouter();
 
     const options = {
         particles: {
@@ -44,18 +43,41 @@ function Main() {
         if (userLogin.email == null | userLogin.password == null) {
 
         } else {
-            auth.signInWithEmailAndPassword(userLogin.email, userLogin.password)
+            firebase.auth().signInWithEmailAndPassword(userLogin.email, userLogin.password)
                 .then((res) => {
-                    console.log(res)
+                    // console.log(res)
+                    handleDataUser(res.user);
+                    Router.push('/')
                     $('.bg-loading').removeClass('flex').addClass('hidden');
-
-                    // router.push('/');
                 })
                 .catch((error) => {
                     $('.bg-loading').removeClass('flex').addClass('hidden');
                     console.log(error)
                 });
         }
+    }
+
+    const handleDataUser = (data) => {
+        var docRef = firebase.firestore().collection("users").doc(data.uid);
+
+        docRef.get().then((doc) => {
+            if (doc.exists) {
+                setDetailUser({
+                    idUser: data.uid, 
+                    fullname: doc.data().fullname, 
+                    email: data.email, 
+                    address: doc.data().address, 
+                    roleUser: doc.data().roleUser, 
+                    typeLogin: doc.data().typeLogin, 
+                    picture: doc.data().picture,
+                    work: doc.data().work
+                })
+            } else {
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
     }
 
     return (

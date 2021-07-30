@@ -8,17 +8,6 @@ class Login extends Component {
     }
     
     render(){
-        const options = {
-            particles: {
-                number: {
-                    value: 60,
-                    density: {
-                        enable: true,
-                        value_area: 500
-                    }
-                }, 
-            }
-        }
 
         return (
             <div>

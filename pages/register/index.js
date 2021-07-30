@@ -1,3 +1,4 @@
+import { Loading } from "components/all/Loading";
 import Main from "components/register/Main";
 import { Component, useEffect } from "react";
 
@@ -20,6 +21,7 @@ class Register extends Component {
 
         return (
             <div>
+                <Loading />
                 <Main />
             </div>
         )
