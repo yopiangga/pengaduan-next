@@ -39,7 +39,7 @@ class Main extends Component {
     
     render() {
         console.log(this.state)
-        console.log(process.env.customKey)
+        console.log(process.env.DB_HOST)
 
         const options = {
             particles: {
