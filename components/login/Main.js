@@ -8,10 +8,10 @@ import ilustration1 from 'public/assets/images/ilustration-1.png'
 import { tsParticles } from "tsparticles";
 import Particles from 'react-particles-js';
 import googleImage from 'public/assets/images/google.png'
-import { auth, provider } from 'shared/Firebase';
 import $ from 'jquery'
 import { useAppContext } from "components/states/GlobalStates";
 import { useRouter } from "next/router";
+import { auth } from "shared/Firebase";
 
 function Main() {
 
