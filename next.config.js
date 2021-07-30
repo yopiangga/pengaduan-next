@@ -10,6 +10,7 @@ module.exports = {
 
   env: {
     customKey: 'my-value',
+    customKey2: "jasss"
   },
 
   async rewrites() {
