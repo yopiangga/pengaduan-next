@@ -39,6 +39,7 @@ class Main extends Component {
     
     render() {
         console.log(this.state)
+        console.log(process.env.customKey)
 
         const options = {
             particles: {
@@ -61,6 +62,7 @@ class Main extends Component {
                             <Image src={logo} alt="logo-light" />
                         </div>
                         <h3 className="text-2xl font-medium mb-3">Login</h3>
+                        
                         <p className="mb-10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, eius.</p>
 
                         <div className="auth-google w-full h-12 mb-5 border border-gray-200 rounded-lg flex justify-center items-center cursor-pointer hover:border-darkGreen">

@@ -9,6 +9,10 @@ export function AppWrapper({ children }) {
 //   const [detailUser, setDetailUser] = useState({ firstname: "", lastname: "", fullname: "", email: "", telp: "", school: "", graduate: "" });
   const [isLogin, setIsLogin] = useState(1);
 
+  useState(() => {
+      
+  }, [])
+
   const state = {
     url, setUrl, isLogin, setIsLogin
   }

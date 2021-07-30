@@ -1,3 +1,4 @@
+import { Loading } from "components/all/Loading";
 import Main from "components/login/Main";
 import { Component, useEffect } from "react";
 
@@ -21,6 +22,7 @@ class Login extends Component {
 
         return (
             <div>
+                <Loading />
                 <Main />
             </div>
         )

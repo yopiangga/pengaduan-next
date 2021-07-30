@@ -3,8 +3,13 @@ module.exports = {
   reactStrictMode: true,
   images: {
     loader: 'imgix',
-    path: 'http://pengaduan.petikdua.store/',
+    // path: 'http://pengaduan.petikdua.store/',
+    path: 'http://localhost:3000/',
     domain: ''
+  },
+
+  env: {
+    customKey: 'my-value',
   },
 
   async rewrites() {
