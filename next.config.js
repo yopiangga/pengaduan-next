@@ -4,7 +4,7 @@ module.exports = {
   images: {
     loader: 'imgix',
     // path: 'http://pengaduan.petikdua.store/',
-    path: 'http://localhost:3000/',
+    // path: 'http://localhost:3000/',
     domain: ''
   },
 
