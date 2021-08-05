@@ -12,7 +12,7 @@ export function AppWrapper({ children }) {
   useState(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log(user)
+        // console.log(user)
         setIsLogin(1);
         handleDataUser(user);
       } else {
@@ -44,7 +44,7 @@ export function AppWrapper({ children }) {
     });
   }
 
-  console.log(detailUser)
+  // console.log(detailUser)
 
   const state = {
     url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser

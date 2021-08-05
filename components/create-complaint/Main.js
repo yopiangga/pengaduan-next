@@ -4,12 +4,20 @@ import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import firebase from 'firebase'
+import $ from 'jquery'
+import { useRouter } from 'next/router';
 
 function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [complaint, setComplaint] = useState({
         title: "", description: "", taggar: "", image: "", latitude: "", longitude: ""
     })
+    const [file, setFile] = useState(null);
+    const router = useRouter();
+
+    const handleImageAsFile = (e) => {
+        setFile(e.target.files[0]);
+    }
 
     const handleChange = (event) => {
         setComplaint({
@@ -41,7 +49,7 @@ function Main() {
     const handleChangeTaggar = (event) => {
         const taggar = event.target.value;
         const myArr = taggar.split(",");
-        
+
         setComplaint({
             ...complaint,
             taggar: myArr
@@ -50,21 +58,44 @@ function Main() {
 
     const Push = (event) => {
         event.preventDefault();
+        $('.bg-loading').removeClass('hidden').addClass('flex');
         const date = new Date();
         const time = date.getTime();
+        const ref = firebase.storage().ref(`/complaint/${time}_${detailUser.idUser}_${file.name}`);
+        const uploadTask = ref.put(file);
+        uploadTask.on("state_changed", console.log, console.error, () => {
+            ref
+                .getDownloadURL()
+                .then((url) => {
+                    setFile(null);
+                    pushData(time, url);
+                });
+        });
+        $('.bg-loading').removeClass('flex').addClass('hidden');
+    }
+
+    const pushData = (time, url) => {
         firebase.database().ref(`complaint/${time}`).set({
-            title: complaint.title, 
-            description: complaint.description, 
-            taggar: complaint.taggar, 
-            image: "example", 
-            latitude: complaint.latitude, 
+            title: complaint.title,
+            description: complaint.description,
+            taggar: complaint.taggar,
+            image: url,
+            latitude: complaint.latitude,
             longitude: complaint.longitude,
             support: 0,
             shared: 0,
             authorId: detailUser.idUser,
             author: detailUser.fullname
         }).catch(alert);
+
+        setComplaint({
+            title: "", description: "", taggar: "", image: "", latitude: "", longitude: ""
+        })
+        router.push('/')
+        $('.bg-loading').removeClass('flex').addClass('hidden');
     }
+
+    // console.log(complaint)
 
     return (
         <div className="pt-0 flex justify-center">
@@ -80,7 +111,7 @@ function Main() {
                                     <div className="col w-full">
                                         <div className="form-group flex flex-col">
                                             <label className="font-medium text-sm mb-3">Title</label>
-                                            <input type="text" name="title" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="Type in the title of the complaint" onChange={handleChange}/>
+                                            <input type="text" name="title" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="Type in the title of the complaint" onChange={handleChange} />
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +135,7 @@ function Main() {
                                     <div className="col w-full">
                                         <div className="form-group flex flex-col">
                                             <label className="font-medium text-sm mb-3">Image</label>
-                                            <input type="file" className="text-lg outline-none py-2 pr-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" />
+                                            <input type="file" onChange={handleImageAsFile} className="text-lg outline-none py-2 pr-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" />
                                         </div>
                                     </div>
                                 </div>
