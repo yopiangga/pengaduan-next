@@ -7,6 +7,7 @@ import $ from 'jquery';
 import { useRouter } from 'next/router';
 import { useAppContext } from 'components/states/GlobalStates';
 import axios from 'axios'
+import firebase from 'firebase'
 
 function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
@@ -17,18 +18,23 @@ function Main() {
     const router = useRouter();
 
     useEffect(() => {
-        axios.get('https://pengaduan-e0f12-default-rtdb.firebaseio.com/complaint.json').then(function (res) {
-            var dataComplaints = [];
-            for (var item in res.data) {
-                if (res.data[item].authorId == detailUser.idUser)
-                    dataComplaints.push(res.data[item]);
+        const dbComplaints = firebase.database().ref();
+        dbComplaints.child("complaint").on('value', getComplaints, errorComplaints);
+    }, [])
+
+
+    function getComplaints(items){
+        var dataComplaints = [];
+            for (var item in items.val()) {
+                if (items.val()[item].authorId == detailUser.idUser)
+                dataComplaints.push(items.val()[item]);
             }
             setComplaints(dataComplaints)
-        }).catch(function (err) {
-            console.log(err)
-        })
+    }
 
-    }, [])
+    function errorComplaints(items){
+        
+    }
 
     const handleStyle = (s, f) => {
         setStyle(s);
@@ -79,7 +85,7 @@ function Main() {
             </div>
             <div onClick={handleClose} className="grid desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 style-1">
                 {
-                    complaints.map((el, idx) => {
+                    complaints && complaints.map((el, idx) => {
                         return (
                             <div key={idx} className="card tablet:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
                                 <div className="header flex mb-1 relative">

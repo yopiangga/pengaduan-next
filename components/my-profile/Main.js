@@ -31,7 +31,7 @@ function Main() {
                             <h3 className="font-bold text-xl mb-5">General</h3>
                             <div className="row flex laptop:flex-row mobile:flex-col mb-5 laptop:w-11/12 mobile:w-full justify-between">
                                 <div className="col w-full laptop:pr-2 mobile:pr-0">
-                                    <div className="form-group flex flex-col">
+                                    <div className="form-group flex flex-col mobile:mb-5">
                                         <label className="font-medium text-sm mb-3">Full Name</label>
                                         <input type="text" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="John Doe" value={detailUser.fullname} />
                                     </div>

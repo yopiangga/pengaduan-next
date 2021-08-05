@@ -1,20 +1,19 @@
-import { Component, useEffect } from "react";
+import { Component, useEffect, useState } from "react";
 import { FiCheck, FiSearch, FiSend, FiX } from "react-icons/fi";
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
 import $ from 'jquery';
+import firebase from 'firebase' 
+import { useAppContext } from "components/states/GlobalStates";
 
-class Message extends Component {
-    constructor(props) {
-        super(props);
-    }
+function Message() {
+    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    
 
-    handleContact(){
+    function handleContact(){
         $('.message').addClass('mobile:hidden');
         $('.contact').removeClass('hidden').addClass('flex');
     }
-
-    render() {
 
         return (
             <div className="message laptop:w-2/3 mobile:w-full h-full relative laptop:flex mobile:hidden flex-col">
@@ -26,7 +25,7 @@ class Message extends Component {
                         <h4 className="font-bold text-sm">Alfian Prisma Y</h4>
                         <p className="text-xs">Lorem ipsum dolor sit amet.</p>
                     </div>
-                    <div onClick={this.handleContact} className="icon text-xl w-12 flex flex-col items-end absolute right-2">
+                    <div onClick={handleContact} className="icon text-xl w-12 flex flex-col items-end absolute right-2">
                             <FiX className="text-dark" />
                         </div>
                 </div>
@@ -74,7 +73,7 @@ class Message extends Component {
                 </div>
             </div>
         )
-    }
+    
 }
 
 export default Message;
