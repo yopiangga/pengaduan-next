@@ -10,12 +10,12 @@ function CreateComplaint() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
 
     return (
-        <div className="page px-4 pt-4 w-full bg-light">
+        <div className="page px-4 w-full bg-light">
             <Loading />
             <Sidebar menu="create-complaint" />
-            <div className="content w-full tablet:pl-16 mobile:pl-0 bg-light ">
+            <div className="content w-full mobile:pl-0 bg-light ">
                 <Navbar />
-                <div className="w-full pt-20">
+                <div className="w-full">
                     {
                         (isLogin == 0 || isLogin == undefined) ? 
                         <RedirectLogin />

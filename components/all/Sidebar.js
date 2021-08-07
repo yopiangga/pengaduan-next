@@ -13,7 +13,7 @@ class Sidebar extends Component {
     render() {
 
         return (
-            <div className="sidebar tablet:h-screen mobile:h-0 overflow-hidden duration-300 w-14 pb-8 pr-2 fixed z-40 block">
+            <div className="sidebar tablet:h-screen mobile:h-0 overflow-hidden duration-300 w-14 pb-8 top-4 pr-2 fixed z-40 block">
                 <div className="content-nav bg-white h-full w-full rounded-lg shadow-inner flex flex-col justify-between">
                     <div className="logo w-full h-20 px-1 pt-2">
                         <Image src={logo} alt="logo" onClick={() => Router.push('/')} />

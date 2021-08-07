@@ -26,7 +26,7 @@ function Navbar() {
     }
 
     return (
-        <div className="navbar duration-300 h-16 tablet:left-20 mobile:left-4 right-4 fixed z-50 shadow-sm">
+        <div className="navbar duration-300 h-16 tablet:left-20 mobile:left-4 right-4 top-4 fixed z-50 shadow-sm">
             <div className="content-nav bg-white h-full w-full rounded-lg flex tablet:justify-between mobile:justify-between">
                 <div className="name-page h-full tablet:flex items-center mobile:hidden">
                     <h3 className="text-xl font-medium ml-3">Dashboard</h3>
@@ -86,7 +86,7 @@ function Navbar() {
 
                                 <Link href="/login">
                                     <a className="flex">
-                                        <div className="text mr-2 tablet:block mobile:hidden">
+                                        <div className="text mr-2">
                                             <h4 className="font-medium text-sm">Log In</h4>
                                         </div>
                                         <div className="icon text-xl">

@@ -7,25 +7,25 @@ const AppContext = createContext();
 export function AppWrapper({ children }) {
   const [url, setUrl] = useState({ api: "https://", baseUrl: "https://", myUrl: "https://" });
   const [detailUser, setDetailUser] = useState({ idUser: "", fullname: "", email: "", address: "", roleUser: "", typeLogin: "", picture: "", work: "" });
-  const [isLogin, setIsLogin] = useState(1);
+  const [isLogin, setIsLogin] = useState(0);
 
   useState(() => {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        // console.log(user)
-        setIsLogin(1);
         handleDataUser(user);
       } else {
         setIsLogin(0)
       }
     });
   }, [])
-
+  
   const handleDataUser = (data) => {
     var docRef = firebase.firestore().collection("users").doc(data.uid);
-
+    
     docRef.get().then((doc) => {
+      ConstantSourceNode.log(doc)
       if (doc.exists) {
+        setIsLogin(1);
         setDetailUser({
           idUser: data.uid,
           fullname: doc.data().fullname,
@@ -43,9 +43,7 @@ export function AppWrapper({ children }) {
       console.log("Error getting document:", error);
     });
   }
-
-  // console.log(detailUser)
-
+  
   const state = {
     url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser
   }

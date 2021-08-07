@@ -7,6 +7,7 @@ import firebase from 'firebase'
 import $ from 'jquery'
 import { useRouter } from 'next/router';
 import GoogleMaps from 'components/all/GoogleMaps';
+import ModalInformationRedirect from 'components/all/ModalInformationRedirect';
 
 function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
@@ -15,6 +16,8 @@ function Main() {
     })
     const [file, setFile] = useState(null);
     const router = useRouter();
+
+    const [modalInformationRedirect, setModalInformationRedirect] = useState({title: "", description: "", status: "", isOpen: false})
 
     const handleImageAsFile = (e) => {
         setFile(e.target.files[0]);
@@ -57,21 +60,42 @@ function Main() {
         })
     }
 
-    const Push = (event) => {
+    const handleValidation = (event) => {
         event.preventDefault();
+        if(complaint.title == "" || complaint.description == "" || complaint.taggar == "" || complaint.latitude == "" || complaint.longitude == ""){
+            setModalInformationRedirect({
+                title: "Complaint Failed",
+                description: "Your complaint failed created, fill in all the data you.",
+                status: false,
+                isOpen: true,
+                url: ""
+            })
+        } else {
+            Push();
+        }
+    }
+    
+    const Push = () => {
         $('.bg-loading').removeClass('hidden').addClass('flex');
-        const date = new Date();
-        const time = date.getTime();
-        const ref = firebase.storage().ref(`/complaint/${time}_${detailUser.idUser}_${file.name}`);
-        const uploadTask = ref.put(file);
-        uploadTask.on("state_changed", console.log, console.error, () => {
-            ref
-                .getDownloadURL()
-                .then((url) => {
-                    setFile(null);
-                    pushData(time, url);
-                });
-        });
+        if(file != null){
+            const date = new Date();
+            const time = date.getTime();
+            const ref = firebase.storage().ref(`/complaint/${time}_${detailUser.idUser}_${file.name}`);
+            const uploadTask = ref.put(file);
+            uploadTask.on("state_changed", console.log, console.error, () => {
+                ref
+                    .getDownloadURL()
+                    .then((url) => {
+                        setFile(null);
+                        pushData(time, url);
+                    });
+            });
+        } else {
+            const date = new Date();
+            const time = date.getTime();
+            pushData(time, '');
+           
+        }
         $('.bg-loading').removeClass('flex').addClass('hidden');
     }
 
@@ -86,24 +110,40 @@ function Main() {
             support: 0,
             shared: 0,
             authorId: detailUser.idUser,
-            author: detailUser.fullname
+            author: detailUser.fullname,
+            key: time,
+            status: 1
         }).catch(alert);
 
         setComplaint({
             title: "", description: "", taggar: "", image: "", latitude: "", longitude: ""
         })
-        router.push('/')
+
         $('.bg-loading').removeClass('flex').addClass('hidden');
+        
+        setModalInformationRedirect({
+            title: "Complaint Created",
+            description: "Your complaint success created, waiting for accept for admin.",
+            status: true,
+            isOpen: true,
+            url: ""
+        })
     }
 
-    // console.log(complaint)
-
     return (
-        <div className="pt-0 flex justify-center">
-            <div className="content flex flex-col w-full">
+        <div className="flex justify-center">
+            <ModalInformationRedirect 
+            title={modalInformationRedirect.title} 
+            description={modalInformationRedirect.description} 
+            status={modalInformationRedirect.status}
+            isOpen={modalInformationRedirect.isOpen}
+            url={modalInformationRedirect.url}
+            onClick={() => setModalInformationRedirect({title: "", description: "", status: "", isOpen: false})}
+            />
+            <div className="content flex flex-col w-full pt-24 tablet:pl-20 mobile:pl-0">
                 <h1 className="text-3xl font-medium mb-5">Create Complaint</h1>
                 <div className="form-complaint">
-                    <form onSubmit={Push} >
+                    <form onSubmit={handleValidation} >
                         <div className="form grid laptop:grid-cols-2 mobile:grid-cols-1 mb-5">
                             <div className="left">
                                 <h3 className="font-bold text-xl mb-5">General</h3>

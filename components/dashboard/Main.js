@@ -14,7 +14,7 @@ function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
 
     const [style, setStyle] = useState(1);
-    const [filter, setFilter] = useState(1);
+    const [filter, setFilter] = useState(0);
     const [complaints, setComplaints] = useState([{ taggar: [] }]);
     const router = useRouter();
     const [complaint, setComplaint] = useState({id: ""});
@@ -91,16 +91,16 @@ function Main() {
                     </div>
                     <div className="filter-dropdown py-3 rounded-b-lg hidden rounded-tr-lg top-12 absolute z-10 bg-white shadow-lg">
                         <ul>
-                            <li onClick={() => handleStyle(1, 1)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> All Complaint</li>
-                            <li onClick={() => handleStyle(1, 2)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Open</li>
-                            <li onClick={() => handleStyle(1, 3)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> In Progress</li>
-                            <li onClick={() => handleStyle(1, 4)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Completed</li>
-                            <li onClick={() => handleStyle(1, 5)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Done</li>
+                            <li onClick={() => handleStyle(1, 0)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> All Complaint</li>
+                            <li onClick={() => handleStyle(1, 1)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Open</li>
+                            <li onClick={() => handleStyle(1, 2)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> In Progress</li>
+                            <li onClick={() => handleStyle(1, 3)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Completed</li>
+                            <li onClick={() => handleStyle(1, 4)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Done</li>
                         </ul>
                     </div>
-                    <div onClick={() => handleStyle(2, 1)} className={style == 2 ? "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-darkGreen" : "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-dark"}>
+                    {/* <div onClick={() => handleStyle(2, 1)} className={style == 2 ? "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-darkGreen" : "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-dark"}>
                         <RiLayoutMasonryLine />
-                    </div>
+                    </div> */}
                 </div>
 
             </div>
@@ -109,10 +109,11 @@ function Main() {
 
                 {
                     complaints && complaints.map((el, idx) => {
+                        if(el.status == filter || filter == 0)
                         return (
-                            <div key={idx} className="card tablet:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4">
+                            <div key={idx} className="card tablet:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4 h-52">
                                 <div className="header flex mb-1 relative">
-                                    <div className="title">
+                                    <div className="title h-12 overflow-hidden">
                                         <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
                                     </div>
                                     <div onClick={() => handleMoreAction(el.key)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
@@ -135,7 +136,7 @@ function Main() {
                                     </div>
 
                                 </div>
-                                <div className="description mb-3">
+                                <div className="description mb-3 h-14 overflow-hidden">
                                     <p className="text-sm">{el.description}</p>
                                 </div>
                                 <div className="taggar mb-3 flex">
@@ -149,7 +150,7 @@ function Main() {
                                         })
                                     }
                                 </div>
-                                <div className="card-footer flex flex-wrap justify-between items-center">
+                                <div className="card-footer flex flex-wrap justify-between items-center relative bottom-0">
                                     <div className="support flex relative h-6 w-24">
                                         <div className="circle absolute z-20 left-0 rounded-full w-6 h-6 overflow-hidden border border-white">
                                             <Image src={example} height="100" width="100" alt="user" />
@@ -167,7 +168,14 @@ function Main() {
                                     <div className="action flex items-center">
                                         <div className="time text-sm flex items-center">
                                             <FiCalendar className="text-darkGreen" />
-                                            <h4 className="ml-1">{new Date(el.key).getDate() + '-' + new Date(el.key).getMonth() + '-' + new Date(el.key).getFullYear()}</h4>
+                                            <h4 className="ml-1">
+                                            {
+                                                el.key == '' || el.key == null ? 
+                                                ""
+                                                :
+                                                new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(el.key))
+                                            }
+                                            </h4>
                                         </div>
                                         <div className="text-sm ml-2 flex items-center">
                                             <FiUsers className="text-darkGreen" />
