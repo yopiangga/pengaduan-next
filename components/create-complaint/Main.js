@@ -6,6 +6,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-map
 import firebase from 'firebase'
 import $ from 'jquery'
 import { useRouter } from 'next/router';
+import GoogleMaps from 'components/all/GoogleMaps';
 
 function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
@@ -168,8 +169,13 @@ function Main() {
                                 </div>
                                 <div className="row flex laptop:w-11/12 mobile:w-full mb-5">
                                     <div className="col w-full">
-                                        <div className="form-group flex items-center h-96">
-                                            <iframe name="RoutePlanner" width="100%" height="100%" src={`https://www.google.com/maps?z=12&amp&f=d&amp&output=embed&amp&ll=${complaint.latitude}, ${complaint.longitude}`} />
+                                        <div className="form-group flex h-96 w-full relative">
+                                            {
+                                                complaint.latitude == '' || complaint.longitude == '' ?
+                                                ""
+                                                :
+                                                <GoogleMaps latitude={complaint.latitude} longitude={complaint.longitude} />
+                                            }
                                         </div>
                                     </div>
                                 </div>

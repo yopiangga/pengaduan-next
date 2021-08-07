@@ -4,17 +4,20 @@ import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
 import { FiCalendar, FiHeart, FiMessageCircle, FiShare2, FiThumbsUp, FiUser, FiUsers } from 'react-icons/fi';
 import axios from 'axios';
+import GoogelMaps from 'components/all/GoogleMaps.js';
 
 function Main(props) {
 
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [complaint, setComplaint] = useState({ title: "", description: "", taggar: [], image: "", latitude: "", longitude: "", author: "", key: "", shared: "" });
     const [supports, setSupports] = useState([{}]);
+    const [ inBrowser, setInBrowser ] = useState(false);
 
     useEffect(() => {
         if (props.id != null) {
             getComplaint();
             getSupports();
+            setInBrowser(1);
         }
     }, [])
 
@@ -109,9 +112,10 @@ function Main(props) {
                         }
                     </div>
 
-                    <div className="maps mb-10 w-full h-96">
-                    <iframe name="RoutePlanner" width="100%" height="100%" src={`https://www.google.com/maps?z=5&amp;f=d&amp;output=embed&amp;ll=${complaint.latitude},${complaint.longitude}`} />
-                        {/* <iframe name="RoutePlanner" width="100%" height="100%" src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyCnFXLn5k6DRdibdaNrT0oIQfXWnSMgPBQ%20&q=${complaint.latitude}, ${complaint.longitude}`}></iframe> */}
+                    <div className="maps mb-10 w-full h-96 overflow-hidden relative">
+                        {
+                            <GoogelMaps latitude={complaint.latitude} longitude={complaint.longitude} />
+                        }
                     </div>
 
                     <div className="comment">
