@@ -45,21 +45,20 @@ function Main() {
         } else {
             firebase.auth().signInWithEmailAndPassword(userLogin.email, userLogin.password)
                 .then((res) => {
-                    // console.log(res)
+                    console.log(res)
                     handleDataUser(res.user);
-                    Router.push('/')
                     $('.bg-loading').removeClass('flex').addClass('hidden');
                 })
                 .catch((error) => {
                     $('.bg-loading').removeClass('flex').addClass('hidden');
                     console.log(error)
                 });
+            }
         }
-    }
-
-    const handleDataUser = (data) => {
-        var docRef = firebase.firestore().collection("users").doc(data.uid);
-
+        
+        const handleDataUser = (data) => {
+            var docRef = firebase.firestore().collection("users").doc(data.uid);
+            
         docRef.get().then((doc) => {
             if (doc.exists) {
                 setDetailUser({
@@ -72,6 +71,7 @@ function Main() {
                     picture: doc.data().picture,
                     work: doc.data().work
                 })
+                Router.push('/')
             } else {
                 console.log("No such document!");
             }

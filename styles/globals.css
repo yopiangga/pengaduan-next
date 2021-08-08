@@ -48,3 +48,31 @@ a {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+.light-layer-1 {
+  box-shadow: -3px -3px 5px 0px white;
+}
+
+.light-layer-2 {
+  background-color: transparent;
+  box-shadow: 3px 3px 5px 0px #E9EAEC;
+  border-radius: 10px;
+}
+
+.light-layer-1:hover {
+  box-shadow: inset -3px -3px 5px 0px white;
+}
+
+.light-layer-2:hover {
+  box-shadow: inset 3px 3px 5px 0px #E9EAEC;
+}
+
+.light-layer-1.active {
+  box-shadow: inset -3px -3px 5px 0px white;
+}
+
+.light-layer-2.active {
+  box-shadow: inset 3px 3px 5px 0px #E9EAEC;
+}

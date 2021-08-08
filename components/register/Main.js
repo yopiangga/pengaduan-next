@@ -75,9 +75,10 @@ function Main() {
                 address: "", 
                 roleUser: "2", 
                 typeLogin: "2", 
-                picture: "default",
+                picture: "",
                 work: ""
             })
+            setIsLogin(1)
             router.push('/')
         })
         .catch((error) => {

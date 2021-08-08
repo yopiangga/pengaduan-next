@@ -11,9 +11,9 @@ function Complaint() {
     const { id } = router.query
 
         return (
-            <div className="page px-4 pt-4 w-full bg-light">
+            <div className="page w-full bg-light">
                 <Sidebar />
-                <div className="content w-full pb-10 tablet:pl-16 mobile:pl-0 bg-light">
+                <div className="content w-full mobile:pl-0 bg-light ">
                     <Navbar />
                     <Main id={id} />
                 </div>

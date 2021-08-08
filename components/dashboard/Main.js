@@ -24,7 +24,6 @@ function Main() {
         dbComplaints.child("complaint").on('value', getComplaints, errorComplaints);
     }, [])
 
-
     function getComplaints(items){
         var dataComplaints = [];
             for (var item in items.val()) {
@@ -85,17 +84,19 @@ function Main() {
             <div className="header flex tablet:flex-row mobile:flex-col justify-between mb-5">
                 <h1 className="text-3xl font-medium tablet:mb-0 mobile:mb-5">New Complaint</h1>
                 <div className="filter flex relative justify-end">
-                    <div onClick={handleFilter} className="box cursor-pointer h-10 px-3 bg-white rounded-md flex justify-center items-center">
-                        <h4 className="font-medium text-sm mr-1">Filter</h4>
-                        <FiChevronDown className="text-xl" />
+                    <div className="light-layer-1">
+                        <div onClick={handleFilter} className="light-layer-2 box cursor-pointer h-10 px-3 rounded-md flex justify-center items-center">
+                            <h4 className="font-medium text-sm mr-1">Filter</h4>
+                            <FiChevronDown className="text-xl" />
+                        </div>
                     </div>
-                    <div className="filter-dropdown py-3 rounded-b-lg hidden rounded-tr-lg top-12 absolute z-10 bg-white shadow-lg">
+                    <div className="filter-dropdown py-3 rounded-b-lg w-36 hidden rounded-tr-lg top-12 absolute z-10 bg-white shadow-lg">
                         <ul>
-                            <li onClick={() => handleStyle(1, 0)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> All Complaint</li>
-                            <li onClick={() => handleStyle(1, 1)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Open</li>
-                            <li onClick={() => handleStyle(1, 2)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> In Progress</li>
-                            <li onClick={() => handleStyle(1, 3)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Completed</li>
-                            <li onClick={() => handleStyle(1, 4)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Done</li>
+                            <li onClick={() => handleStyle(1, 0)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> All Complaint</li>
+                            <li onClick={() => handleStyle(1, 1)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Open</li>
+                            <li onClick={() => handleStyle(1, 2)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> In Progress</li>
+                            <li onClick={() => handleStyle(1, 3)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Completed</li>
+                            <li onClick={() => handleStyle(1, 4)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Done</li>
                         </ul>
                     </div>
                     {/* <div onClick={() => handleStyle(2, 1)} className={style == 2 ? "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-darkGreen" : "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-dark"}>
@@ -111,7 +112,8 @@ function Main() {
                     complaints && complaints.map((el, idx) => {
                         if(el.status == filter || filter == 0)
                         return (
-                            <div key={idx} className="card tablet:w-11/12 mobile:w-full p-3 box-border bg-white rounded-lg mb-4 h-52">
+                            <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">
+                            <div className=" light-layer-2 active card mobile:w-full p-3 box-border rounded-lg h-52">
                                 <div className="header flex mb-1 relative">
                                     <div className="title h-12 overflow-hidden">
                                         <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
@@ -155,13 +157,13 @@ function Main() {
                                         <div className="circle absolute z-20 left-0 rounded-full w-6 h-6 overflow-hidden border border-white">
                                             <Image src={example} height="100" width="100" alt="user" />
                                         </div>
-                                        <div className="circle absolute z-10 left-5 rounded-full w-6 h-6 overflow-hidden border border-white">
+                                        <div className="circle absolute z-10 left-4 rounded-full w-6 h-6 overflow-hidden border border-white">
                                             <Image src={example} height="100" width="100" alt="user" />
                                         </div>
-                                        <div className="circle absolute z-0 left-10 rounded-full w-6 h-6 overflow-hidden border border-white">
+                                        <div className="circle absolute z-0 left-8 rounded-full w-6 h-6 overflow-hidden border border-white">
                                             <Image src={example} height="100" width="100" alt="user" />
                                         </div>
-                                        <div className="circle absolute z-0 left-16 rounded-full w-6 h-6 overflow-hidden font-medium flex justify-center items-center">
+                                        <div className="circle absolute z-0 left-14 rounded-full w-6 h-6 overflow-hidden font-medium flex justify-center items-center">
                                             <h4> +5</h4>
                                         </div>
                                     </div>
@@ -183,6 +185,7 @@ function Main() {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                         )
 

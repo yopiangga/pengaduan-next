@@ -7,7 +7,7 @@ const AppContext = createContext();
 export function AppWrapper({ children }) {
   const [url, setUrl] = useState({ api: "https://", baseUrl: "https://", myUrl: "https://" });
   const [detailUser, setDetailUser] = useState({ idUser: "", fullname: "", email: "", address: "", roleUser: "", typeLogin: "", picture: "", work: "" });
-  const [isLogin, setIsLogin] = useState(0);
+  const [isLogin, setIsLogin] = useState(1);
 
   useState(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -23,7 +23,6 @@ export function AppWrapper({ children }) {
     var docRef = firebase.firestore().collection("users").doc(data.uid);
     
     docRef.get().then((doc) => {
-      ConstantSourceNode.log(doc)
       if (doc.exists) {
         setIsLogin(1);
         setDetailUser({

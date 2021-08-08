@@ -6,7 +6,6 @@ module.exports = {
     loader: 'imgix',
     // path: 'http://pengaduan.petikdua.store/',
     path: 'http://localhost:3000/',
-    domain: ''
   },
 
   async rewrites() {
