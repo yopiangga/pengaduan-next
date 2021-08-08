@@ -65,7 +65,8 @@ function Main() {
             address: "", 
             roleUser: "2", 
             typeLogin: "2", 
-            picture: "default"
+            picture: "default",
+            idUser: data.uid.toString()
         })
         .then(() => {
             setDetailUser({

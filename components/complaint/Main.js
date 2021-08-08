@@ -2,7 +2,7 @@ const { Component, useEffect, useState } = require("react");
 import { useAppContext } from 'components/states/GlobalStates';
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
-import { FiCalendar, FiHeart, FiMessageCircle, FiSend, FiShare2, FiThumbsUp, FiUser, FiUsers } from 'react-icons/fi';
+import { FiCalendar, FiHeart, FiLogIn, FiMessageCircle, FiSend, FiShare2, FiThumbsUp, FiUser, FiUsers } from 'react-icons/fi';
 import axios from 'axios';
 import GoogelMaps from 'components/all/GoogleMaps.js';
 import { useRouter } from 'next/router';
@@ -15,7 +15,10 @@ function Main(props) {
     const [complaint, setComplaint] = useState({ title: "", description: "", taggar: [], image: "", latitude: "", longitude: "", author: "", key: "", shared: "" });
     const [supports, setSupports] = useState([{}]);
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
-    const [ support, setSupport ] = useState();
+    const [support, setSupport] = useState();
+    const [opini, setOpini] = useState("");
+    const [allOpini, setAllOpini] = useState([{}])
+    const [user, setUser] = useState([{}])
 
     const router = useRouter();
 
@@ -23,7 +26,8 @@ function Main(props) {
         if (props.id != null) {
             getComplaint();
             getSupports();
-            if(detailUser.idUser)
+            getAllOpini();
+            if (detailUser.idUser)
                 getSupport();
         }
     }, [detailUser])
@@ -46,36 +50,29 @@ function Main(props) {
         });
     }
 
-
-    // const getSupports = () => {
-    //     axios.get(`https://pengaduan-e0f12-default-rtdb.firebaseio.com/supports.json`).then(function (res) {
-    //         console.log(res)
-    //         if (res.data == null) {
-    //             setSupports(0);
-    //         } else {
-    //             var dataSupports = [];
-    //             for (var item in res.data) {
-    //                 dataSupports.push(res.data[item]);
-    //             }
-    //             setSupports(dataSupports)
-    //         }
-    //     }).catch(function (err) {
-    //         console.log(err);
-    //     })
-    // }
-
     const getSupports = () => {
         const supports = firebase.firestore().collection("supports");
         var arr_supports = [];
-        supports.get().then((querySnapshot) => {
-            // querySnapshot.docs.map(doc => {
-            //     arr_supports.push(paymentAccountsRef.doc(doc.id).get());
-            // });
-            // querySnapshot.forEach((doc) => {
-            //     setSupports(doc.data().prevlevel)
-            // });
+
+    }
+
+
+    const getAllOpini = () => {
+        const v_allOpini = firebase.firestore().collection("opini");
+        var arr_allOpini = [];
+        v_allOpini.get().then((res) => {
+            res.forEach((doc) => {
+                arr_allOpini.push({
+                    id: doc.data().key,
+                    idUser: doc.data().idUser,
+                    idComplaint: doc.data().idComplaint,
+                    text: doc.data().text,
+                    fullname: doc.data().fullname,
+                    picture: doc.data().picture
+                })
+            });
+            setAllOpini(arr_allOpini)
         });
-        console.log(supports)
     }
 
     const handleLogin = () => {
@@ -107,6 +104,47 @@ function Main(props) {
                 })
                 console.error("Error writing document: ", error);
             });
+    }
+
+    const handleOpini = (event) => {
+        setOpini(event.target.value);
+    }
+
+    const handleReasonSupport = (event) => {
+        event.preventDefault();
+
+        if (opini == '') {
+
+        } else {
+            const date = new Date();
+            const time = date.getTime();
+            firebase.firestore().collection("opini").doc(time.toString()).set({
+                key: time,
+                idUser: detailUser.idUser,
+                idComplaint: complaint.key,
+                text: opini,
+                fullname: detailUser.fullname,
+                picture: detailUser.picture
+            })
+                .then(() => {
+                    setModalInformation({
+                        title: "Add Opini Success",
+                        description: "Your opini support complaint success added.",
+                        status: true,
+                        isOpen: true,
+                    })
+                    setOpini("")
+                })
+                .catch((error) => {
+                    setModalInformation({
+                        title: "Add Opini Failed",
+                        description: "Your opini support complaint failed added, try for next time.",
+                        status: false,
+                        isOpen: true,
+                    })
+                    console.error("Error writing document: ", error);
+                });
+        }
     }
 
     return (
@@ -167,10 +205,22 @@ function Main(props) {
                             <div className="form-group flex">
                                 <button className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
                                 {
-                                    support && support.key == null ? 
-                                    <button onClick={handleSupport} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
-                                    :
-                                    <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
+                                    support && support.key == null && isLogin == 1 ?
+                                        <button onClick={handleSupport} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
+                                        :
+                                        ""
+                                }
+                                {
+                                    support && support.key != null && isLogin == 1 ?
+                                        <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
+                                        :
+                                        ""
+                                }
+                                {
+                                    isLogin == 0 ?
+                                        <button onClick={handleLogin} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Login</button>
+                                        :
+                                        ""
                                 }
                             </div>
                         </div>
@@ -208,78 +258,91 @@ function Main(props) {
 
                         <div className="light-layer-1 active mb-5">
                             <div className="light-layer-2 active p-3">
-                                <div className="item flex mb-5">
-                                    <div className="image rounded-full h-9 w-9 mr-3 overflow-hidden bg-light">
-                                        <Image src={example} height="100" width="100" alt="user" />
-                                    </div>
-                                    <div className="text w-11/12">
-                                        <div className="header flex mb-1">
-                                            <h4 className="font-bold text-sm mr-3">Alfian Prisma Y</h4>
-                                            <h6 className="text-sm">10 July 2021</h6>
-                                        </div>
-                                        <div className="comment-text mb-3">
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias dolores eligendi, pariatur accusantium at atque voluptates nesciunt tenetur officia modi incidunt distinctio. Ratione, esse architecto?</p>
-                                        </div>
-                                        <div className="action flex items-center mb-3">
-                                            <div className="like flex items-center mr-5 text-sm">
-                                                <FiHeart className="mr-2" />
-                                                <h5>10</h5>
+                                {
+                                    allOpini && allOpini.map(function (el, idx) {
+                                        return (
+                                            <div key={idx} className="item flex mb-5">
+                                                <div className="image rounded-full h-9 w-9 mr-3 flex items-center overflow-hidden relative">
+                                                    {
+                                                        el.picture == '' || el.picture == undefined ?
+                                                            <Image src={example} layout="fill" alt="user" />
+                                                            :
+                                                            <Image src={el.picture} layout="fill" alt="user" />
+                                                    }
+                                                </div>
+                                                <div className="text w-11/12">
+                                                    <div className="header flex mb-1">
+                                                        <h4 className="font-bold text-sm mr-3">{el.fullname}</h4>
+                                                        <h6 className="text-sm">
+                                                            {
+                                                                el.id == '' || el.id == undefined ?
+                                                                ""
+                                                                :
+                                                                new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(parseInt(el.id)))
+                                                            }
+                                                        </h6>
+                                                    </div>
+                                                    <div className="comment-text mb-3">
+                                                        <p>{el.text}</p>
+                                                    </div>
+                                                    {/* <div className="action flex items-center mb-3">
+                                                        <div className="like flex items-center mr-5 text-sm">
+                                                            <FiHeart className="mr-2" />
+                                                            <h5>10</h5>
+                                                        </div>
+                                
+                                                    </div> */}  
+                                                    <hr />
+                                                </div>
                                             </div>
+                                        )
+                                    })
+                                }
 
-                                        </div>
-                                        <hr />
-                                    </div>
-                                </div>
-                                <div className="item flex mb-5">
-                                    <div className="image rounded-full h-9 w-9 mr-3 overflow-hidden bg-light">
-                                        <Image src={example} height="100" width="100" alt="user" />
-                                    </div>
-                                    <div className="text w-11/12">
-                                        <div className="header flex mb-1">
-                                            <h4 className="font-bold text-sm mr-3">Alfian Prisma Y</h4>
-                                            <h6 className="text-sm">10 July 2021</h6>
-                                        </div>
-                                        <div className="comment-text mb-3">
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias dolores eligendi, pariatur accusantium at atque voluptates nesciunt tenetur officia modi incidunt distinctio. Ratione, esse architecto?</p>
-                                        </div>
-                                        <div className="action flex items-center mb-3">
-                                            <div className="like flex items-center mr-5 text-sm">
-                                                <FiHeart className="mr-2" />
-                                                <h5>10</h5>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
 
 
 
                         <h3 className="font-medium text-lg mb-8">Add your opinion</h3>
+                        {
+                            support && support.key != null && isLogin == 1 ?
+                                <div className="item flex mb-5">
 
-                        <div className="item flex mb-5">
-
-                            <form className="w-full">
-                                <div className="row flex laptop:w-full mobile:w-full mb-5 light-layer-1 active">
-                                    <div className="light-layer-2 active flex w-full">
-                                        <div className="col w-full ">
-                                            <div className="form-group flex flex-col">
-                                                <textarea type="text" name="comment-support" rows="3" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg bg-transparent font-medium" placeholder="Description your support . . . "></textarea>
+                                    <form onSubmit={handleReasonSupport} className="w-full">
+                                        <div className="row flex laptop:w-full mobile:w-full mb-5 light-layer-1 active">
+                                            <div className="light-layer-2 active flex w-full">
+                                                <div className="col w-full ">
+                                                    <div className="form-group flex flex-col">
+                                                        <textarea onChange={handleOpini} type="text" name="comment-support" rows="3" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg bg-transparent font-medium" placeholder="Description your support . . . ">{opini}</textarea>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                        <div className="row flex laptop:w-full mobile:w-full mb-5 ">
+                                            <div className="col w-full">
+                                                <button type="submit" className="w-44 h-10 rounded-full bg-darkGreen flex justify-center items-center text-white text-lg">
+                                                    <FiSend />
+                                                    <h4 className="font-medium ml-3">Post opinion</h4>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
-                                <div className="row flex laptop:w-full mobile:w-full mb-5 ">
-                                    <div className="col w-full">
-                                        <button className="w-44 h-10 rounded-full bg-darkGreen flex justify-center items-center text-white text-lg">
-                                            <FiSend />
-                                            <h4 className="font-medium ml-3">Post opinion</h4>
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                                :
+                                ""
+                        }
+
+                        {
+                            support && support.key == null || isLogin == 0 ?
+                                <button onClick={handleLogin} className="w-44 h-10 rounded-full bg-darkGreen flex justify-center items-center text-white text-lg">
+                                    <FiLogIn />
+                                    <h4 className="font-medium ml-3">Login</h4>
+                                </button>
+                                :
+                                ""
+                        }
+
                     </div>
                 </div>
 
@@ -326,5 +389,6 @@ function Main(props) {
     )
 
 }
+
 
 export default Main;
