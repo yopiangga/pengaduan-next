@@ -8,6 +8,7 @@ import GoogelMaps from 'components/all/GoogleMaps.js';
 import { useRouter } from 'next/router';
 import ModalInformation from 'components/all/ModalInformation';
 import firebase from 'firebase';
+import ModalReportComplaint from 'components/all/ModalReportComplaint';
 
 function Main(props) {
 
@@ -18,7 +19,8 @@ function Main(props) {
     const [support, setSupport] = useState();
     const [opini, setOpini] = useState("");
     const [allOpini, setAllOpini] = useState([{}])
-    const [user, setUser] = useState([{}])
+    const [user, setUser] = useState([{}]);
+    const [reportComplaint, setReportComplaint] = useState(false);
 
     const router = useRouter();
 
@@ -144,11 +146,37 @@ function Main(props) {
                     })
                     console.error("Error writing document: ", error);
                 });
+            getAllOpini()
         }
+    }
+
+    const handleReport = () => {
+        setReportComplaint(true)
+    }
+
+    const handleChat = () => {
+        const date = new Date();
+        const time = date.getTime();
+        firebase.database().ref(`chats/${time}`).set({
+            key: time,
+            idAdmin: detailUser.idUser,
+            idUser: complaint.authorId,
+            idComplaint: complaint.key,
+            status: 1,
+            text: "Hallo Author!"
+        }).catch();
+
+        router.push('/chat');
     }
 
     return (
         <div className="pt-0">
+            <ModalReportComplaint
+                id={complaint.key}
+                isOpen={reportComplaint}
+                onClick={() => setReportComplaint(false)}
+                onReport={(title, description, status) => setModalInformation({ title: title, description: description, status: status, isOpen: true })}
+            />
             <ModalInformation
                 title={modalInformation.title}
                 description={modalInformation.description}
@@ -276,9 +304,9 @@ function Main(props) {
                                                         <h6 className="text-sm">
                                                             {
                                                                 el.id == '' || el.id == undefined ?
-                                                                ""
-                                                                :
-                                                                new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(parseInt(el.id)))
+                                                                    ""
+                                                                    :
+                                                                    new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(parseInt(el.id)))
                                                             }
                                                         </h6>
                                                     </div>
@@ -291,7 +319,7 @@ function Main(props) {
                                                             <h5>10</h5>
                                                         </div>
                                 
-                                                    </div> */}  
+                                                    </div> */}
                                                     <hr />
                                                 </div>
                                             </div>
@@ -314,7 +342,7 @@ function Main(props) {
                                             <div className="light-layer-2 active flex w-full">
                                                 <div className="col w-full ">
                                                     <div className="form-group flex flex-col">
-                                                        <textarea onChange={handleOpini} type="text" name="comment-support" rows="3" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg bg-transparent font-medium" placeholder="Description your support . . . ">{opini}</textarea>
+                                                        <textarea onChange={handleOpini} value={opini} type="text" name="comment-support" rows="3" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg bg-transparent font-medium" placeholder="Description your support . . . "></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -347,7 +375,7 @@ function Main(props) {
                 </div>
 
                 <div className="right laptop:w-1/4 mobile:w-full laptop:flex mobile:hidden justify-center">
-                    <div className="light-layer-1 active rounded-lg fixed w-72">
+                    <div className="support-user light-layer-1 active rounded-lg fixed w-72">
                         <div className="light-layer-2 active rounded-lg p-4 w-full">
                             <div className="mb-5">
                                 <h3 className="mb-2 font-medium text-xl text-center">Form Support</h3>
@@ -356,11 +384,19 @@ function Main(props) {
                             <div className="row flex mb-5">
                                 <div className="col w-full">
                                     <div className="form-group flex">
-                                        {isLogin == 1 ?
-                                            <button onClick={handleSupport} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
-                                            :
-                                            <button onClick={handleLogin} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Login</button>
+                                        {
+                                            support && support.key == null && isLogin == 1 ?
+                                                <button onClick={handleSupport} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
+                                                :
+                                                ""
                                         }
+                                        {
+                                            support && support.key != null && isLogin == 1 ?
+                                                <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
+                                                :
+                                                ""
+                                        }
+
                                     </div>
                                 </div>
                             </div>
@@ -369,7 +405,7 @@ function Main(props) {
                                     {isLogin == 1 ?
                                         <div className="form-group flex">
                                             <button className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
-                                            <button className="py-2 w-1/2  font-medium">Report</button>
+                                            <button onClick={handleReport} className="py-2 w-1/2  font-medium">Report</button>
                                         </div>
                                         :
                                         <div className="form-group flex">
@@ -382,6 +418,29 @@ function Main(props) {
                         </div>
 
                     </div>
+
+                    {
+                        detailUser && detailUser.roleUser == 1 ?
+                            <div className="admin-chat light-layer-1 active rounded-lg fixed w-72 top-96">
+                                <div className="light-layer-2 active rounded-lg p-4 w-full">
+                                    <div className="mb-5">
+                                        <h3 className="mb-2 font-medium text-xl text-center">Chat Author</h3>
+                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                    </div>
+                                    <div className="row flex mb-5">
+                                        <div className="col w-full">
+                                            <div className="form-group flex">
+                                                <button onClick={handleChat} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Start Message</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+
+                            </div>
+                            :
+                            ""
+                    }
                 </div>
             </div>
 

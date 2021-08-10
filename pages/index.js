@@ -12,10 +12,10 @@ class Dashboard extends Component {
     render(){
 
         return (
-            <div className="page px-4 pt-4 w-full bg-light">
+            <div className="page w-full bg-light">
                 <Loading />
                 <Sidebar menu="dashboard" />
-                <div className="content w-full min-h-screen pb-10 tablet:pl-16 mobile:pl-0 bg-light ">
+                <div className="content w-full mobile:pl-0 bg-light min-h-screen">
                     <Navbar />
                     <Main />
                 </div>
