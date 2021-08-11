@@ -18,9 +18,10 @@ function Main(props) {
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
     const [support, setSupport] = useState();
     const [opini, setOpini] = useState("");
-    const [allOpini, setAllOpini] = useState([{}])
+    const [allOpini, setAllOpini] = useState()
     const [user, setUser] = useState([{}]);
     const [reportComplaint, setReportComplaint] = useState(false);
+    const [startChat, setStartChat] = useState();
 
     const router = useRouter();
 
@@ -29,10 +30,39 @@ function Main(props) {
             getComplaint();
             getSupports();
             getAllOpini();
+            getUser();
             if (detailUser.idUser)
                 getSupport();
+            const dbChats = firebase.database().ref('chats');
+            dbChats.orderByChild('key').equalTo(parseInt(props.id)).on('value', getChats, errorChats);
         }
     }, [detailUser])
+
+    function getUser(){
+        const v_user = firebase.firestore().collection("users").where("idUser", "==", complaint.authorId.toString());
+
+        v_user.get().then((res) => {
+            res.forEach((doc) => {
+                setUser({
+                    fullname: doc.data().fullname,
+                    image: doc.data().picture,
+                    email: doc.data().email
+                })
+            });
+        });
+    }
+
+    function getChats(items) {
+        if(items == undefined)
+            setStartChat(true)
+        else 
+            setStartChat(false)
+    }
+
+    
+    function errorChats(items) {
+
+    }
 
     const getComplaint = () => {
         axios.get(`https://pengaduan-e0f12-default-rtdb.firebaseio.com/complaint/${props.id}.json`).then(function (res) {
@@ -60,7 +90,7 @@ function Main(props) {
 
 
     const getAllOpini = () => {
-        const v_allOpini = firebase.firestore().collection("opini");
+        const v_allOpini = firebase.firestore().collection("opini").where("idComplaint", "==", parseInt(props.id));
         var arr_allOpini = [];
         v_allOpini.get().then((res) => {
             res.forEach((doc) => {
@@ -175,6 +205,30 @@ function Main(props) {
         router.push('/chat');
     }
 
+    const handleContinueChat = () => {
+        const date = new Date();
+        const time = date.getTime();
+        firebase.database().ref(`chats/${complaint.key}/message`).push({
+            from: parseInt(1),
+            status: 1,
+            text: 'Hai Author!',
+            time: time
+        }).catch();
+        router.push('/chat');
+    }
+
+    const handleReject = () => {
+        firebase.database().ref(`complaint/${parseInt(complaint.key)}/status`).set(5)
+    }
+
+    const handleAccept = () => {
+        firebase.database().ref(`complaint/${parseInt(complaint.key)}/status`).set(2)
+    }
+
+    const handleComplete = () => {
+        firebase.database().ref(`complaint/${parseInt(complaint.key)}/status`).set(3)
+    }
+
     return (
         <div className="pt-0">
             <ModalReportComplaint
@@ -203,7 +257,14 @@ function Main(props) {
                     }
 
                     <div className="author mb-5 flex">
-                        <h4 className="text-sm mr-5 flex items-center"><FiUser className="font-medium mr-2" /> </h4>
+                        <h4 className="text-sm mr-5 flex items-center"><FiUser className="font-medium mr-2" /> 
+                            {
+                                user == '' || user == undefined || user == null ?
+                                "Anonimous"
+                                :
+                                user.fullname
+                            }
+                        </h4>
 
                         <div className="like flex items-center mr-5 text-sm">
                             <FiShare2 className="mr-2" />
@@ -211,7 +272,12 @@ function Main(props) {
                         </div>
                         <div className="like flex items-center mr-5 text-sm">
                             <FiMessageCircle className="mr-2" />
-                            <h5>7</h5>
+                            <h5>{
+                                    allOpini == '' || allOpini == undefined || allOpini == null ?
+                                    0
+                                    :
+                                    allOpini.length
+                                }</h5>
                         </div>
                         <div className="like flex items-center mr-5 text-sm">
                             <FiUsers className="mr-2" />
@@ -381,53 +447,105 @@ function Main(props) {
                 </div>
 
                 <div className="right laptop:w-1/4 mobile:w-full laptop:flex mobile:hidden justify-center">
-                    <div className="support-user light-layer-1 active rounded-lg fixed w-72">
-                        <div className="light-layer-2 active rounded-lg p-4 w-full">
-                            <div className="mb-5">
-                                <h3 className="mb-2 font-medium text-xl text-center">Form Support</h3>
-                                <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
-                            </div>
-                            <div className="row flex mb-5">
-                                <div className="col w-full">
-                                    <div className="form-group flex">
-                                        {
-                                            support && support.key == null && isLogin == 1 ?
-                                                <button onClick={handleSupport} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
-                                                :
-                                                ""
-                                        }
-                                        {
-                                            support && support.key != null && isLogin == 1 ?
-                                                <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
-                                                :
-                                                ""
-                                        }
+                    {
+                        detailUser && detailUser.roleUser == 2 ?
+                            <div className="support-user light-layer-1 active rounded-lg fixed w-72">
+                                <div className="light-layer-2 active rounded-lg p-4 w-full">
+                                    <div className="mb-5">
+                                        <h3 className="mb-2 font-medium text-xl text-center">Form Support</h3>
+                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                    </div>
+                                    <div className="row flex mb-5">
+                                        <div className="col w-full">
+                                            <div className="form-group flex">
+                                                {
+                                                    support == undefined && isLogin == 1 ?
+                                                        <button onClick={handleSupport} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
+                                                        :
+                                                        ""
+                                                }
+                                                {
+                                                    support != undefined && isLogin == 1 ?
+                                                        <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
+                                                        :
+                                                        ""
+                                                }
 
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row flex mb-5">
+                                        <div className="col w-full">
+                                            {isLogin == 1 ?
+                                                <div className="form-group flex">
+                                                    <button className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
+                                                    <button onClick={handleReport} className="py-2 w-1/2  font-medium">Report</button>
+                                                </div>
+                                                :
+                                                <div className="form-group flex">
+                                                    <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
+                                                </div>
+                                            }
+
+                                        </div>
                                     </div>
                                 </div>
+
                             </div>
-                            <div className="row flex mb-5">
-                                <div className="col w-full">
-                                    {isLogin == 1 ?
-                                        <div className="form-group flex">
-                                            <button className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
-                                            <button onClick={handleReport} className="py-2 w-1/2  font-medium">Report</button>
+                            :
+                            ""
+                    }
+
+                    {
+                        detailUser && detailUser.roleUser == 1 && complaint.status == 1 ?
+                            <div className="admin-chat light-layer-1 active rounded-lg fixed w-72">
+                                <div className="light-layer-2 active rounded-lg p-4 w-full">
+                                    <div className="mb-5">
+                                        <h3 className="mb-2 font-medium text-xl text-center">Follow Up</h3>
+                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                    </div>
+                                    <div className="row flex mb-5">
+                                        <div className="col w-full">
+                                            <div className="form-group flex">
+                                                <button onClick={handleReject} className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Reject</button>
+                                                <button onClick={handleAccept} className="py-2 w-1/2 mr-3 bg-darkGreen rounded-full text-white font-medium">Accept</button>
+                                            </div>
                                         </div>
-                                        :
-                                        <div className="form-group flex">
-                                            <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
-                                        </div>
-                                    }
+                                    </div>
 
                                 </div>
-                            </div>
-                        </div>
 
-                    </div>
+                            </div>
+                            :
+                            ""
+                    }
+
+                    {
+                        detailUser && detailUser.roleUser == 1 && complaint.status == 2 ?
+                            <div className="admin-chat light-layer-1 active rounded-lg fixed w-72">
+                                <div className="light-layer-2 active rounded-lg p-4 w-full">
+                                    <div className="mb-5">
+                                        <h3 className="mb-2 font-medium text-xl text-center">Complete Complaint</h3>
+                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                    </div>
+                                    <div className="row flex mb-5">
+                                        <div className="col w-full">
+                                            <div className="form-group flex">
+                                                <button onClick={handleComplete} className="py-2 w-full mx-auto bg-darkGreen rounded-full text-white font-medium">Complete</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            :
+                            ""
+                    }
 
                     {
                         detailUser && detailUser.roleUser == 1 ?
-                            <div className="admin-chat light-layer-1 active rounded-lg fixed w-72 top-96">
+                            <div className="admin-chat light-layer-1 active rounded-lg fixed w-72 top-80">
                                 <div className="light-layer-2 active rounded-lg p-4 w-full">
                                     <div className="mb-5">
                                         <h3 className="mb-2 font-medium text-xl text-center">Chat Author</h3>
@@ -436,11 +554,16 @@ function Main(props) {
                                     <div className="row flex mb-5">
                                         <div className="col w-full">
                                             <div className="form-group flex">
-                                                <button onClick={handleChat} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Start Message</button>
+                                                {
+                                                    startChat == true ?
+                                                    <button onClick={handleChat} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Start Message</button>
+                                                    :
+                                                    <button onClick={handleContinueChat} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Continue Message</button>
+                                                }
                                             </div>
                                         </div>
                                     </div>
-                                   
+
                                 </div>
 
                             </div>
