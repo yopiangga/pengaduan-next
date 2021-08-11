@@ -51,8 +51,10 @@ function Main() {
     }
 
     const handleChangeTaggar = (event) => {
-        const taggar = event.target.value;
-        const myArr = taggar.split(",");
+        const taggar = event.target.value.toLowerCase();
+        let myArr = []
+        myArr = taggar.split(', ');
+        // console.log(myArr)
 
         setComplaint({
             ...complaint,
