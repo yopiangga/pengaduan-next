@@ -157,13 +157,19 @@ function Main(props) {
     const handleChat = () => {
         const date = new Date();
         const time = date.getTime();
-        firebase.database().ref(`chats/${time}`).set({
-            key: time,
+        firebase.database().ref(`chats/${complaint.key}`).set({
+            key: complaint.key,
             idAdmin: detailUser.idUser,
             idUser: complaint.authorId,
-            idComplaint: complaint.key,
-            status: 1,
-            text: "Hallo Author!"
+            title: complaint.title,
+            image: complaint.image,
+            message: [{
+                time: time,
+                text: 'Hallo Author!',
+                status: 1,
+                from: 1
+            }],
+
         }).catch();
 
         router.push('/chat');

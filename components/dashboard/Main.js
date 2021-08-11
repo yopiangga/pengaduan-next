@@ -122,7 +122,7 @@ function Main() {
                                 <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">
                                     <div className=" light-layer-2 active card mobile:w-full p-3 box-border rounded-lg h-52">
                                         <div className="header flex mb-1 relative">
-                                            <div className="title h-12 overflow-hidden">
+                                            <div className="title h-12 overflow-hidden w-full flex justify-between">
                                                 <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
                                             </div>
                                             <div onClick={() => handleMoreAction(el.key)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
