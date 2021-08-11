@@ -11,9 +11,9 @@ class MyComplaint extends Component {
     render(){
 
         return (
-            <div className="page px-4 pt-4 w-full h-screen bg-light">
+            <div className="page w-full bg-light">
                 <Sidebar menu="my-complaint" />
-                <div className="content w-full min-h-screen pb-10 tablet:pl-16 mobile:pl-0 bg-light ">
+                <div className="content w-full mobile:pl-0 bg-light min-h-screen">
                     <Navbar />
                     <Main />
                 </div>
