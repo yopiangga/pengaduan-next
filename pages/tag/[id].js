@@ -2,24 +2,23 @@ import { Loading } from "components/all/Loading";
 import Navbar from "components/all/Navbar";
 import Sidebar from "components/all/Sidebar";
 import Main from "components/tag/Main";
+import { useRouter } from "next/router";
 import { Component, useEffect } from "react";
 
-class Tag extends Component {
-    constructor(props){
-        super(props);
-    }
-    render(){
+function Tag() {
+    const router = useRouter()
+    const {id} = router.query
 
         return (
-            <div className="page px-4 pt-4 w-full h-screen bg-light">
+            <div className="page w-full bg-light">
                 <Sidebar />
-                <div className="content w-full pb-10 tablet:pl-16 mobile:pl-0 bg-light ">
+                <div className="content w-full mobile:pl-0 bg-light min-h-screen">
                     <Navbar />
-                    <Main />
+                    <Main id={id} />
                 </div>
             </div>
         )
-    }
+    
 }
 
 export default Tag;

@@ -152,7 +152,7 @@ function Main() {
                                             {
                                                 el.taggar.map(function (tag, idTag) {
                                                     return (
-                                                        <div key={idTag} className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen cursor-pointer">
+                                                        <div key={idTag} onClick={() => handleTag(tag)} className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen cursor-pointer">
                                                             <h4>{tag}</h4>
                                                         </div>
                                                     )
