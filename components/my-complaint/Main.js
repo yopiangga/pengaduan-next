@@ -15,15 +15,17 @@ function Main() {
 
     const [style, setStyle] = useState(1);
     const [filter, setFilter] = useState(0);
-    const [complaints, setComplaints] = useState([{ taggar: [] }]);
+    const [complaints, setComplaints] = useState();
     const router = useRouter();
     const [complaint, setComplaint] = useState({ id: "" });
     const [reportComplaint, setReportComplaint] = useState(false);
 
     useEffect(() => {
-        const dbComplaints = firebase.database().ref();
-        dbComplaints.child("complaint").on('value', getComplaints, errorComplaints);
-    }, [])
+        if(detailUser){
+            const dbComplaints = firebase.database().ref();
+            dbComplaints.child("complaint").on('value', getComplaints, errorComplaints);
+        } 
+    }, [detailUser])
 
     function getComplaints(items) {
         var dataComplaints = [];
@@ -98,6 +100,7 @@ function Main() {
                                 <li onClick={() => handleStyle(1, 2)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> In Progress</li>
                                 <li onClick={() => handleStyle(1, 3)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Completed</li>
                                 <li onClick={() => handleStyle(1, 4)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Done</li>
+                                <li onClick={() => handleStyle(1, 5)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Declined</li>
                             </ul>
                         </div>
 
@@ -109,7 +112,7 @@ function Main() {
 
                     {
                         complaints && complaints.map((el, idx) => {
-                            if (el.status == filter || filter == 0 && el.status != 5)
+                            if (el.status == filter || filter == 0)
                                 return (
                                     <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">
                                         <div className=" light-layer-2 active card mobile:w-full p-3 box-border rounded-lg h-52">
@@ -144,19 +147,37 @@ function Main() {
                                                 }
                                             </div>
                                             <div className="card-footer flex flex-wrap justify-between items-center relative bottom-0">
-                                                <div className="support flex relative h-6 w-24">
-                                                    <div className="circle absolute z-20 left-0 rounded-full w-6 h-6 overflow-hidden border border-white">
-                                                        <Image src={example} height="100" width="100" alt="user" />
-                                                    </div>
-                                                    <div className="circle absolute z-10 left-4 rounded-full w-6 h-6 overflow-hidden border border-white">
-                                                        <Image src={example} height="100" width="100" alt="user" />
-                                                    </div>
-                                                    <div className="circle absolute z-0 left-8 rounded-full w-6 h-6 overflow-hidden border border-white">
-                                                        <Image src={example} height="100" width="100" alt="user" />
-                                                    </div>
-                                                    <div className="circle absolute z-0 left-14 rounded-full w-6 h-6 overflow-hidden font-medium flex justify-center items-center">
-                                                        <h4> +5</h4>
-                                                    </div>
+                                                <div className="support flex relative h-6 w-24 items-center">
+                                                   {
+                                                       el.status == 1 ? 
+                                                       <h4 className="text-dark font-medium text-sm">OPEN</h4>
+                                                       :
+                                                       ""
+                                                   }
+                                                   {
+                                                       el.status == 2 ? 
+                                                       <h4 className="text-yellow font-medium text-sm">IN PROGRESS</h4>
+                                                       :
+                                                       ""
+                                                   }
+                                                   {
+                                                       el.status == 3 ? 
+                                                       <h4 className="text-darkBlue font-medium text-sm">COMPLETE</h4>
+                                                       :
+                                                       ""
+                                                   }
+                                                   {
+                                                       el.status == 4 ? 
+                                                       <h4 className="text-darkGreen font-medium text-sm">DONE</h4>
+                                                       :
+                                                       ""
+                                                   }
+                                                   {
+                                                       el.status == 5 ? 
+                                                       <h4 className="text-red-600 font-medium text-sm">DECLINED</h4>
+                                                       :
+                                                       ""
+                                                   }
                                                 </div>
                                                 <div className="action flex items-center">
                                                     <div className="time text-sm flex items-center">

@@ -15,7 +15,7 @@ function Main(props) {
 
     const [style, setStyle] = useState(1);
     const [filter, setFilter] = useState(0);
-    const [complaints, setComplaints] = useState([{ taggar: [] }]);
+    const [complaints, setComplaints] = useState();
     const router = useRouter();
     const [complaint, setComplaint] = useState({ id: "" });
     const [reportComplaint, setReportComplaint] = useState(false);
@@ -28,7 +28,7 @@ function Main(props) {
     function getComplaints(items) {
         var dataComplaints = [];
         for (var item in items.val()) {
-            if(items.val()[item].taggar[0] == props.id || items.val()[item].taggar[1] == props.id || items.val()[item].taggar[2] == props.id)
+            if (items.val()[item].taggar[0] == props.id || items.val()[item].taggar[1] == props.id || items.val()[item].taggar[2] == props.id)
                 dataComplaints.push(items.val()[item]);
         }
         setComplaints(dataComplaints)
@@ -83,18 +83,18 @@ function Main(props) {
     return (
         <div className="pt-0 ">
             <ModalReportComplaint
-            id={complaint.key} 
-            isOpen={reportComplaint} 
-            onClick={() => setReportComplaint(false)}
-            onReport={(title, description, status) => setModalInformation({ title: title, description: description, status: status, isOpen: true })} 
+                id={complaint.key}
+                isOpen={reportComplaint}
+                onClick={() => setReportComplaint(false)}
+                onReport={(title, description, status) => setModalInformation({ title: title, description: description, status: status, isOpen: true })}
             />
             <div className="content pt-24 tablet:pl-20 mobile:px-4">
                 <div className="header flex tablet:flex-row mobile:flex-col justify-between mb-5 ">
                     <h1 className="text-3xl font-medium tablet:mb-0 mobile:mb-5"> Tag : {
                         props != undefined ?
-                        props.id
-                        :
-                        ""
+                            props.id
+                            :
+                            ""
                     }</h1>
                     <div className="filter flex relative justify-end">
                         <div className="light-layer-1">
@@ -118,96 +118,114 @@ function Main(props) {
 
                 <div onClick={handleClose} className="grid desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 style-1">
 
-                {
-                    complaints && complaints.map((el, idx) => {
-                        if (el.status == filter || filter == 0 && el.status != 5)
-                            return (
-                                <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">
-                                    <div className=" light-layer-2 active card mobile:w-full p-3 box-border rounded-lg h-52">
-                                        <div className="header flex mb-1 relative">
-                                            <div className="title h-12 overflow-hidden w-full flex justify-between">
-                                                <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
-                                            </div>
-                                            <div onClick={() => handleMoreAction(el.key)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
-                                                <FiMoreHorizontal />
-                                            </div>
-                                            <div id={`more-action-${el.key}`} className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
-                                                {
-                                                    (detailUser.idUser == null || detailUser.idUser == '') ?
-                                                        <ul>
-                                                            <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
-                                                        </ul>
-                                                        :
-                                                        <ul>
-                                                            {/* <li onClick={() => handleSupport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Support</li> */}
-                                                            <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
-                                                            <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
-                                                        </ul>
+                    {
+                        complaints && complaints.map((el, idx) => {
+                            if (el.status == filter || filter == 0 && el.status != 5)
+                                return (
+                                    <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">
+                                        <div className=" light-layer-2 active card mobile:w-full p-3 box-border rounded-lg h-52">
+                                            <div className="header flex mb-1 relative">
+                                                <div className="title h-12 overflow-hidden w-full flex justify-between">
+                                                    <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
+                                                </div>
+                                                <div onClick={() => handleMoreAction(el.key)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
+                                                    <FiMoreHorizontal />
+                                                </div>
+                                                <div id={`more-action-${el.key}`} className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                                    {
+                                                        (detailUser.idUser == null || detailUser.idUser == '') ?
+                                                            <ul>
+                                                                <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
+                                                            </ul>
+                                                            :
+                                                            <ul>
+                                                                {/* <li onClick={() => handleSupport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Support</li> */}
+                                                                <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
+                                                                <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
+                                                            </ul>
 
+                                                    }
+                                                </div>
+
+                                            </div>
+                                            <div className="description mb-3 h-14 overflow-hidden">
+                                                <p className="text-sm">{el.description}</p>
+                                            </div>
+                                            <div className="taggar mb-3 flex">
+                                                {
+                                                    el.taggar.map(function (tag, idTag) {
+                                                        return (
+                                                            <div key={idTag} onClick={() => handleTag(tag)} className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen cursor-pointer">
+                                                                <h4>{tag}</h4>
+                                                            </div>
+                                                        )
+                                                    })
                                                 }
                                             </div>
-
-                                        </div>
-                                        <div className="description mb-3 h-14 overflow-hidden">
-                                            <p className="text-sm">{el.description}</p>
-                                        </div>
-                                        <div className="taggar mb-3 flex">
-                                            {
-                                                el.taggar.map(function (tag, idTag) {
-                                                    return (
-                                                        <div key={idTag} onClick={() => handleTag(tag)} className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen cursor-pointer">
-                                                            <h4>{tag}</h4>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                        <div className="card-footer flex flex-wrap justify-between items-center relative bottom-0">
-                                            <div className="support flex relative h-6 w-24">
-                                                <div className="circle absolute z-20 left-0 rounded-full w-6 h-6 overflow-hidden border border-white">
-                                                    <Image src={example} height="100" width="100" alt="user" />
+                                            <div className="card-footer flex flex-wrap justify-between items-center relative bottom-0">
+                                                <div className="support flex relative h-6 w-24 items-center">
+                                                    {
+                                                        el.status == 1 ?
+                                                            <h4 className="text-dark font-medium text-sm">OPEN</h4>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 2 ?
+                                                            <h4 className="text-yellow font-medium text-sm">IN PROGRESS</h4>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 3 ?
+                                                            <h4 className="text-darkBlue font-medium text-sm">COMPLETE</h4>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 4 ?
+                                                            <h4 className="text-darkGreen font-medium text-sm">DONE</h4>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 5 ?
+                                                            <h4 className="text-red-600 font-medium text-sm">DECLINED</h4>
+                                                            :
+                                                            ""
+                                                    }
                                                 </div>
-                                                <div className="circle absolute z-10 left-4 rounded-full w-6 h-6 overflow-hidden border border-white">
-                                                    <Image src={example} height="100" width="100" alt="user" />
-                                                </div>
-                                                <div className="circle absolute z-0 left-8 rounded-full w-6 h-6 overflow-hidden border border-white">
-                                                    <Image src={example} height="100" width="100" alt="user" />
-                                                </div>
-                                                <div className="circle absolute z-0 left-14 rounded-full w-6 h-6 overflow-hidden font-medium flex justify-center items-center">
-                                                    <h4> +5</h4>
-                                                </div>
-                                            </div>
-                                            <div className="action flex items-center">
-                                                <div className="time text-sm flex items-center">
-                                                    <FiCalendar className="text-darkGreen" />
-                                                    <h4 className="ml-1">
-                                                        {
-                                                            el.key == '' || el.key == null ?
-                                                                ""
-                                                                :
-                                                                new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(el.key))
-                                                        }
-                                                    </h4>
-                                                </div>
-                                                <div className="text-sm ml-2 flex items-center">
-                                                    <FiUsers className="text-darkGreen" />
-                                                    <h4 className="ml-1">{el.support}</h4>
+                                                <div className="action flex items-center">
+                                                    <div className="time text-sm flex items-center">
+                                                        <FiCalendar className="text-darkGreen" />
+                                                        <h4 className="ml-1">
+                                                            {
+                                                                el.key == '' || el.key == null ?
+                                                                    ""
+                                                                    :
+                                                                    new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(el.key))
+                                                            }
+                                                        </h4>
+                                                    </div>
+                                                    <div className="text-sm ml-2 flex items-center">
+                                                        <FiUsers className="text-darkGreen" />
+                                                        <h4 className="ml-1">{el.support}</h4>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
+                                )
 
-                    })
-                }
+                        })
+                    }
+
+                </div>
+
 
             </div>
 
 
-            </div>
-
-            
         </div>
     )
 

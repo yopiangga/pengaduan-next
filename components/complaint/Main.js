@@ -112,6 +112,8 @@ function Main(props) {
     }
 
     const handleSupport = () => {
+        firebase.database().ref(`complaint/${parseInt(complaint.key)}/support`).set(complaint.support + 1)
+
         const date = new Date();
         const time = date.getTime();
         firebase.firestore().collection("supports").doc(time.toString()).set({
