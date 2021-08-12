@@ -29,6 +29,8 @@ export function AppWrapper({ children }) {
         setDetailUser({
           idUser: data.uid,
           fullname: doc.data().fullname,
+          nickname: doc.data().nickname,
+          job: doc.data().job,
           email: data.email,
           address: doc.data().address,
           roleUser: doc.data().roleUser,

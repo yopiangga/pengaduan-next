@@ -12,11 +12,13 @@ import $ from 'jquery'
 import { useAppContext } from "components/states/GlobalStates";
 import Router from "next/router";
 import firebase from 'firebase'
+import ModalInformation from "components/all/ModalInformation";
 
 function Main() {
 
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [userLogin, setUserLogin] = useState({ email: "", password: "" });
+    const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
 
     const options = {
         particles: {
@@ -51,6 +53,12 @@ function Main() {
                 })
                 .catch((error) => {
                     $('.bg-loading').removeClass('flex').addClass('hidden');
+                    setModalInformation({
+                        title: "Login Failed",
+                        description: error.message,
+                        status: false,
+                        isOpen: true,
+                    })
                     console.log(error)
                 });
             }
@@ -82,6 +90,13 @@ function Main() {
 
     return (
         <div className="page w-full relative bg-darkGreen flex justify-between">
+            <ModalInformation
+                title={modalInformation.title}
+                description={modalInformation.description}
+                status={modalInformation.status}
+                isOpen={modalInformation.isOpen}
+                onClick={() => setModalInformation({ title: "", description: "", status: "", isOpen: false })}
+            />
             <div className="left flex justify-center laptop:w-1/2 mobile:w-full bg-white mobile:py-10">
                 <div className="content w-3/4 h-full">
 

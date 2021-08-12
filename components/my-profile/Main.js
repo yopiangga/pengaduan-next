@@ -1,36 +1,112 @@
 import { useAppContext } from 'components/states/GlobalStates';
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
+import { useEffect, useState } from 'react';
+import firebase from 'firebase';
+import ModalInformation from 'components/all/ModalInformation';
 
 function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
 
-    const handleChangeProfile = () => {
+    const [user, setUser] = useState({})
+    const [password, setPassword] = useState({})
 
+    useEffect(() => {
+        setUser(detailUser)
+    }, [detailUser])
+
+    const handleChangeProfile = (event) => {
+        setUser({
+            ...user,
+            [event.target.name]: event.target.value
+        })
+        console.log(user)
     }
 
-    const handleUpdateProfile = () => {
-
+    const handleUpdateProfile = (event) => {
+        event.preventDefault();
+        firebase.firestore().collection("users").doc(detailUser.idUser.toString()).update({
+            fullname: user.fullname, 
+            nickname: user.nickname,
+            job: user.job,
+            address: user.address,   
+        })
+        .then((res) => {
+            setModalInformation({
+                title: "Update Success",
+                description: "Your profile success changed.",
+                status: true,
+                isOpen: true,
+            })
+        })
+        .catch((error) => {
+            setModalInformation({
+                title: "Update Failed",
+                description: "Your profile failed change.",
+                status: false,
+                isOpen: true,
+            })
+            console.error("Error writing document: ", error);
+        });
     }
 
-    const handleChangePassword = () => {
-
+    const handleChangePassword = (event) => {
+        setPassword({
+            ...password,
+            [event.target.name]: event.target.value
+        })
     }
 
-    const handleUpdatePassword = () => {
+    const handleUpdatePassword = (event) => {
+        event.preventDefault();
 
+        if(password.password1 != password.password2){
+            setModalInformation({
+                title: "Change Password Failed",
+                description: "Your password do not match!",
+                status: false,
+                isOpen: true,
+            })
+        } else {
+            const db_pass = firebase.auth().currentUser;
+            
+            db_pass.updatePassword(password.password1).then(() => {
+                setModalInformation({
+                    title: "Change Password Success",
+                    description: "Your password success changed.",
+                    status: true,
+                    isOpen: true,
+                })
+            }).catch((error) => {
+                setModalInformation({
+                    title: "Change Password Failed",
+                    description: error.message,
+                    status: false,
+                    isOpen: true,
+                })
+                console.log(error)
+            });
+        }
     }
 
     return (
         <div className="pt-0">
+            <ModalInformation
+                title={modalInformation.title}
+                description={modalInformation.description}
+                status={modalInformation.status}
+                isOpen={modalInformation.isOpen}
+                onClick={() => setModalInformation({ title: "", description: "", status: "", isOpen: false })}
+            />
             <div className="content pt-24 tablet:pl-20 mobile:px-4 w-full">
                 <div className="profile-image flex laptop:flex-row mobile:flex-col items-center mb-10">
                     <div className="circle-bg mr-5 laptop:mb-0 mobile:mb-7 bg-white w-36 h-36 flex justify-center items-center rounded-full shadow-xl">
                         <div className="image w-32 h-32 rounded-full overflow-hidden shadow-md">
-                            {detailUser.picture == 'default' || detailUser.picture == '' ?
+                            {user.picture == 'default' || user.picture == '' || user.picture == undefined ?
                                 <Image src={example} width="200" height="200" alt="profile" />
                                 :
-                                <Image src={detailUer.picture} width="200" height="200" alt="profile" />
+                                <Image src={user.picture} width="200" height="200" alt="profile" />
                             }
                         </div>
                     </div>
@@ -48,13 +124,13 @@ function Main() {
                                 <div className="col w-full laptop:pr-2 mobile:pr-0">
                                     <div className="form-group flex flex-col mobile:mb-5">
                                         <label className="font-medium text-sm mb-3">Full Name</label>
-                                        <input type="text" onChange={handleChangeProfile} name="fullname" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="John Doe" value={detailUser.fullname} />
+                                        <input type="text" onChange={handleChangeProfile} name="fullname" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="John Doe" value={user.fullname} />
                                     </div>
                                 </div>
                                 <div className="col w-full laptop:pl-2 mobile:pl-0">
                                     <div className="form-group flex flex-col">
                                         <label className="font-medium text-sm mb-3">Nick Name</label>
-                                        <input type="text" onChange={handleChangeProfile} name="nickname" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="John" value={detailUser.nickname} />
+                                        <input type="text" onChange={handleChangeProfile} name="nickname" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="John" value={user.nickname} />
                                     </div>
                                 </div>
                             </div>
@@ -62,7 +138,7 @@ function Main() {
                                 <div className="col w-full">
                                     <div className="form-group flex flex-col">
                                         <label className="font-medium text-sm mb-3">Profession</label>
-                                        <input type="text" onChange={handleChangeProfile} name="job" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="Programmer" value={detailUser.job} />
+                                        <input type="text" onChange={handleChangeProfile} name="job" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="Programmer" value={user.job} />
                                     </div>
                                 </div>
                             </div>
@@ -70,7 +146,7 @@ function Main() {
                                 <div className="col w-full">
                                     <div className="form-group flex flex-col">
                                         <label className="font-medium text-sm mb-3">Address</label>
-                                        <textarea type="text" onChange={handleChangeProfile} name="address" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" value={detailUser.address} />
+                                        <textarea type="text" onChange={handleChangeProfile} name="address" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" value={user.address} />
                                     </div>
                                 </div>
                             </div>
@@ -92,7 +168,7 @@ function Main() {
                                 <div className="col w-full">
                                     <div className="form-group flex flex-col">
                                         <label className="font-medium text-sm mb-3">Email Address</label>
-                                        <input type="email" value={detailUser.email} className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" />
+                                        <input type="email" value={user.email} className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" />
                                     </div>
                                 </div>
                             </div>

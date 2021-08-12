@@ -1,4 +1,3 @@
-const { Component } = require("react");
 const { FaRegBell } = require("react-icons/fa");
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
@@ -6,9 +5,12 @@ import { FiChevronDown, FiChevronRight, FiHeart, FiLogIn, FiLogOut, FiMenu, FiMe
 import $ from 'jquery'
 import Link from 'next/link'
 import { useAppContext } from 'components/states/GlobalStates';
+import firebase from 'firebase'
+import { useRouter } from 'next/router';
 
 function Navbar() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
+    const router = useRouter();
 
     const handleShowSidebar = () => {
         $('.sidebar').toggleClass('mobile:h-0').toggleClass('mobile:h-screen')
@@ -23,6 +25,14 @@ function Navbar() {
 
     const handleShowProfile = () => {
         $('.navbar .profile').toggleClass('hidden')
+    }
+
+    const handleLogout = () => {
+        firebase.auth().signOut().then(() => {
+            router.push('/login')
+          }).catch((error) => {
+            // An error happened.
+          });
     }
 
     return (
@@ -111,16 +121,16 @@ function Navbar() {
 
                                 <div className="profile py-1 mobile:w-32 rounded-b-lg hidden rounded-tr-lg top-16 right-0 absolute bg-white shadow-lg">
                                     <ul>
-                                        <Link href="/login">
-                                            <a className="flex items-center mb-1 py-1 px-3 cursor-pointer hover:bg-gray-50">
+                                        <li>
+                                            <div onClick={handleLogout} className="flex items-center mb-1 py-1 px-3 cursor-pointer hover:bg-gray-50">
                                                 <div className="circle rounded-full w-10 h-10 mr-3 bg-opacity-20 flex justify-center items-center text-xl">
                                                     <FiLogOut />
                                                 </div>
                                                 <div className="text">
                                                     <h4 className="text-sm">Log Out</h4>
                                                 </div>
-                                            </a>
-                                        </Link>
+                                            </div>
+                                        </li>
 
                                     </ul>
                                 </div>
