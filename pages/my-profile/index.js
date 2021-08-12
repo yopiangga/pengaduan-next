@@ -12,13 +12,11 @@ function MyProfile() {
     }, [])
 
         return (
-            <div className="page px-4 pt-4 w-full bg-light">
+            <div className="page w-full bg-light">
                 <Sidebar menu="my-profile" />
-                <div className="content w-full tablet:pl-16 mobile:pl-0 bg-light ">
+                <div className="content w-full mobile:pl-0 bg-light min-h-screen">
                     <Navbar />
-                    <div className="w-full pt-20">
-                        <Main />
-                    </div>
+                    <Main />
                 </div>
             </div>
         )
