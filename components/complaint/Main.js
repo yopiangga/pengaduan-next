@@ -26,20 +26,23 @@ function Main(props) {
     const router = useRouter();
 
     useEffect(() => {
-        if (props.id != null) {
-            getComplaint();
-            getSupports();
-            getAllOpini();
-            getUser();
-            if (detailUser.idUser)
-                getSupport();
-            const dbChats = firebase.database().ref('chats');
-            dbChats.orderByChild('key').equalTo(parseInt(props.id)).on('value', getChats, errorChats);
+        if (props.id != undefined && detailUser.idUser != '') {
+            startFunction();
         }
-    }, [detailUser])
+    }, [props.id, detailUser.idUser])
 
-    function getUser(){
-        const v_user = firebase.firestore().collection("users").where("idUser", "==", complaint.authorId.toString());
+    function startFunction() {
+        getComplaint();
+        getSupports();
+        getAllOpini();
+        if (detailUser.idUser)
+            getSupport();
+        const dbChats = firebase.database().ref('chats');
+        dbChats.orderByChild('key').equalTo(parseInt(props.id)).on('value', getChats, errorChats);
+    }
+
+    function getUser(id) {
+        const v_user = firebase.firestore().collection("users").where("idUser", "==", id.toString());
 
         v_user.get().then((res) => {
             res.forEach((doc) => {
@@ -53,13 +56,13 @@ function Main(props) {
     }
 
     function getChats(items) {
-        if(items == undefined)
+        if (items == undefined)
             setStartChat(true)
-        else 
+        else
             setStartChat(false)
     }
 
-    
+
     function errorChats(items) {
 
     }
@@ -67,7 +70,7 @@ function Main(props) {
     const getComplaint = () => {
         axios.get(`https://pengaduan-e0f12-default-rtdb.firebaseio.com/complaint/${props.id}.json`).then(function (res) {
             setComplaint(res.data);
-            // console.log(res.data)
+            getUser(res.data.authorId);
         }).catch(function (err) {
             console.log(err)
         })
@@ -221,14 +224,22 @@ function Main(props) {
 
     const handleReject = () => {
         firebase.database().ref(`complaint/${parseInt(complaint.key)}/status`).set(5)
+        startFunction()
     }
 
     const handleAccept = () => {
         firebase.database().ref(`complaint/${parseInt(complaint.key)}/status`).set(2)
+        startFunction()
     }
 
     const handleComplete = () => {
         firebase.database().ref(`complaint/${parseInt(complaint.key)}/status`).set(3)
+        startFunction()
+    }
+
+    const handleDone = () => {
+        firebase.database().ref(`complaint/${parseInt(complaint.key)}/status`).set(4)
+        startFunction()
     }
 
     return (
@@ -258,13 +269,13 @@ function Main(props) {
                             </div>
                     }
 
-                    <div className="author mb-5 flex">
-                        <h4 className="text-sm mr-5 flex items-center"><FiUser className="font-medium mr-2" /> 
+                    <div className="author mb-5 flex flex-wrap">
+                        <h4 className="text-sm mr-5 flex items-center"><FiUser className="font-medium mr-2" />
                             {
                                 user == '' || user == undefined || user == null ?
-                                "Anonimous"
-                                :
-                                user.fullname
+                                    "Anonimous"
+                                    :
+                                    user.fullname
                             }
                         </h4>
 
@@ -275,11 +286,11 @@ function Main(props) {
                         <div className="like flex items-center mr-5 text-sm">
                             <FiMessageCircle className="mr-2" />
                             <h5>{
-                                    allOpini == '' || allOpini == undefined || allOpini == null ?
+                                allOpini == '' || allOpini == undefined || allOpini == null ?
                                     0
                                     :
                                     allOpini.length
-                                }</h5>
+                            }</h5>
                         </div>
                         <div className="like flex items-center mr-5 text-sm">
                             <FiUsers className="mr-2" />
@@ -298,8 +309,51 @@ function Main(props) {
                         }</h4>
                     </div>
 
-                    <div className="title mb-5">
+                    <div className="title mb-3">
                         <h1 className="font-medium text-2xl">{complaint.title}</h1>
+                    </div>
+
+                    <div className="status mb-5 flex justify-start">
+                        {
+                            complaint.status == 1 ?
+                                <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-sm text-white bg-dark">
+                                    <h4 className="text-white font-medium">OPEN</h4>
+                                </div>
+                                :
+                                ""
+                        }
+                        {
+                            complaint.status == 2 ?
+                                <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-sm text-white bg-yellow">
+                                    <h4 className="text-white font-medium">IN PROGRESS</h4>
+                                </div>
+                                :
+                                ""
+                        }
+                        {
+                            complaint.status == 3 ?
+                                <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-sm text-white bg-darkBlue">
+                                    <h4 className="text-white font-medium">COMPLETE</h4>
+                                </div>
+                                :
+                                ""
+                        }
+                        {
+                            complaint.status == 4 ?
+                                <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-sm text-white bg-darkGreen">
+                                    <h4 className="text-white font-medium">DONE</h4>
+                                </div>
+                                :
+                                ""
+                        }
+                        {
+                            complaint.status == 5 ?
+                                <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-sm text-white bg-red-600">
+                                    <h4 className="text-white font-medium">DECLINED</h4>
+                                </div>
+                                :
+                                ""
+                        }
                     </div>
 
                     <div className="row mb-5 mobile:flex laptop:hidden">
@@ -448,6 +502,8 @@ function Main(props) {
                     </div>
                 </div>
 
+
+
                 <div className="right laptop:w-1/4 mobile:w-full laptop:flex mobile:hidden justify-center">
                     {
                         detailUser && detailUser.roleUser == 2 ?
@@ -461,17 +517,17 @@ function Main(props) {
                                         <div className="col w-full">
                                             <div className="form-group flex">
                                                 {
-                                                    support == undefined && isLogin == 1 ?
+                                                    support == undefined ?
                                                         <button onClick={handleSupport} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
                                                         :
-                                                        ""
+                                                        <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
                                                 }
-                                                {
+                                                {/* {
                                                     support != undefined && isLogin == 1 ?
                                                         <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
                                                         :
                                                         ""
-                                                }
+                                                } */}
 
                                             </div>
                                         </div>
@@ -491,6 +547,29 @@ function Main(props) {
 
                                         </div>
                                     </div>
+                                </div>
+
+                            </div>
+                            :
+                            ""
+                    }
+
+                    {
+                        detailUser && detailUser.roleUser == 2 && complaint.status == 3 && complaint.authorId == detailUser.idUser ?
+                            <div className="done-complaint light-layer-1 active rounded-lg fixed w-72 top-96">
+                                <div className="light-layer-2 active rounded-lg p-4 w-full">
+                                    <div className="mb-5">
+                                        <h3 className="mb-2 font-medium text-xl text-center">Done Complaint</h3>
+                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                    </div>
+                                    <div className="row flex mb-5">
+                                        <div className="col w-full">
+                                            <div className="form-group flex">
+                                                <button onClick={handleDone} className="py-2 w-full bg-darkGreen rounded-full text-white border border-darkGreen font-medium">Done</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
 
                             </div>
@@ -558,9 +637,9 @@ function Main(props) {
                                             <div className="form-group flex">
                                                 {
                                                     startChat == true ?
-                                                    <button onClick={handleChat} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Start Message</button>
-                                                    :
-                                                    <button onClick={handleContinueChat} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Continue Message</button>
+                                                        <button onClick={handleChat} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Start Message</button>
+                                                        :
+                                                        <button onClick={handleContinueChat} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Continue Message</button>
                                                 }
                                             </div>
                                         </div>

@@ -8,6 +8,7 @@ export function AppWrapper({ children }) {
   const [url, setUrl] = useState({ api: "https://", baseUrl: "https://", myUrl: "https://" });
   const [detailUser, setDetailUser] = useState({ idUser: "", fullname: "", email: "", address: "", roleUser: "", typeLogin: "", picture: "", work: "" });
   const [isLogin, setIsLogin] = useState(1);
+  const [menuActive, setMenuActive] = useState();
 
   useState(() => {
     firebase.auth().onAuthStateChanged((user) => {
@@ -44,7 +45,7 @@ export function AppWrapper({ children }) {
   }
   
   const state = {
-    url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser
+    url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive
   }
 
   return (

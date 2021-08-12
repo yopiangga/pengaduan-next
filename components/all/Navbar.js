@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { useAppContext } from 'components/states/GlobalStates';
 
 function Navbar() {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
 
     const handleShowSidebar = () => {
         $('.sidebar').toggleClass('mobile:h-0').toggleClass('mobile:h-screen')
@@ -29,7 +29,7 @@ function Navbar() {
         <div className="navbar duration-300 h-16 tablet:left-20 mobile:left-4 right-4 top-4 fixed z-50 shadow-sm">
             <div className="content-nav bg-white h-full w-full rounded-lg flex tablet:justify-between mobile:justify-between">
                 <div className="name-page h-full tablet:flex items-center mobile:hidden">
-                    <h3 className="text-xl font-medium ml-3">Dashboard</h3>
+                    <h3 className="text-xl font-medium ml-3">{menuActive}</h3>
                 </div>
                 <div onClick={handleShowSidebar} className="name-page h-full tablet:hidden items-center mobile:flex">
                     <FiMenu className="menu-icon text-xl font-medium ml-3" />

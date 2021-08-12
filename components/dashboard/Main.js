@@ -82,10 +82,10 @@ function Main() {
     return (
         <div className="pt-0 ">
             <ModalReportComplaint
-            id={complaint.key} 
-            isOpen={reportComplaint} 
-            onClick={() => setReportComplaint(false)}
-            onReport={(title, description, status) => setModalInformation({ title: title, description: description, status: status, isOpen: true })} 
+                id={complaint.key}
+                isOpen={reportComplaint}
+                onClick={() => setReportComplaint(false)}
+                onReport={(title, description, status) => setModalInformation({ title: title, description: description, status: status, isOpen: true })}
             />
             <div className="content pt-24 tablet:pl-20 mobile:px-4">
                 <div className="header flex tablet:flex-row mobile:flex-col justify-between mb-5 ">
@@ -93,7 +93,7 @@ function Main() {
                     <div className="filter flex relative justify-end">
                         <div className="light-layer-1">
                             <div onClick={handleFilter} className="light-layer-2 box cursor-pointer h-10 px-3 rounded-md flex justify-center items-center">
-                                <h4 className="font-medium text-sm mr-1">Filter</h4>
+                                <h4 className="font-medium text-xs mr-1">Filter</h4>
                                 <FiChevronDown className="text-xl" />
                             </div>
                         </div>
@@ -115,114 +115,124 @@ function Main() {
 
                 <div onClick={handleClose} className="grid desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 style-1">
 
-                {
-                    complaints && complaints.map((el, idx) => {
-                        if (el.status == filter || filter == 0 && el.status != 5)
-                            return (
-                                <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">
-                                    <div className=" light-layer-2 active card mobile:w-full p-3 box-border rounded-lg h-52">
-                                        <div className="header flex mb-1 relative">
-                                            <div className="title h-12 overflow-hidden w-full flex justify-between">
-                                                <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
-                                            </div>
-                                            <div onClick={() => handleMoreAction(el.key)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
-                                                <FiMoreHorizontal />
-                                            </div>
-                                            <div id={`more-action-${el.key}`} className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
-                                                {
-                                                    (detailUser.idUser == null || detailUser.idUser == '') ?
-                                                        <ul>
-                                                            <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
-                                                        </ul>
-                                                        :
-                                                        <ul>
-                                                            {/* <li onClick={() => handleSupport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Support</li> */}
-                                                            <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
-                                                            <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
-                                                        </ul>
+                    {
+                        complaints && complaints.map((el, idx) => {
+                            if (el.status == filter || filter == 0 && el.status != 5)
+                                return (
+                                    <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">
+                                        <div className=" light-layer-2 active card mobile:w-full p-3 box-border rounded-lg h-52">
+                                            <div className="header flex mb-1 relative">
+                                                <div className="title h-12 overflow-hidden w-full flex justify-between">
+                                                    <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
+                                                </div>
+                                                <div onClick={() => handleMoreAction(el.key)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
+                                                    <FiMoreHorizontal />
+                                                </div>
+                                                <div id={`more-action-${el.key}`} className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                                    {
+                                                        (detailUser.idUser == null || detailUser.idUser == '') ?
+                                                            <ul>
+                                                                <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
+                                                            </ul>
+                                                            :
+                                                            <ul>
+                                                                {/* <li onClick={() => handleSupport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Support</li> */}
+                                                                <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
+                                                                <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
+                                                            </ul>
 
+                                                    }
+                                                </div>
+
+                                            </div>
+                                            <div className="description mb-3 h-14 overflow-hidden">
+                                                <p className="text-sm">{el.description}</p>
+                                            </div>
+                                            <div className="taggar mb-3 flex">
+                                                {
+                                                    el.taggar.map(function (tag, idTag) {
+                                                        return (
+                                                            <div key={idTag} onClick={() => handleTag(tag)} className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen cursor-pointer">
+                                                                <h4>{tag}</h4>
+                                                            </div>
+                                                        )
+                                                    })
                                                 }
                                             </div>
-
-                                        </div>
-                                        <div className="description mb-3 h-14 overflow-hidden">
-                                            <p className="text-sm">{el.description}</p>
-                                        </div>
-                                        <div className="taggar mb-3 flex">
-                                            {
-                                                el.taggar.map(function (tag, idTag) {
-                                                    return (
-                                                        <div key={idTag} onClick={() => handleTag(tag)} className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs bg-opacity-20 text-lightGreen bg-lightGreen cursor-pointer">
-                                                            <h4>{tag}</h4>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-                                        </div>
-                                        <div className="card-footer flex flex-wrap justify-between items-center relative bottom-0">
-                                        <div className="support flex relative h-6 w-24 items-center">
-                                                   {
-                                                       el.status == 1 ? 
-                                                       <h4 className="text-dark font-medium text-sm">OPEN</h4>
-                                                       :
-                                                       ""
-                                                   }
-                                                   {
-                                                       el.status == 2 ? 
-                                                       <h4 className="text-yellow font-medium text-sm">IN PROGRESS</h4>
-                                                       :
-                                                       ""
-                                                   }
-                                                   {
-                                                       el.status == 3 ? 
-                                                       <h4 className="text-darkBlue font-medium text-sm">COMPLETE</h4>
-                                                       :
-                                                       ""
-                                                   }
-                                                   {
-                                                       el.status == 4 ? 
-                                                       <h4 className="text-darkGreen font-medium text-sm">DONE</h4>
-                                                       :
-                                                       ""
-                                                   }
-                                                   {
-                                                       el.status == 5 ? 
-                                                       <h4 className="text-red-600 font-medium text-sm">DECLINED</h4>
-                                                       :
-                                                       ""
-                                                   }
+                                            <div className="card-footer flex flex-wrap justify-between items-center relative bottom-0">
+                                                <div className="support flex relative h-6 w-24 items-center">
+                                                    {
+                                                        el.status == 1 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-dark">
+                                                                <h4 className="text-white font-medium">OPEN</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 2 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-yellow">
+                                                                <h4 className="text-white font-medium">PROGRESS</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 3 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-darkBlue">
+                                                                <h4 className="text-white font-medium">COMPLETE</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 4 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-darkGreen">
+                                                                <h4 className="text-white font-medium">DONE</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 5 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-red-600">
+                                                                <h4 className="text-white font-medium">DECLINED</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
                                                 </div>
-                                            <div className="action flex items-center">
-                                                <div className="time text-sm flex items-center">
-                                                    <FiCalendar className="text-darkGreen" />
-                                                    <h4 className="ml-1">
-                                                        {
-                                                            el.key == '' || el.key == null ?
-                                                                ""
-                                                                :
-                                                                new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(el.key))
-                                                        }
-                                                    </h4>
-                                                </div>
-                                                <div className="text-sm ml-2 flex items-center">
-                                                    <FiUsers className="text-darkGreen" />
-                                                    <h4 className="ml-1">{el.support}</h4>
+                                                <div className="action flex items-center">
+                                                    <div className="time text-sm flex items-center">
+                                                        <FiCalendar className="text-darkGreen" />
+                                                        <h4 className="ml-1">
+                                                            {
+                                                                el.key == '' || el.key == null ?
+                                                                    ""
+                                                                    :
+                                                                    new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit' }).format(new Date(el.key))
+                                                            }
+                                                        </h4>
+                                                    </div>
+                                                    <div className="text-sm ml-2 flex items-center">
+                                                        <FiUsers className="text-darkGreen" />
+                                                        <h4 className="ml-1">{el.support}</h4>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            )
+                                )
 
-                    })
-                }
+                        })
+                    }
+
+                </div>
+
 
             </div>
 
 
-            </div>
-
-            
         </div>
     )
 

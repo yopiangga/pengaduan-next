@@ -1,15 +1,16 @@
 import Navbar from "components/all/Navbar";
 import Sidebar from "components/all/Sidebar";
 import Main from "components/my-profile/Main";
-import { Component, useEffect } from "react";
+import { useAppContext } from "components/states/GlobalStates";
+import { useEffect } from "react";
 
-class MyProfile extends Component {
-    constructor(props){
-        super(props);
-    }
+function MyProfile() {
+    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
 
-    render(){
-        
+    useEffect(() => {
+        setMenuActive('My Profile');
+    }, [])
+
         return (
             <div className="page px-4 pt-4 w-full bg-light">
                 <Sidebar menu="my-profile" />
@@ -21,7 +22,6 @@ class MyProfile extends Component {
                 </div>
             </div>
         )
-    }
 }
 
 export default MyProfile;

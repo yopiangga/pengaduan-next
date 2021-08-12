@@ -2,26 +2,26 @@ import { Loading } from "components/all/Loading";
 import Navbar from "components/all/Navbar";
 import Sidebar from "components/all/Sidebar";
 import Main from "components/dashboard/Main";
-import { Component, useEffect } from "react";
+import { useAppContext } from "components/states/GlobalStates";
+import { useEffect } from "react";
 
-class Dashboard extends Component {
-    constructor(props){
-        super(props);
-    }
+function Dashboard() {
+    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
 
-    render(){
+    useEffect(() => {
+        setMenuActive('Dashboard');
+    }, [])
 
-        return (
-            <div className="page w-full bg-light">
-                <Loading />
-                <Sidebar menu="dashboard" />
-                <div className="content w-full mobile:pl-0 bg-light min-h-screen">
-                    <Navbar />
-                    <Main />
-                </div>
+    return (
+        <div className="page w-full bg-light">
+            <Loading />
+            <Sidebar menu="dashboard" />
+            <div className="content w-full mobile:pl-0 bg-light min-h-screen">
+                <Navbar />
+                <Main />
             </div>
-        )
-    }
+        </div>
+    )
 }
 
 export default Dashboard;

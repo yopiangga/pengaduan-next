@@ -147,37 +147,47 @@ function Main() {
                                                 }
                                             </div>
                                             <div className="card-footer flex flex-wrap justify-between items-center relative bottom-0">
-                                                <div className="support flex relative h-6 w-24 items-center">
-                                                   {
-                                                       el.status == 1 ? 
-                                                       <h4 className="text-dark font-medium text-sm">OPEN</h4>
-                                                       :
-                                                       ""
-                                                   }
-                                                   {
-                                                       el.status == 2 ? 
-                                                       <h4 className="text-yellow font-medium text-sm">IN PROGRESS</h4>
-                                                       :
-                                                       ""
-                                                   }
-                                                   {
-                                                       el.status == 3 ? 
-                                                       <h4 className="text-darkBlue font-medium text-sm">COMPLETE</h4>
-                                                       :
-                                                       ""
-                                                   }
-                                                   {
-                                                       el.status == 4 ? 
-                                                       <h4 className="text-darkGreen font-medium text-sm">DONE</h4>
-                                                       :
-                                                       ""
-                                                   }
-                                                   {
-                                                       el.status == 5 ? 
-                                                       <h4 className="text-red-600 font-medium text-sm">DECLINED</h4>
-                                                       :
-                                                       ""
-                                                   }
+                                            <div className="support flex relative h-6 w-24 items-center">
+                                                    {
+                                                        el.status == 1 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-dark">
+                                                                <h4 className="text-white font-medium">OPEN</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 2 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-yellow">
+                                                                <h4 className="text-white font-medium">PROGRESS</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 3 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-darkBlue">
+                                                                <h4 className="text-white font-medium">COMPLETE</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 4 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-darkGreen">
+                                                                <h4 className="text-white font-medium">DONE</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        el.status == 5 ?
+                                                            <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-red-600">
+                                                                <h4 className="text-white font-medium">DECLINED</h4>
+                                                            </div>
+                                                            :
+                                                            ""
+                                                    }
                                                 </div>
                                                 <div className="action flex items-center">
                                                     <div className="time text-sm flex items-center">

@@ -2,15 +2,19 @@ import Navbar from "components/all/Navbar";
 import Sidebar from "components/all/Sidebar";
 import Message from "components/chat/Message";
 import Users from "components/chat/Users";
-import { Component, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import firebase from 'firebase'
 import { useAppContext } from "components/states/GlobalStates";
 
 function Chat() {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
     const [chatComplaint, setChatComplaint] = useState()
     const [user, setUser] = useState();
     const [chatOpen, setChatOpen] = useState(0);
+
+    useEffect(() => {
+        setMenuActive('Chat');
+    }, [])
 
     const handleClick = (dataChat) => {
         setChatComplaint(dataChat);
@@ -34,9 +38,9 @@ function Chat() {
 
     return (
         <div className="page px-4 pt-4 w-full h-screen bg-light">
-            <Sidebar menu="chat" />
+            <Sidebar/>
             <div className="content w-full tablet:pl-16 mobile:pl-0 bg-light ">
-                <Navbar menu="chat" />
+                <Navbar/>
                 <div className="w-full h-screen pt-20">
                     {
                         detailUser && detailUser.roleUser == 1 ?
