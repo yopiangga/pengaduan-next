@@ -43,11 +43,6 @@ function Sidebar() {
                             </ul>
                         </div>
                         :
-                        ""
-                }
-
-                {
-                    detailUser.roleUser == 2 ?
                         <div className="menu">
                             <ul>
                                 <Link href="/">
@@ -77,8 +72,6 @@ function Sidebar() {
                                 </Link>
                             </ul>
                         </div>
-                        :
-                        ""
                 }
 
                 <div className="logout h-20">

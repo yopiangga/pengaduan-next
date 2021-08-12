@@ -1,4 +1,5 @@
 import Navbar from "components/all/Navbar";
+import RedirectLogin from "components/all/RedirectLogin";
 import Sidebar from "components/all/Sidebar";
 import Main from "components/my-profile/Main";
 import { useAppContext } from "components/states/GlobalStates";
@@ -16,7 +17,12 @@ function MyProfile() {
                 <Sidebar menu="my-profile" />
                 <div className="content w-full mobile:pl-0 bg-light min-h-screen">
                     <Navbar />
-                    <Main />
+                    {
+                        (isLogin == 0 || isLogin == undefined) ? 
+                        <RedirectLogin />
+                        :
+                        <Main />
+                    }
                 </div>
             </div>
         )

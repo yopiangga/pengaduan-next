@@ -5,6 +5,7 @@ import Users from "components/chat/Users";
 import { useEffect, useState } from "react";
 import firebase from 'firebase'
 import { useAppContext } from "components/states/GlobalStates";
+import RedirectLogin from "components/all/RedirectLogin";
 
 function Chat() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
@@ -38,33 +39,41 @@ function Chat() {
 
     return (
         <div className="page px-4 pt-4 w-full h-screen bg-light">
-            <Sidebar/>
+            <Sidebar />
             <div className="content w-full tablet:pl-16 mobile:pl-0 bg-light ">
-                <Navbar/>
-                <div className="w-full h-screen pt-20">
-                    {
-                        detailUser && detailUser.roleUser == 1 ?
-                            <div className="flex w-full h-full">
-                                <Users role="1" onClick={(chatComplaint) => handleClick(chatComplaint)} />
-                                {
-                                    chatOpen == 1 ?
-                                        <Message idComplaint={chatComplaint.key} user={user} onClick={() => setChatOpen(false)} role='1' />
-                                        :
-                                        ""
-                                }
-                            </div>
-                            :
-                            <div className="flex w-full h-full">
-                                <Users role="2" onClick={(chatComplaint) => handleClick(chatComplaint)} />
-                                {
-                                    chatOpen == 1 ?
-                                        <Message idComplaint={chatComplaint.key} user={user} onClick={() => setChatOpen(false)} role='2' />
-                                        :
-                                        ""
-                                }
-                            </div>
-                    }
-                </div>
+                <Navbar />
+                {
+                    (isLogin == 0 || isLogin == undefined) ?
+                        <div className="w-full">
+                            <RedirectLogin />
+                        </div>
+                        :
+                        <div className="w-full h-screen pt-20">
+                            {
+                                detailUser && detailUser.roleUser == 1 ?
+                                    <div className="flex w-full h-full">
+                                        <Users role="1" onClick={(chatComplaint) => handleClick(chatComplaint)} />
+                                        {
+                                            chatOpen == 1 ?
+                                                <Message idComplaint={chatComplaint.key} user={user} onClick={() => setChatOpen(false)} role='1' />
+                                                :
+                                                ""
+                                        }
+                                    </div>
+                                    :
+                                    <div className="flex w-full h-full">
+                                        <Users role="2" onClick={(chatComplaint) => handleClick(chatComplaint)} />
+                                        {
+                                            chatOpen == 1 ?
+                                                <Message idComplaint={chatComplaint.key} user={user} onClick={() => setChatOpen(false)} role='2' />
+                                                :
+                                                ""
+                                        }
+                                    </div>
+                            }
+                        </div>
+                }
+
             </div>
         </div>
     )
