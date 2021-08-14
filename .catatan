@@ -1,0 +1,52 @@
+1. Beranda
++ filter 
++ copy link
++ report
++ link ke detail complaint
++ status complaint
+
+2. My Complaint
++ filter 
++ copy link
++ link ke detail complaint
++ status complaint
+
+3. Create Complaint
++ upload image
++ search lokasi
++ tampil lokasi
++ alert konfirmasi
+
+4. Chats
++ user to admin
++ admin to user
++ link ke detail complaint
+
+5. Profile
++ Edit profile
++ Change password
+
+6. Login
++ Auth email biasa
+- Auth google
+
+7. Register
++ Auth email biasa
+- Auth google
+
+8. detail complaint
++ user memberikan dukungan
++ user memberikan tanggapan dukungan
++ admin reject complaint
++ admin accept (in progress) complaint
++ admin complete (complete) complaint
++ admin start message to user
++ admin continue message to user
++ user report complaint
+- image complaint belum tampil
+
+9. Taggar Complaint
++ filter 
++ copy link
++ link ke detail complaint
++ status complaint
