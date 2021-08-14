@@ -264,8 +264,8 @@ function Main(props) {
                             ""
                             :
                             // ""
-                            <div className="image w-full mb-5 bg-white">
-                                <Image src={`/${complaint.image}`} passHref={true} width="100" height="100" alt="image complaint" />
+                            <div className="image w-full h-96 mb-5 bg-white relative overflow-hidden">
+                                <Image src={`/${complaint.image}`} passHref={true} layout="fill" objectFit="cover" alt="image complaint" />
                             </div>
                     }
 
@@ -522,13 +522,7 @@ function Main(props) {
                                                         :
                                                         <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
                                                 }
-                                                {/* {
-                                                    support != undefined && isLogin == 1 ?
-                                                        <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
-                                                        :
-                                                        ""
-                                                } */}
-
+                                                
                                             </div>
                                         </div>
                                     </div>

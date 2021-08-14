@@ -104,6 +104,12 @@ function Main() {
                                 <li onClick={() => handleStyle(1, 2)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> In Progress</li>
                                 <li onClick={() => handleStyle(1, 3)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Completed</li>
                                 <li onClick={() => handleStyle(1, 4)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Done</li>
+                                {
+                                    detailUser && detailUser.roleUser == 1 ? 
+                                    <li onClick={() => handleStyle(1, 5)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Declined</li>
+                                    :
+                                    ""
+                                }
                             </ul>
                         </div>
                         {/* <div onClick={() => handleStyle(2, 1)} className={style == 2 ? "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-darkGreen" : "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-dark"}>
@@ -117,7 +123,7 @@ function Main() {
 
                     {
                         complaints && complaints.map((el, idx) => {
-                            if (el.status == filter || filter == 0 && el.status != 5)
+                            if (el.status == filter || filter == 0 && el.status != 5 && detailUser.roleUser == 2 || filter == 0 && detailUser.roleUser == 1)
                                 return (
                                     <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">
                                         <div className=" light-layer-2 active card mobile:w-full p-3 box-border rounded-lg h-52">
