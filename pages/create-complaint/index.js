@@ -11,6 +11,7 @@ function CreateComplaint() {
     
     useEffect(() => {
         setMenuActive('Create Complaint');
+        document.title = "Create Complaint - EnvCare"
     }, [])
 
     return (

@@ -97,13 +97,13 @@ function Main(props) {
                             ""
                     }</h1>
                     <div className="filter flex relative justify-end">
-                        <div className="light-layer-1">
+                        <div className="light-layer-1 rounded-lg">
                             <div onClick={handleFilter} className="light-layer-2 box cursor-pointer h-10 px-3 rounded-md flex justify-center items-center">
-                                <h4 className="font-medium text-sm mr-1">Filter</h4>
+                                <h4 className="font-medium text-xs mr-1">Filter</h4>
                                 <FiChevronDown className="text-xl" />
                             </div>
                         </div>
-                        <div className="filter-dropdown py-3 rounded-b-lg w-36 hidden rounded-tr-lg top-12 absolute z-10 bg-white shadow-lg">
+                        <div className="filter-dropdown py-3 rounded-b-lg w-36 hidden rounded-tl-lg top-12 absolute z-10 bg-white shadow-lg">
                             <ul>
                                 <li onClick={() => handleStyle(1, 0)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> All Complaint</li>
                                 <li onClick={() => handleStyle(1, 1)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Open</li>

@@ -11,6 +11,7 @@ function Report() {
 
     useEffect(() => {
         setMenuActive('Report');
+        document.title = "Report - EnvCare"
     }, [])
 
     return (

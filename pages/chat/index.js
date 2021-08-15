@@ -16,6 +16,7 @@ function Chat() {
 
     useEffect(() => {
         setMenuActive('Chat');
+        document.title = "Chat - EnvCare"
     }, [])
 
     const handleClick = (dataChat) => {

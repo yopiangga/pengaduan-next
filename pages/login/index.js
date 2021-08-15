@@ -1,21 +1,19 @@
 import { Loading } from "components/all/Loading";
 import Main from "components/login/Main";
-import { Component, useEffect } from "react";
+import { useEffect } from "react";
 
-class Login extends Component {
-    constructor(props){
-        super(props);
-    }
-    
-    render(){
+function Login() {
 
-        return (
-            <div>
-                <Loading />
-                <Main />
-            </div>
-        )
-    }
+    useEffect(() => {
+        document.title = "Login - EnvCare"
+    }, [])
+
+    return (
+        <div>
+            <Loading />
+            <Main />
+        </div>
+    )
 }
 
 export default Login;

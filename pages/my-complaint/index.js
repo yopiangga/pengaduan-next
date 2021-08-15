@@ -11,6 +11,7 @@ function MyComplaint() {
     
     useEffect(() => {
         setMenuActive('My Complaint');
+        document.title = "My Complaint - EnvCare"
     }, [])
         return (
             <div className="page w-full bg-light">

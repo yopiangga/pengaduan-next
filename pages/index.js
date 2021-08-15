@@ -10,6 +10,7 @@ function Dashboard() {
 
     useEffect(() => {
         setMenuActive('Dashboard');
+        document.title = "Dashboard - EnvCare"
     }, [])
 
     return (

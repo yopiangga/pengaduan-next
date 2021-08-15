@@ -14,6 +14,7 @@ function Tag() {
 
     useEffect(() => {
         setMenuActive('Dashboard');
+        document.title = "Trending - EnvCare"
     }, [])
 
         return (

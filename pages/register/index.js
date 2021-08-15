@@ -1,23 +1,12 @@
 import { Loading } from "components/all/Loading";
 import Main from "components/register/Main";
-import { Component, useEffect } from "react";
+import { useEffect } from "react";
 
-class Register extends Component {
-    constructor(props){
-        super(props);
-    }
-    render(){
-        const options = {
-            particles: {
-                number: {
-                    value: 60,
-                    density: {
-                        enable: true,
-                        value_area: 500
-                    }
-                }, 
-            }
-        }
+function Register() {
+
+    useEffect(() => {
+        document.title = "Register - EnvCare"
+    }, [])
 
         return (
             <div>
@@ -25,7 +14,6 @@ class Register extends Component {
                 <Main />
             </div>
         )
-    }
 }
 
 export default Register;

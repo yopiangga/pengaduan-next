@@ -10,6 +10,7 @@ function MyProfile() {
 
     useEffect(() => {
         setMenuActive('My Profile');
+        document.title = "My Profile - EnvCare"
     }, [])
 
         return (

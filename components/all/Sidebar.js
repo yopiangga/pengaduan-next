@@ -1,10 +1,10 @@
-const { Component } = require("react");
 import Image from 'next/image';
-import logo from 'public/assets/images/logo.png'
 import { FiAlertOctagon, FiBox, FiEdit, FiFileText, FiHome, FiLogOut, FiMessageCircle, FiMessageSquare, FiUser } from 'react-icons/fi'
 import Link from 'next/link'
 import Router from 'next/router';
 import { useAppContext } from 'components/states/GlobalStates';
+import logo from './../../public/assets/images/logo.png'
+import firebase from 'firebase'
 
 function Sidebar() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
@@ -22,6 +22,7 @@ function Sidebar() {
             <div className="content-nav bg-white h-full w-full rounded-lg shadow-inner flex flex-col justify-between">
                 <div className="logo w-full h-20 px-1 pt-2">
                     <Image src={logo} alt="logo" onClick={() => Router.push('/')} />
+                    {/* <Image src="../../public/assets/images/logo.png" alt="logo" onClick={() => Router.push('/')} /> */}
                 </div>
 
                 {
@@ -83,7 +84,7 @@ function Sidebar() {
                 }
 
                 <div className="logout h-20">
-                    <li onClick={handleLogout}>
+                    <li onClick={handleLogout} className="list-none">
                         <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl">
                             <FiLogOut />
                         </div>
