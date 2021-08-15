@@ -29,7 +29,6 @@ function Message(props) {
 
     const getChatComplaint = (items) => {
         setChatComplaint(items.val());
-        console.log(items.val())
 
         var dataChats = [];
         for (var item in items.val().message) {
@@ -50,7 +49,7 @@ function Message(props) {
         event.preventDefault();
         const date = new Date();
         const time = date.getTime();
-        firebase.database().ref(`chats/${chatComplaint.key}/message`).push({
+        firebase.database().ref(`chats/${chatComplaint.key}/message/${time}`).set({
             from: parseInt(props.role),
             status: 1,
             text: textChat,

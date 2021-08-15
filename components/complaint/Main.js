@@ -56,7 +56,7 @@ function Main(props) {
     }
 
     function getChats(items) {
-        if (items == undefined)
+        if (items.val() == undefined || items.val() == null || items.val() == '')
             setStartChat(true)
         else
             setStartChat(false)
@@ -198,12 +198,14 @@ function Main(props) {
             idUser: complaint.authorId,
             title: complaint.title,
             image: complaint.image,
-            message: [{
-                time: time,
+            message: {
+                [time]: {
+                    time: time,
                 text: 'Hallo Author!',
                 status: 1,
                 from: 1
-            }],
+                }
+            }, 
 
         }).catch();
 
@@ -213,7 +215,7 @@ function Main(props) {
     const handleContinueChat = () => {
         const date = new Date();
         const time = date.getTime();
-        firebase.database().ref(`chats/${complaint.key}/message`).push({
+        firebase.database().ref(`chats/${complaint.key}/message/${time}`).push({
             from: parseInt(1),
             status: 1,
             text: 'Hai Author!',

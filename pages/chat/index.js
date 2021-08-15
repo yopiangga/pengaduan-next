@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import firebase from 'firebase'
 import { useAppContext } from "components/states/GlobalStates";
 import RedirectLogin from "components/all/RedirectLogin";
+import { MessageEmpty } from "components/chat/MessageEmpty";
 
 function Chat() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
@@ -57,7 +58,7 @@ function Chat() {
                                             chatOpen == 1 ?
                                                 <Message idComplaint={chatComplaint.key} user={user} onClick={() => setChatOpen(false)} role='1' />
                                                 :
-                                                ""
+                                                <MessageEmpty />
                                         }
                                     </div>
                                     :
@@ -67,7 +68,7 @@ function Chat() {
                                             chatOpen == 1 ?
                                                 <Message idComplaint={chatComplaint.key} user={user} onClick={() => setChatOpen(false)} role='2' />
                                                 :
-                                                ""
+                                                <MessageEmpty />
                                         }
                                     </div>
                             }

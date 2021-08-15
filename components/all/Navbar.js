@@ -109,7 +109,12 @@ function Navbar() {
                             :
                             <div className="h-16 mr-3 cursor-pointer bg-white flex items-center relative">
                                 <div onClick={handleShowProfile} className="image rounded-full h-10 w-10 mr-3 overflow-hidden bg-light">
-                                    <Image src={example} height="100" width="100" alt="user" />
+                                    {
+                                        detailUser == undefined || detailUser.picture == '' || detailUser.picture == 'default' ? 
+                                        <Image src={example} height="100" width="100" alt="user" />
+                                        :
+                                        <Image src={detailUser.picture} height="100" width="100" alt="user" />
+                                    }
                                 </div>
                                 <div onClick={handleShowProfile} className="text mr-3 tablet:block mobile:hidden">
                                     <h4 className="font-medium text-sm">{detailUser.fullname}</h4>
