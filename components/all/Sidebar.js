@@ -9,6 +9,14 @@ import { useAppContext } from 'components/states/GlobalStates';
 function Sidebar() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
 
+    const handleLogout = () => {
+        firebase.auth().signOut().then(() => {
+            router.push('/login')
+          }).catch((error) => {
+            // An error happened.
+          });
+    }
+
     return (
         <div className="sidebar tablet:h-screen mobile:h-0 overflow-hidden duration-300 w-14 pb-8 left-4 top-4 pr-2 fixed z-40 block">
             <div className="content-nav bg-white h-full w-full rounded-lg shadow-inner flex flex-col justify-between">
@@ -75,11 +83,11 @@ function Sidebar() {
                 }
 
                 <div className="logout h-20">
-                    <Link href="/login">
-                        <a className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl">
+                    <li onClick={handleLogout}>
+                        <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl">
                             <FiLogOut />
-                        </a>
-                    </Link>
+                        </div>
+                    </li>
                 </div>
             </div>
         </div>
