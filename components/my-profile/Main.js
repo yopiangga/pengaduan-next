@@ -11,6 +11,7 @@ function Main() {
 
     const [user, setUser] = useState({})
     const [password, setPassword] = useState({})
+    const [file, setFile] = useState(null);
 
     useEffect(() => {
         setUser(detailUser)
@@ -21,34 +22,33 @@ function Main() {
             ...user,
             [event.target.name]: event.target.value
         })
-        console.log(user)
     }
 
     const handleUpdateProfile = (event) => {
         event.preventDefault();
         firebase.firestore().collection("users").doc(detailUser.idUser.toString()).update({
-            fullname: user.fullname, 
+            fullname: user.fullname,
             nickname: user.nickname,
             job: user.job,
-            address: user.address,   
+            address: user.address,
         })
-        .then((res) => {
-            setModalInformation({
-                title: "Update Success",
-                description: "Your profile success changed.",
-                status: true,
-                isOpen: true,
+            .then((res) => {
+                setModalInformation({
+                    title: "Update Success",
+                    description: "Your profile success changed.",
+                    status: true,
+                    isOpen: true,
+                })
             })
-        })
-        .catch((error) => {
-            setModalInformation({
-                title: "Update Failed",
-                description: "Your profile failed change.",
-                status: false,
-                isOpen: true,
-            })
-            console.error("Error writing document: ", error);
-        });
+            .catch((error) => {
+                setModalInformation({
+                    title: "Update Failed",
+                    description: "Your profile failed change.",
+                    status: false,
+                    isOpen: true,
+                })
+                console.error("Error writing document: ", error);
+            });
     }
 
     const handleChangePassword = (event) => {
@@ -61,7 +61,7 @@ function Main() {
     const handleUpdatePassword = (event) => {
         event.preventDefault();
 
-        if(password.password1 != password.password2){
+        if (password.password1 != password.password2) {
             setModalInformation({
                 title: "Change Password Failed",
                 description: "Your password do not match!",
@@ -70,7 +70,7 @@ function Main() {
             })
         } else {
             const db_pass = firebase.auth().currentUser;
-            
+
             db_pass.updatePassword(password.password1).then(() => {
                 setModalInformation({
                     title: "Change Password Success",
@@ -88,6 +88,71 @@ function Main() {
                 console.log(error)
             });
         }
+    }
+
+    const handleChangePicture = (e) => {
+        handlePushPicture(e.target.files[0]);
+    }
+
+    const handlePushPicture = (dataFile) => {
+        const date = new Date();
+        const time = date.getTime();
+        const ref = firebase.storage().ref(`/users/${time}_${detailUser.idUser}_${dataFile.name}`);
+        const uploadTask = ref.put(dataFile);
+        uploadTask.on("state_changed", console.log, console.error, () => {
+            ref
+                .getDownloadURL()
+                .then((url) => {
+                    setFile(null);
+                    handleUpdatePicture(time, url);
+                });
+        });
+    }
+
+    const handleUpdatePicture = (time, urlPicture) => {
+        firebase.firestore().collection("users").doc(detailUser.idUser.toString()).update({
+            picture: urlPicture,
+        })
+            .then((res) => {
+                setModalInformation({
+                    title: "Change Success",
+                    description: "Your photo profile success changed.",
+                    status: true,
+                    isOpen: true,
+                })
+            })
+            .catch((error) => {
+                setModalInformation({
+                    title: "Change Failed",
+                    description: "Your photo profile failed change.",
+                    status: false,
+                    isOpen: true,
+                })
+                console.error("Error writing document: ", error);
+            });
+    }
+
+    const handleResetPicture = () => {
+        firebase.firestore().collection("users").doc(detailUser.idUser.toString()).update({
+            picture: 'default',
+        })
+            .then((res) => {
+                setModalInformation({
+                    title: "Reset Success",
+                    description: "Your photo profile success reset.",
+                    status: true,
+                    isOpen: true,
+                })
+            })
+            .catch((error) => {
+                setModalInformation({
+                    title: "Reset Failed",
+                    description: "Your photo profile failed reset.",
+                    status: false,
+                    isOpen: true,
+                })
+                console.error("Error writing document: ", error);
+            });
     }
 
     return (
@@ -111,9 +176,15 @@ function Main() {
                         </div>
                     </div>
 
-                    <div className="action">
-                        <button className="py-2 px-6 mr-3 bg-darkGreen rounded-full text-white font-medium">Change</button>
-                        <button className="py-2 px-6 rounded-full font-medium">Remove</button>
+                    <div className="action flex">
+                        <div className="relative w-32 h-12">
+                            <div className="bg-darkGreen text-white font-bold w-full h-full rounded-full flex flex-col justify-center items-center absolute z-0">
+                                <span className="laptop:w-full text-center">Change</span>
+                            </div>
+                            <input className="cursor-pointer w-full h-full opacity-0 pin-r pin-t absolute z-10" type="file" id="avatar" name="avatar" onChange={handleChangePicture} accept="image/png, image/jpeg" />
+                        </div>
+                        {/* <button className="py-2 px-6 mr-3 bg-darkGreen rounded-full text-white font-medium">Change</button> */}
+                        <button onClick={handleResetPicture} className="py-2 px-6 rounded-full font-medium">Remove</button>
                     </div>
                 </div>
                 <div className="form-profile grid laptop:grid-cols-2 mobile:grid-cols-1">
