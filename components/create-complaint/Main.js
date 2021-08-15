@@ -205,7 +205,7 @@ function Main() {
                                     <div className="col w-full">
                                         <div className="form-group flex items-center">
                                             <label className="font-medium text-sm mr-3">or get your current location ?</label>
-                                            <button type="button" onClick={geoLocation} className="py-1 px-3 mr-3 text-sm bg-darkGreen rounded-full text-white font-medium">Get Location</button>
+                                            <div onClick={geoLocation} className="py-1 px-3 mr-3 text-sm bg-darkGreen rounded-full text-white font-medium cursor-pointer">Get Location</div>
                                         </div>
                                     </div>
                                 </div>
