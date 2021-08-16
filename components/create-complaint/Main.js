@@ -1,4 +1,4 @@
-const { Component, useState } = require("react");
+const { useState } = require("react");
 import { useAppContext } from 'components/states/GlobalStates';
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
@@ -41,6 +41,8 @@ function Main() {
             })
         }
     }
+
+    console.log(complaint)
 
     const showPosition = (position) => {
         setComplaint({

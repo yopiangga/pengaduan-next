@@ -61,31 +61,78 @@ function Main() {
                     })
                     console.log(error)
                 });
-            }
         }
-        
-        const handleDataUser = (data) => {
-            var docRef = firebase.firestore().collection("users").doc(data.uid);
-            
+    }
+
+    const handleDataUser = (data) => {
+        var docRef = firebase.firestore().collection("users").doc(data.uid);
+
         docRef.get().then((doc) => {
             if (doc.exists) {
                 setDetailUser({
-                    idUser: data.uid, 
-                    fullname: doc.data().fullname, 
-                    email: data.email, 
-                    address: doc.data().address, 
-                    roleUser: doc.data().roleUser, 
-                    typeLogin: doc.data().typeLogin, 
+                    idUser: data.uid,
+                    fullname: doc.data().fullname,
+                    email: data.email,
+                    address: doc.data().address,
+                    roleUser: doc.data().roleUser,
+                    typeLogin: doc.data().typeLogin,
                     picture: doc.data().picture,
                     work: doc.data().work
                 })
-                Router.push('/')
+                router.push('/')
             } else {
                 console.log("No such document!");
             }
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
+    }
+
+    const handleAuthGoogle = () => {
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+            .then((res) => {
+                // console.log(res)
+                if (res.additionalUserInfo.isNewUser == true) {
+                    createData(res.user);
+                } else {
+                    handleDataUser(res.user)
+                }
+
+            }).catch((error) => {
+                console.log(error)
+            });
+    }
+
+    const createData = (data) => {
+        firebase.firestore().collection("users").doc(data.uid.toString()).set({
+            fullname: data.displayName,
+            email: data.email,
+            address: "",
+            roleUser: "2",
+            typeLogin: "1",
+            picture: data.photoURL,
+            idUser: data.uid.toString()
+        })
+            .then(() => {
+                setDetailUser({
+                    idUser: data.uid,
+                    fullname: fullname,
+                    email: data.email,
+                    address: "",
+                    roleUser: "2",
+                    typeLogin: "1",
+                    picture: data.photoURL,
+                    work: ""
+                })
+                setIsLogin(1)
+                router.push('/')
+            })
+            .catch((error) => {
+                console.error("Error writing document: ", error);
+            });
+
     }
 
     return (
@@ -107,7 +154,7 @@ function Main() {
 
                     <p className="mb-10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, eius.</p>
 
-                    <div className="auth-google w-full h-12 mb-5 border border-gray-200 rounded-lg flex justify-center items-center cursor-pointer hover:border-darkGreen">
+                    <div onClick={() => handleAuthGoogle()} className="auth-google w-full h-12 mb-5 border border-gray-200 rounded-lg flex justify-center items-center cursor-pointer hover:border-darkGreen">
                         <Image src={googleImage} width="20" height="20" alt="google" />
                         <h4 className="font-medium ml-3">Log In with Google</h4>
                     </div>
