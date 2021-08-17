@@ -11,7 +11,8 @@ function Users(props) {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
 
     const [chats, setChats] = useState();
-    const [lastMsg, setLastMsg] = useState([])
+    const [lastMsg, setLastMsg] = useState([]);
+    const [filteredData, setFilteredData] = useState(chats);
 
     useEffect(() => {
         if (detailUser.idUser != undefined) {
@@ -31,6 +32,7 @@ function Users(props) {
         }
         getLastMessage(dataChats)
         setChats(dataChats)
+        setFilteredData(dataChats)
     }
 
 
@@ -91,16 +93,26 @@ function Users(props) {
         }
     }
 
+    const handleSearch = (event) => {
+        let value = event.target.value.toLowerCase();
+        let result = [];
+
+        result = chats.filter((data) => {
+            return data.title.search(value) != -1;
+        })
+        setFilteredData(result);
+    }
+
     return (
         <div className="contact laptop:w-1/3 mobile:w-full h-full relative laptop:flex mobile:flex flex-col items-center">
             <div className="search laptop:w-4/5 mobile:w-full h-12 relative flex justify-center items-center rounded-xl bg-white">
-                <input type="text" name="" id="" className="w-full outline-none px-3" placeholder="Search" />
+                <input onChange={(event) => handleSearch(event)} type="text" name="" id="" className="w-full outline-none px-3" placeholder="Search" />
                 <FiSearch className="absolute right-3 text-gray-400 text-lg" />
             </div>
             <div className="users w-full absolute top-16 bottom-0 right-0 overflow-scroll flex flex-col items-center">
 
                 {
-                    chats && chats.map(function (el, idx) {
+                    filteredData && filteredData.map(function (el, idx) {
                         return (
                             <div key={idx} onClick={() => handleSelectContact(el, lastMsg[idx])} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                                 <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
