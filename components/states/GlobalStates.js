@@ -5,7 +5,7 @@ import firebase from 'firebase'
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-  const [url, setUrl] = useState({ api: "https://", baseUrl: "https://", myUrl: "https://" });
+  const [url, setUrl] = useState({ api: "https://petikdua.store/", baseUrl: "https://petikdua.store/", myUrl: "https://petikdua.store/" });
   const [detailUser, setDetailUser] = useState({ idUser: "", fullname: "", nickname: "", email: "", address: "", roleUser: "", typeLogin: "", picture: "", work: "" });
   const [isLogin, setIsLogin] = useState(1);
   const [menuActive, setMenuActive] = useState();

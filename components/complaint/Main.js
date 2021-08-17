@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import ModalInformation from 'components/all/ModalInformation';
 import firebase from 'firebase';
 import ModalReportComplaint from 'components/all/ModalReportComplaint';
+import ShareMediaSocial from 'components/all/ShareMediaSocial';
 
 function Main(props) {
 
@@ -16,6 +17,7 @@ function Main(props) {
     const [complaint, setComplaint] = useState({ title: "", description: "", taggar: [], image: "", latitude: "", longitude: "", author: "", key: "", shared: "" });
     const [supports, setSupports] = useState([{}]);
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
+    const [shareMediaSocial, setShareMediaSocial] = useState({ title: "", description: "", link: "", status: "", isOpen: false })
     const [support, setSupport] = useState();
     const [opini, setOpini] = useState("");
     const [allOpini, setAllOpini] = useState()
@@ -244,6 +246,15 @@ function Main(props) {
         startFunction()
     }
 
+    const handleShare = () => {
+        setShareMediaSocial({
+            title: "Share to Media Social",
+            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, voluptate.",
+            isOpen: true,
+            link: `${url.baseUrl}complaint/${props.id}`
+        })
+    }
+
     return (
         <div className="pt-0">
             <ModalReportComplaint
@@ -258,6 +269,13 @@ function Main(props) {
                 status={modalInformation.status}
                 isOpen={modalInformation.isOpen}
                 onClick={() => setModalInformation({ title: "", description: "", status: "", isOpen: false })}
+            />
+            <ShareMediaSocial
+                title={shareMediaSocial.title}
+                description={shareMediaSocial.description}
+                isOpen={shareMediaSocial.isOpen}
+                link={shareMediaSocial.link}
+                onClick={() => setShareMediaSocial({ title: "", description: "", link: "", status: "", isOpen: false })}
             />
             <div className="content flex laptop:flex-row mobile:flex-col w-full pt-24 tablet:pl-20 mobile:px-4">
                 <div className="left laptop:w-3/4 mobile:w-full laptop:pr-5">
@@ -361,7 +379,7 @@ function Main(props) {
                     <div className="row mb-5 mobile:flex laptop:hidden">
                         <div className="col w-full">
                             <div className="form-group flex">
-                                <button className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
+                                <button onClick={handleShare} className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
                                 {
                                     support && support.key == null && isLogin == 1 ?
                                         <button onClick={handleSupport} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
@@ -532,12 +550,12 @@ function Main(props) {
                                         <div className="col w-full">
                                             {isLogin == 1 ?
                                                 <div className="form-group flex">
-                                                    <button className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
+                                                    <button onClick={handleShare} className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
                                                     <button onClick={handleReport} className="py-2 w-1/2  font-medium">Report</button>
                                                 </div>
                                                 :
                                                 <div className="form-group flex">
-                                                    <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
+                                                    <button onClick={handleShare} className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
                                                 </div>
                                             }
 

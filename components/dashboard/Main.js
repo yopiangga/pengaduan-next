@@ -123,7 +123,7 @@ function Main() {
 
                     {
                         complaints && complaints.map((el, idx) => {
-                            if (el.status == filter || filter == 0 && el.status != 5 && detailUser.roleUser == 2 || filter == 0 && detailUser.roleUser == 1)
+                            if (el.status == filter || filter == 0 && el.status != 5 && detailUser.roleUser == 2 || filter == 0 && detailUser.roleUser == 1 || filter == 0 && isLogin == 0 && el.status != 5)
                                 return (
                                     <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">
                                         <div className=" light-layer-2 active card mobile:w-full p-3 box-border rounded-lg h-52">

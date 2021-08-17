@@ -41,9 +41,7 @@ function Main() {
             })
         }
     }
-
-    console.log(complaint)
-
+    
     const showPosition = (position) => {
         setComplaint({
             ...complaint,
@@ -56,7 +54,6 @@ function Main() {
         const taggar = event.target.value.toLowerCase();
         let myArr = []
         myArr = taggar.split(', ');
-        // console.log(myArr)
 
         setComplaint({
             ...complaint,

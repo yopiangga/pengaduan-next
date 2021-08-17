@@ -10,7 +10,7 @@ import Particles from 'react-particles-js';
 import googleImage from 'public/assets/images/google.png'
 import $ from 'jquery'
 import { useAppContext } from "components/states/GlobalStates";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import firebase from 'firebase'
 import ModalInformation from "components/all/ModalInformation";
 
@@ -19,6 +19,8 @@ function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [userLogin, setUserLogin] = useState({ email: "", password: "" });
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
+
+    const router = useRouter();
 
     const options = {
         particles: {
