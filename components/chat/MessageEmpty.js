@@ -3,7 +3,7 @@ import logo from 'public/assets/images/logo.png'
 
 export function MessageEmpty(){
     return(
-        <div className="message laptop:w-2/3 mobile:w-full h-full relative laptop:flex mobile:flex flex-col">
+        <div className="message laptop:w-2/3 h-full relative laptop:flex mobile:hidden flex-col">
             <div className="h-full w-full rounded-lg flex flex-col items-center justify-center bg-white">
                 <div className="image w-24 h-24 relative overflow-hidden mb-3">
                     <Image src={logo} layout="fill" objectFit="cover" />

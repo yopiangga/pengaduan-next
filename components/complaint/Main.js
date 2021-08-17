@@ -255,6 +255,8 @@ function Main(props) {
         })
     }
 
+    // console.log(allOpini)
+
     return (
         <div className="pt-0">
             <ModalReportComplaint
@@ -381,13 +383,13 @@ function Main(props) {
                             <div className="form-group flex">
                                 <button onClick={handleShare} className="py-2 w-1/2 mr-3 bg-transparent rounded-full text-darkGreen border border-darkGreen font-medium">Share</button>
                                 {
-                                    support && support.key == null && isLogin == 1 ?
+                                    support == undefined && detailUser.roleUser == 2 ?
                                         <button onClick={handleSupport} className="py-2 w-full mr-3 bg-darkGreen rounded-full text-white font-medium">Support Complaint</button>
                                         :
                                         ""
                                 }
                                 {
-                                    support && support.key != null && isLogin == 1 ?
+                                    support != undefined && detailUser.roleUser == 2 ?
                                         <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
                                         :
                                         ""
@@ -434,6 +436,14 @@ function Main(props) {
 
                         <div className="light-layer-1 active mb-5">
                             <div className="light-layer-2 active p-3">
+                                {
+                                    allOpini == undefined || allOpini.length == 0 ? 
+                                    <div className="text-center">
+                                        <p>No comments support yet</p>
+                                    </div>
+                                    :
+                                    ""
+                                }
                                 {
                                     allOpini && allOpini.map(function (el, idx) {
                                         return (
@@ -506,7 +516,13 @@ function Main(props) {
                                     </form>
                                 </div>
                                 :
-                                ""
+                                <div className="light-layer-1 active mb-5">
+                                    <div className="light-layer-2 active p-3">
+                                        <div className="text-center">
+                                            <p>You must support the complaint to be able to submit a support opinion</p>
+                                        </div>
+                                    </div>
+                                </div>
                         }
 
                         {
