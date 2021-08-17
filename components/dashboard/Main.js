@@ -48,11 +48,18 @@ function Main() {
     }
 
     const handleMoreAction = (id) => {
-        $(`#more-action-${id}`).toggleClass('hidden').toggleClass('block')
+        for(let i=0; i<complaints.length; i++){
+            if(id == i)
+                $(`#more-action-${i}`).toggleClass('hidden').toggleClass('block')
+            else
+                $(`#more-action-${i}`).addClass('hidden').removeClass('block')
+        }
+        handleClose();
     }
 
     const handleClose = () => {
         $('.filter-dropdown').addClass('hidden').removeClass('block')
+
     }
 
     const handleTag = (event) => {
@@ -112,9 +119,7 @@ function Main() {
                                 }
                             </ul>
                         </div>
-                        {/* <div onClick={() => handleStyle(2, 1)} className={style == 2 ? "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-darkGreen" : "box cursor-pointer w-10 h-10 ml-3 bg-white rounded-md flex justify-center items-center text-2xl text-dark"}>
-                        <RiLayoutMasonryLine />
-                    </div> */}
+                        
                     </div>
 
                 </div>
@@ -131,10 +136,10 @@ function Main() {
                                                 <div className="title h-12 overflow-hidden w-full flex justify-between">
                                                     <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
                                                 </div>
-                                                <div onClick={() => handleMoreAction(el.key)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
+                                                <div onClick={() => handleMoreAction(idx)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                                     <FiMoreHorizontal />
                                                 </div>
-                                                <div id={`more-action-${el.key}`} className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+                                                <div id={`more-action-${idx}`} className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
                                                     {
                                                         (detailUser.idUser == null || detailUser.idUser == '') ?
                                                             <ul>
@@ -142,7 +147,6 @@ function Main() {
                                                             </ul>
                                                             :
                                                             <ul>
-                                                                {/* <li onClick={() => handleSupport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Support</li> */}
                                                                 <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
                                                                 <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
                                                             </ul>
