@@ -20,7 +20,7 @@ function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [userLogin, setUserLogin] = useState({ email: "", password: "" });
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
-    const [showPass, setShowPass] = useState(false);
+    const [showPass, setShowPass] = useState(true);
 
     const router = useRouter();
 
