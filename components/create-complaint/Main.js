@@ -8,6 +8,7 @@ import $ from 'jquery'
 import { useRouter } from 'next/router';
 import GoogleMaps from 'components/all/GoogleMaps';
 import ModalInformationRedirect from 'components/all/ModalInformationRedirect';
+import { FaUpload } from 'react-icons/fa';
 
 function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
@@ -17,10 +18,16 @@ function Main() {
     const [file, setFile] = useState(null);
     const router = useRouter();
 
-    const [modalInformationRedirect, setModalInformationRedirect] = useState({title: "", description: "", status: "", isOpen: false})
+    const [modalInformationRedirect, setModalInformationRedirect] = useState({ title: "", description: "", status: "", isOpen: false })
 
     const handleImageAsFile = (e) => {
-        setFile(e.target.files[0]);
+        const file = e.target.files[0];
+        var pattern = /image-*/;
+        
+        if (file.type.match(pattern)) {
+            setFile(e.target.files[0]);
+            return;
+        }
     }
 
     const handleChange = (event) => {
@@ -41,7 +48,7 @@ function Main() {
             })
         }
     }
-    
+
     const showPosition = (position) => {
         setComplaint({
             ...complaint,
@@ -63,7 +70,7 @@ function Main() {
 
     const handleValidation = (event) => {
         event.preventDefault();
-        if(complaint.title == "" || complaint.description == "" || complaint.taggar == "" || complaint.latitude == "" || complaint.longitude == ""){
+        if (complaint.title == "" || complaint.description == "" || complaint.taggar == "" || complaint.latitude == "" || complaint.longitude == "") {
             setModalInformationRedirect({
                 title: "Complaint Failed",
                 description: "Your complaint failed created, fill in all the data you.",
@@ -75,10 +82,10 @@ function Main() {
             Push();
         }
     }
-    
+
     const Push = () => {
         $('.bg-loading').removeClass('hidden').addClass('flex');
-        if(file != null){
+        if (file != null) {
             const date = new Date();
             const time = date.getTime();
             const ref = firebase.storage().ref(`/complaint/${time}_${detailUser.idUser}_${file.name}`);
@@ -95,7 +102,7 @@ function Main() {
             const date = new Date();
             const time = date.getTime();
             pushData(time, '');
-           
+
         }
         $('.bg-loading').removeClass('flex').addClass('hidden');
     }
@@ -121,7 +128,7 @@ function Main() {
         })
 
         $('.bg-loading').removeClass('flex').addClass('hidden');
-        
+
         setModalInformationRedirect({
             title: "Complaint Created",
             description: "Your complaint success created, waiting for accept for admin.",
@@ -131,15 +138,22 @@ function Main() {
         })
     }
 
+    const handleCancel = () => {
+        setComplaint({
+            title: "", description: "", taggar: "", image: "", latitude: "", longitude: ""
+        })
+        router.push('/')
+    }
+
     return (
         <div className="flex justify-center">
-            <ModalInformationRedirect 
-            title={modalInformationRedirect.title} 
-            description={modalInformationRedirect.description} 
-            status={modalInformationRedirect.status}
-            isOpen={modalInformationRedirect.isOpen}
-            url={modalInformationRedirect.url}
-            onClick={() => setModalInformationRedirect({title: "", description: "", status: "", isOpen: false})}
+            <ModalInformationRedirect
+                title={modalInformationRedirect.title}
+                description={modalInformationRedirect.description}
+                status={modalInformationRedirect.status}
+                isOpen={modalInformationRedirect.isOpen}
+                url={modalInformationRedirect.url}
+                onClick={() => setModalInformationRedirect({ title: "", description: "", status: "", isOpen: false })}
             />
             <div className="content flex flex-col w-full pt-24 tablet:pl-20 mobile:pl-0">
                 <h1 className="text-3xl font-medium mb-5">Create Complaint</h1>
@@ -177,7 +191,14 @@ function Main() {
                                     <div className="col w-full">
                                         <div className="form-group flex flex-col">
                                             <label className="font-medium text-sm mb-3">Image</label>
-                                            <input type="file" onChange={handleImageAsFile} className="text-lg outline-none py-2 pr-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" />
+                                            <div className="relative h-32">
+                                                <div className="border-2 border-dashed border-dark border-opacity-90 text-dark font-bold w-full h-32 rounded-xl flex flex-col justify-center items-center absolute z-0">
+                                                    <FaUpload />
+                                                    <span className="ml-2 mt-2 laptop:w-96 text-center">{(file == null || file == undefined || file == '') ? "Upload Image" : file.name}</span>
+                                                </div>
+                                                <input className="cursor-pointer w-full h-40 opacity-0 pin-r pin-t absolute z-10" type="file" id="avatar" name="avatar" onChange={handleImageAsFile} accept="image/png, image/jpeg" />
+                                            </div>
+                                            {/* <input type="file" onChange={handleImageAsFile} className="text-lg outline-none py-2 pr-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" /> */}
                                         </div>
                                     </div>
                                 </div>
@@ -213,9 +234,9 @@ function Main() {
                                         <div className="form-group flex h-96 w-full relative">
                                             {
                                                 complaint.latitude == '' || complaint.longitude == '' ?
-                                                ""
-                                                :
-                                                <GoogleMaps latitude={complaint.latitude} longitude={complaint.longitude} />
+                                                    ""
+                                                    :
+                                                    <GoogleMaps latitude={complaint.latitude} longitude={complaint.longitude} />
                                             }
                                         </div>
                                     </div>
@@ -229,7 +250,7 @@ function Main() {
                             <div className="col w-full">
                                 <div className="form-group flex">
                                     <button type="submit" className="py-2 px-6 mr-3 bg-darkGreen rounded-full text-white font-medium">Post Complaint</button>
-                                    <button className="py-2 px-6 mr-3  font-medium">Cancel</button>
+                                    <button onClick={handleCancel} type="button" className="py-2 px-6 mr-3  font-medium">Cancel</button>
                                 </div>
                             </div>
                         </div>

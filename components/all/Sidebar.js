@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FiAlertOctagon, FiBox, FiEdit, FiFileText, FiHome, FiLogOut, FiMessageCircle, FiMessageSquare, FiUser } from 'react-icons/fi'
 import Link from 'next/link'
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useAppContext } from 'components/states/GlobalStates';
 import logo from './../../public/assets/images/logo.png'
 import firebase from 'firebase'
@@ -9,12 +9,14 @@ import firebase from 'firebase'
 function Sidebar() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
 
+    const router = useRouter();
+
     const handleLogout = () => {
         firebase.auth().signOut().then(() => {
             router.push('/login')
-          }).catch((error) => {
+        }).catch((error) => {
             // An error happened.
-          });
+        });
     }
 
     return (
@@ -84,11 +86,16 @@ function Sidebar() {
                 }
 
                 <div className="logout h-20">
-                    <li onClick={handleLogout} className="list-none">
-                        <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl">
-                            <FiLogOut />
-                        </div>
-                    </li>
+                    {
+                        isLogin == 1 ?
+                            <li onClick={handleLogout} className="list-none">
+                                <div className="w-full cursor-pointer h-12 bg-white flex justify-center items-center text-xl">
+                                    <FiLogOut />
+                                </div>
+                            </li>
+                            :
+                            ""
+                    }
                 </div>
             </div>
         </div>

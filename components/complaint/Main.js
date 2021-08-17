@@ -285,7 +285,7 @@ function Main(props) {
                             :
                             // ""
                             <div className="image w-full h-96 mb-5 bg-white relative overflow-hidden">
-                                <Image src={`/${complaint.image}`} passHref={true} layout="fill" objectFit="cover" alt="image complaint" />
+                                <Image src={`${complaint.image}`} passHref={true} layout="fill" objectFit="cover" alt="image complaint" />
                             </div>
                     }
 

@@ -1,9 +1,8 @@
 module.exports = {
   target: 'serverless',
-  reactStrictMode: true,
   images: {
     loader: 'imgix',
-    path: '',
+    path: 'http://localhost:3000/',
   },
 
   async rewrites() {
