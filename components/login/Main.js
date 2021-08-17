@@ -13,12 +13,14 @@ import { useAppContext } from "components/states/GlobalStates";
 import Router, { useRouter } from "next/router";
 import firebase from 'firebase'
 import ModalInformation from "components/all/ModalInformation";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function Main() {
 
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [userLogin, setUserLogin] = useState({ email: "", password: "" });
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
+    const [showPass, setShowPass] = useState(false);
 
     const router = useRouter();
 
@@ -168,8 +170,14 @@ function Main() {
                         <div className="form-group mb-7">
                             <input type="email" name="email" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Email Address" value={userLogin.email} onChange={handleChange} />
                         </div>
-                        <div className="form-group mb-7">
-                            <input type="password" name="password" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Password" value={userLogin.password} onChange={handleChange} />
+                        <div className="form-group mb-7 relative">
+                            <input type={showPass ? "text" : "password"} name="password" className="h-10 border-b w-full px-3 py-2 outline-none" placeholder="Password" value={userLogin.password} onChange={handleChange} />
+                            {
+                                !showPass ? 
+                                <FiEye onClick={() => setShowPass(true)} className="absolute top-3 right-2 cursor-pointer text-lg" />
+                                :
+                                <FiEyeOff onClick={() => setShowPass(false)} className="absolute top-3 right-2 cursor-pointer text-lg" />
+                            }
                         </div>
                         <div className="form-group mb-5">
                             <button type="submit" className="w-full h-12 bg-darkGreen rounded-lg font-medium text-white">Login</button>
