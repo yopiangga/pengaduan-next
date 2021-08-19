@@ -17,6 +17,32 @@ function Main() {
         setUser(detailUser)
     }, [detailUser])
 
+    const getUser = () => {
+        var docRef = firebase.firestore().collection("users").doc(detailUser.idUser.toString());
+        // console.log(detailUser.idUser)
+        docRef.get().then((doc) => {
+          if (doc.exists) {
+            setIsLogin(1);
+            setDetailUser({
+              idUser: detailUser.idUser,
+              fullname: doc.data().fullname,
+              nickname: doc.data().nickname,
+              job: doc.data().job,
+              email: detailUser.email,
+              address: doc.data().address,
+              roleUser: doc.data().roleUser,
+              typeLogin: doc.data().typeLogin,
+              picture: doc.data().picture,
+              work: doc.data().work
+            })
+          } else {
+            console.log("No such document!");
+          }
+        }).catch((error) => {
+          console.log("Error getting document:", error);
+        });
+      }
+
     const handleChangeProfile = (event) => {
         setUser({
             ...user,
@@ -39,6 +65,7 @@ function Main() {
                     status: true,
                     isOpen: true,
                 })
+                getUser();
             })
             .catch((error) => {
                 setModalInformation({
@@ -120,6 +147,7 @@ function Main() {
                     status: true,
                     isOpen: true,
                 })
+                getUser();
             })
             .catch((error) => {
                 setModalInformation({
@@ -143,6 +171,7 @@ function Main() {
                     status: true,
                     isOpen: true,
                 })
+                getUser();
             })
             .catch((error) => {
                 setModalInformation({
