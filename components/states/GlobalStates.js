@@ -15,7 +15,7 @@ export function AppWrapper({ children }) {
     image: 'https://firebasestorage.googleapis.com/v0/b/pengaduan-e0f12.appspot.com/o/assets%2Fimage.png?alt=media&token=9b275ce3-182d-4b1e-b21c-4e99d8e97d0e',
     
   })
-  const [detailUser, setDetailUser] = useState({ idUser: "", fullname: "", nickname: "", email: "", address: "", roleUser: "", typeLogin: "", picture: "", work: "" });
+  const [detailUser, setDetailUser] = useState({ idUser: "", fullname: "", nickname: "", email: "", address: "", roleUser: "", typeLogin: "", picture: "", job: "" });
   const [isLogin, setIsLogin] = useState(1);
   const [menuActive, setMenuActive] = useState();
 
@@ -100,7 +100,7 @@ export function AppWrapper({ children }) {
           roleUser: doc.data().roleUser,
           typeLogin: doc.data().typeLogin,
           picture: doc.data().picture,
-          work: doc.data().work
+          job: doc.data().job
         })
       } else {
         console.log("No such document!");

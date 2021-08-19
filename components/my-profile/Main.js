@@ -9,73 +9,117 @@ function Main() {
     const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
 
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({
+        idUser: "",
+        fullname: { error: false, text: "", textError: "" },
+        nickname: { error: false, text: "", textError: "" },
+        email: "",
+        address: { error: false, text: "", textError: "" },
+        roleUser: "",
+        typeLogin: "",
+        picture: "",
+        job: { error: false, text: "", textError: "" }
+    })
     const [password, setPassword] = useState({})
     const [file, setFile] = useState(null);
 
     useEffect(() => {
-        setUser(detailUser)
+        setUser({
+            idUser: detailUser.idUser,
+            fullname: { error: false, text: detailUser.fullname, textError: "" },
+            nickname: { error: false, text: detailUser.nickname, textError: "" },
+            email: detailUser.email,
+            address: { error: false, text: detailUser.address, textError: "" },
+            roleUser: detailUser.roleUser,
+            typeLogin: detailUser.typeLogin,
+            picture: detailUser.picture,
+            job: { error: false, text: detailUser.job, textError: "" }
+        })
     }, [detailUser])
 
     const getUser = () => {
         var docRef = firebase.firestore().collection("users").doc(detailUser.idUser.toString());
         // console.log(detailUser.idUser)
         docRef.get().then((doc) => {
-          if (doc.exists) {
-            setIsLogin(1);
-            setDetailUser({
-              idUser: detailUser.idUser,
-              fullname: doc.data().fullname,
-              nickname: doc.data().nickname,
-              job: doc.data().job,
-              email: detailUser.email,
-              address: doc.data().address,
-              roleUser: doc.data().roleUser,
-              typeLogin: doc.data().typeLogin,
-              picture: doc.data().picture,
-              work: doc.data().work
-            })
-          } else {
-            console.log("No such document!");
-          }
+            if (doc.exists) {
+                setIsLogin(1);
+                setDetailUser({
+                    idUser: detailUser.idUser,
+                    fullname: doc.data().fullname,
+                    nickname: doc.data().nickname,
+                    job: doc.data().job,
+                    email: detailUser.email,
+                    address: doc.data().address,
+                    roleUser: doc.data().roleUser,
+                    typeLogin: doc.data().typeLogin,
+                    picture: doc.data().picture,
+                    job: doc.data().job
+                })
+            } else {
+                console.log("No such document!");
+            }
         }).catch((error) => {
-          console.log("Error getting document:", error);
+            console.log("Error getting document:", error);
         });
-      }
+    }
 
     const handleChangeProfile = (event) => {
+        let error = false;
+        let textError = "";
+
+        if (event.target.value == '') {
+            textError = "Can not be empty!";
+            error = true;
+        } else {
+            error = false;
+            textError = "";
+        }
         setUser({
             ...user,
-            [event.target.name]: event.target.value
+            [event.target.name]: {
+                text: event.target.value,
+                error: error,
+                textError: textError
+            }
         })
     }
 
     const handleUpdateProfile = (event) => {
         event.preventDefault();
-        firebase.firestore().collection("users").doc(detailUser.idUser.toString()).update({
-            fullname: user.fullname,
-            nickname: user.nickname,
-            job: user.job,
-            address: user.address,
-        })
-            .then((res) => {
-                setModalInformation({
-                    title: "Update Success",
-                    description: "Your profile success changed.",
-                    status: true,
-                    isOpen: true,
-                })
-                getUser();
+        if (user.fullname.error || user.nickname.error || user.job.error || user.address.error) {
+            setModalInformation({
+                title: "Update Failed",
+                description: "Your profile failed change.",
+                status: false,
+                isOpen: true,
             })
-            .catch((error) => {
-                setModalInformation({
-                    title: "Update Failed",
-                    description: "Your profile failed change.",
-                    status: false,
-                    isOpen: true,
+        } else {
+            firebase.firestore().collection("users").doc(detailUser.idUser.toString()).update({
+                fullname: user.fullname.text,
+                nickname: user.nickname.text,
+                job: user.job.text,
+                address: user.address.text,
+            })
+                .then((res) => {
+                    setModalInformation({
+                        title: "Update Success",
+                        description: "Your profile success changed.",
+                        status: true,
+                        isOpen: true,
+                    })
+                    getUser();
                 })
-                console.error("Error writing document: ", error);
-            });
+                .catch((error) => {
+                    setModalInformation({
+                        title: "Update Failed",
+                        description: "Your profile failed change.",
+                        status: false,
+                        isOpen: true,
+                    })
+                    console.error("Error writing document: ", error);
+                });
+
+        }
     }
 
     const handleChangePassword = (event) => {
@@ -220,17 +264,29 @@ function Main() {
                     <div className="left mobile:mb-7 laptop:mb-0">
                         <form onSubmit={handleUpdateProfile} className="">
                             <h3 className="font-bold text-xl mb-5">General</h3>
-                            <div className="row flex laptop:flex-row mobile:flex-col mb-5 laptop:w-11/12 mobile:w-full justify-between">
+                            <div className="row flex laptop:flex-row mobile:flex-col mini:mb-5 mobile:mb-5 laptop:mb-0 laptop:w-11/12 mobile:w-full justify-between">
                                 <div className="col w-full laptop:pr-2 mobile:pr-0">
                                     <div className="form-group flex flex-col mobile:mb-5">
                                         <label className="font-medium text-sm mb-3">Full Name</label>
-                                        <input type="text" onChange={handleChangeProfile} name="fullname" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="John Doe" value={user.fullname} />
+                                        <input type="text" onChange={handleChangeProfile} name="fullname" className={user.fullname.error ? "outline-none border border-orange py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-none" : "text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium"} placeholder="John Doe" value={user.fullname.text} />
+                                        {
+                                            user.fullname.error ?
+                                                <span className="text-sm text-orange">{user.fullname.textError}</span>
+                                                :
+                                                ""
+                                        }
                                     </div>
                                 </div>
                                 <div className="col w-full laptop:pl-2 mobile:pl-0">
                                     <div className="form-group flex flex-col">
                                         <label className="font-medium text-sm mb-3">Nick Name</label>
-                                        <input type="text" onChange={handleChangeProfile} name="nickname" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="John" value={user.nickname} />
+                                        <input type="text" onChange={handleChangeProfile} name="nickname" className={user.nickname.error ? "outline-none border border-orange py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-none" : "text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium"} placeholder="John" value={user.nickname.text} />
+                                        {
+                                            user.nickname.error ?
+                                                <span className="text-sm text-orange">{user.nickname.textError}</span>
+                                                :
+                                                ""
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -238,7 +294,13 @@ function Main() {
                                 <div className="col w-full">
                                     <div className="form-group flex flex-col">
                                         <label className="font-medium text-sm mb-3">Profession</label>
-                                        <input type="text" onChange={handleChangeProfile} name="job" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="Programmer" value={user.job} />
+                                        <input type="text" onChange={handleChangeProfile} name="job" className={user.job.error ? "outline-none border border-orange py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-none" : "text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium"} placeholder="Programmer" value={user.job.text} />
+                                        {
+                                            user.job.error ?
+                                                <span className="text-sm text-orange">{user.job.textError}</span>
+                                                :
+                                                ""
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -246,7 +308,13 @@ function Main() {
                                 <div className="col w-full">
                                     <div className="form-group flex flex-col">
                                         <label className="font-medium text-sm mb-3">Address</label>
-                                        <textarea type="text" onChange={handleChangeProfile} name="address" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" value={user.address} />
+                                        <textarea type="text" onChange={handleChangeProfile} name="address" className={user.address.error ? "outline-none border border-orange py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-none" : "text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium"} value={user.address.text} />
+                                        {
+                                            user.address.error ?
+                                                <span className="text-sm text-orange">{user.address.textError}</span>
+                                                :
+                                                ""
+                                        }
                                     </div>
                                 </div>
                             </div>
