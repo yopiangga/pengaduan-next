@@ -7,7 +7,7 @@ import logo from './../../public/assets/images/logo.png'
 import firebase from 'firebase'
 
 function Sidebar() {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
 
     const router = useRouter();
 
@@ -22,9 +22,8 @@ function Sidebar() {
     return (
         <div className="sidebar tablet:h-screen mobile:h-0 overflow-hidden duration-300 w-14 pb-8 left-4 top-4 pr-2 fixed z-40 block">
             <div className="content-nav bg-white h-full w-full rounded-lg shadow-inner flex flex-col justify-between">
-                <div className="logo w-full h-20 px-1 pt-2">
-                    <Image src={logo} alt="logo" onClick={() => Router.push('/')} />
-                    {/* <Image src="../../public/assets/images/logo.png" alt="logo" onClick={() => Router.push('/')} /> */}
+                <div className="logo w-full h-20 px-1 pt-2 relative">
+                    <Image src={img.logo} width={100} height={100} alt="logo" onClick={() => Router.push('/')} />
                 </div>
 
                 {

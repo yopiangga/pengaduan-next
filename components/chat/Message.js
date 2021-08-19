@@ -8,7 +8,7 @@ import { useAppContext } from "components/states/GlobalStates";
 import Link from "next/link";
 
 function Message(props) {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [textChat, setTextChat] = useState('')
     const [chatComplaint, setChatComplaint] = useState();
     const [chats, setChats] = useState();
@@ -67,7 +67,7 @@ function Message(props) {
                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                             {
                                 chatComplaint.image == '' || chatComplaint.image == 'default' || chatComplaint.image == undefined ?
-                                    <Image src={example} height="100" width="100" alt="user" />
+                                    <Image src={img.image} height="100" width="100" alt="user" />
                                     :
                                     <Image src={chatComplaint.image} height="100" width="100" alt="user" />
                             }

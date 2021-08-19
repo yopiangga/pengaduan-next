@@ -9,7 +9,7 @@ import firebase from 'firebase'
 import { useRouter } from 'next/router';
 
 function Navbar() {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
     const router = useRouter();
 
     const handleShowSidebar = () => {
@@ -30,9 +30,9 @@ function Navbar() {
     const handleLogout = () => {
         firebase.auth().signOut().then(() => {
             router.push('/login')
-          }).catch((error) => {
+        }).catch((error) => {
             // An error happened.
-          });
+        });
     }
 
     return (
@@ -48,46 +48,48 @@ function Navbar() {
                 <div className="add-action flex">
                     {
                         (isLogin == 0 || isLogin == undefined) ?
-                        ""
-                        :
-                        <div className="w-16 h-16 mr-3 relative cursor-pointer bg-white flex justify-center items-center group">
-                        <FaRegBell onClick={handleShowNotification} className="text-2xl group-hover:text-darkGreen" />
-                        <div className="circle absolute w-5 h-5 bg-darkGreen rounded-full top-3 right-3 flex justify-center items-center">
-                            <h6 className="text-white text-xs font-medium text-center">5</h6>
-                        </div>
+                            ""
+                            :
+                            <div className="w-16 h-16 mr-3 relative bg-white flex justify-center items-center group">
+                                <div onClick={handleShowNotification} className="cursor-pointer">
+                                    <FaRegBell className="text-2xl group-hover:text-darkGreen" />
+                                    <div className="circle absolute w-5 h-5 bg-darkGreen rounded-full top-3 right-3 flex justify-center items-center">
+                                        <h6 className="text-white text-xs font-medium text-center">5</h6>
+                                    </div>
+                                </div>
 
-                        <div className="notification py-3 w-80 hidden rounded-b-lg rounded-tr-lg top-16 mobile:-right-24 absolute bg-white shadow-lg">
-                            <ul>
-                                <li className="flex items-center mb-1 py-1 px-3 cursor-pointer hover:bg-gray-50">
-                                    <div className="circle rounded-full w-10 h-10 mr-3 bg-orange bg-opacity-20 flex justify-center items-center text-xl text-orange">
-                                        <FiHeart />
-                                    </div>
-                                    <div className="text">
-                                        <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> liked your post</h4>
-                                        <h6 className="text-xs">10.34</h6>
-                                    </div>
-                                </li>
-                                <li className="flex items-center mb-1 py-1 px-3 cursor-pointer hover:bg-gray-50">
-                                    <div className="circle rounded-full w-10 h-10 mr-3 bg-yellow bg-opacity-20 flex justify-center items-center text-xl text-yellow">
-                                        <FiMessageCircle />
-                                    </div>
-                                    <div className="text">
-                                        <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> comments on post</h4>
-                                        <h6 className="text-xs">10.34</h6>
-                                    </div>
-                                </li>
-                                <li className="flex items-center mb-1 py-1 px-3 cursor-pointer hover:bg-gray-50">
-                                    <div className="circle rounded-full w-10 h-10 mr-3 bg-darkGreen bg-opacity-20 flex justify-center items-center text-xl text-darkGreen">
-                                        <FiThumbsUp />
-                                    </div>
-                                    <div className="text">
-                                        <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> support your post</h4>
-                                        <h6 className="text-xs">10.34</h6>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                                <div className="notification py-3 w-80 hidden rounded-b-lg rounded-t-lg top-20 mobile:-right-24 absolute bg-white shadow-lg">
+                                    <ul>
+                                        <li className="flex items-center mb-3 py-1 px-3 cursor-pointer hover:bg-gray-50">
+                                            <div className="circle rounded-full w-10 h-10 mr-3 bg-orange bg-opacity-20 flex justify-center items-center text-xl text-orange">
+                                                <FiHeart />
+                                            </div>
+                                            <div className="text">
+                                                <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> liked your post</h4>
+                                                <h6 className="text-xs">10.34</h6>
+                                            </div>
+                                        </li>
+                                        <li className="flex items-center mb-3 py-1 px-3 cursor-pointer hover:bg-gray-50">
+                                            <div className="circle rounded-full w-10 h-10 mr-3 bg-yellow bg-opacity-20 flex justify-center items-center text-xl text-yellow">
+                                                <FiMessageCircle />
+                                            </div>
+                                            <div className="text">
+                                                <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> comments on post</h4>
+                                                <h6 className="text-xs">10.34</h6>
+                                            </div>
+                                        </li>
+                                        <li className="flex items-center mb-3 py-1 px-3 cursor-pointer hover:bg-gray-50">
+                                            <div className="circle rounded-full w-10 h-10 mr-3 bg-darkGreen bg-opacity-20 flex justify-center items-center text-xl text-darkGreen">
+                                                <FiThumbsUp />
+                                            </div>
+                                            <div className="text">
+                                                <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> support your post</h4>
+                                                <h6 className="text-xs">10.34</h6>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                     }
 
                     {
@@ -110,10 +112,11 @@ function Navbar() {
                             <div className="h-16 mr-3 cursor-pointer bg-white flex items-center relative">
                                 <div onClick={handleShowProfile} className="image rounded-full h-10 w-10 mr-3 overflow-hidden bg-light">
                                     {
-                                        detailUser == undefined || detailUser.picture == '' || detailUser.picture == 'default' ? 
-                                        <Image src={example} height="100" width="100" alt="user" />
-                                        :
-                                        <Image src={detailUser.picture} height="100" width="100" alt="user" />
+                                        detailUser == undefined || detailUser.picture == '' || detailUser.picture == 'default' ?
+                                            <Image src={img.user} passHref={true} height="100" width="100" alt="user" />
+                                            // ""
+                                            :
+                                            <Image src={detailUser.picture} height="100" width="100" alt="user" />
                                     }
                                 </div>
                                 <div onClick={handleShowProfile} className="text mr-3 tablet:block mobile:hidden">

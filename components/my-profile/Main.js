@@ -6,7 +6,7 @@ import firebase from 'firebase';
 import ModalInformation from 'components/all/ModalInformation';
 
 function Main() {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
 
     const [user, setUser] = useState({})
@@ -169,7 +169,7 @@ function Main() {
                     <div className="circle-bg mr-5 laptop:mb-0 mobile:mb-7 bg-white w-36 h-36 flex justify-center items-center rounded-full shadow-xl">
                         <div className="image w-32 h-32 rounded-full overflow-hidden shadow-md">
                             {user.picture == 'default' || user.picture == '' || user.picture == undefined ?
-                                <Image src={example} width="200" height="200" alt="profile" />
+                                <Image src={img.user} width="200" height="200" alt="profile" />
                                 :
                                 <Image src={user.picture} width="200" height="200" alt="profile" />
                             }

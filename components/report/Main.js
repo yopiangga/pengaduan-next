@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Link from "next/link";
 
 function Main() {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser, complaints, setComplaints, allReport, setAllReport, allUser, setAllUser } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser, complaints, setComplaints, allReport, setAllReport, allUser, setAllUser } = useAppContext();
 
     const [dataComplaints, setDataComplaints] = useState();
     const [dataReports, setDataReports] = useState();
@@ -58,7 +58,7 @@ function Main() {
                                     <div className="image relative rounded-full overflow-hidden w-10 h-10">
                                         {
                                             dataUsers != undefined ?
-                                                <Image src={example} height="100" width="100" />
+                                                <Image src={img.user} height="100" width="100" />
                                                 :
                                                 <Image src={dataUsers[el.idUser.toString()].picture} height="100" width="100" />
                                         }

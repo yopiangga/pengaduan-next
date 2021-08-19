@@ -13,7 +13,7 @@ import ShareMediaSocial from 'components/all/ShareMediaSocial';
 
 function Main(props) {
 
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [complaint, setComplaint] = useState({ title: "", description: "", taggar: [], image: "", latitude: "", longitude: "", author: "", key: "", shared: "" });
     const [supports, setSupports] = useState([{}]);
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
@@ -285,9 +285,8 @@ function Main(props) {
                         complaint.image == null || complaint.image == '' ?
                             ""
                             :
-                            // ""
                             <div className="image w-full h-96 mb-5 bg-white relative overflow-hidden">
-                                <Image src={`${complaint.image}`} passHref={true} layout="fill" objectFit="cover" alt="image complaint" />
+                                <Image src={complaint.image} passHref={true} layout="fill" objectFit="cover" alt="image complaint" />
                             </div>
                     }
 
@@ -451,7 +450,7 @@ function Main(props) {
                                                 <div className="image rounded-full h-9 w-9 mr-3 flex items-center overflow-hidden relative">
                                                     {
                                                         el.picture == '' || el.picture == undefined ?
-                                                            <Image src={example} layout="fill" alt="user" />
+                                                            <Image src={img.user} layout="fill" alt="user" />
                                                             :
                                                             <Image src={el.picture} layout="fill" alt="user" />
                                                     }

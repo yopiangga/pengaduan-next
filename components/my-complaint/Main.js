@@ -11,7 +11,7 @@ import { useAppContext } from 'components/states/GlobalStates';
 import ModalReportComplaint from 'components/all/ModalReportComplaint';
 
 function Main() {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
 
     const [style, setStyle] = useState(1);
     const [filter, setFilter] = useState(0);

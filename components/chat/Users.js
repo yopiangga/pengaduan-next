@@ -118,7 +118,7 @@ function Users(props) {
                                 <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                                     {
                                         el.image == '' || el.image == undefined ?
-                                            <Image src={example} height="100" width="100" alt="user" />
+                                            <Image src={img.user} height="100" width="100" alt="user" />
                                             :
                                             <Image src={el.image} height="100" width="100" alt="user" />
                                     }

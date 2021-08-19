@@ -2,7 +2,8 @@ module.exports = {
   target: 'serverless',
   images: {
     loader: 'imgix',
-    path: 'http://localhost:3000/',
+    domains: ['firebasestorage.googleapis.com', 'petikdua.store'],
+    path: '',
   },
 
   async rewrites() {

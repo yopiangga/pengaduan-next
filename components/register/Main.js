@@ -15,7 +15,7 @@ import { useAppContext } from "components/states/GlobalStates";
 
 function Main() {
 
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [userRegis, setUserRegis] = useState({ idUser: "", fullname: "", email: "", address: "", roleUser: "", typeLogin: "", picture: "" })
 
     const router = useRouter();
@@ -164,7 +164,7 @@ function Main() {
                 <div className="content w-3/4 h-full">
 
                     <div className="logo h-20 w-14 px-1 pt-2 laptop:my-5">
-                        <Image src={logo} alt="logo-light" />
+                        <Image src={img.logo}  alt="logo-light" />
                     </div>
                     <h3 className="text-2xl font-medium mb-3">Create Account</h3>
                     <p className="mb-10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, eius.</p>

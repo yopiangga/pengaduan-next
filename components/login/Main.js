@@ -17,7 +17,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function Main() {
 
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [userLogin, setUserLogin] = useState({ email: "", password: "" });
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
     const [showPass, setShowPass] = useState(true);
@@ -152,7 +152,7 @@ function Main() {
                 <div className="content w-3/4 h-full">
 
                     <div className="logo h-20 w-14 px-1 pt-2 laptop:my-5">
-                        <Image src={logo} alt="logo-light" />
+                        <Image src={img.logo} height={100} width={100} alt="logo-light" />
                     </div>
                     <h3 className="text-2xl font-medium mb-3">Login</h3>
 
