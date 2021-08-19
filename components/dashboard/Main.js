@@ -1,7 +1,7 @@
 const { Component, useState, useEffect } = require("react");
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
-import { FiAlertCircle, FiCalendar, FiChevronDown, FiHeart, FiLink, FiMoreHorizontal, FiShare, FiShare2, FiUsers } from 'react-icons/fi';
+import { FiAlertCircle, FiCalendar, FiChevronDown, FiHeart, FiLink, FiMoreHorizontal, FiShare, FiShare2, FiUsers, FiTrash2 } from 'react-icons/fi';
 import { RiContactsBookUploadLine, RiLayoutGridLine, RiLayoutMasonryLine } from 'react-icons/ri'
 import $ from 'jquery';
 import { useRouter } from 'next/router';
@@ -48,8 +48,8 @@ function Main() {
     }
 
     const handleMoreAction = (id) => {
-        for(let i=0; i<complaints.length; i++){
-            if(id == i)
+        for (let i = 0; i < complaints.length; i++) {
+            if (id == i)
                 $(`#more-action-${i}`).toggleClass('hidden').toggleClass('block')
             else
                 $(`#more-action-${i}`).addClass('hidden').removeClass('block')
@@ -86,6 +86,12 @@ function Main() {
         setReportComplaint(true)
     }
 
+    const handleDelete = (id, i) => {
+        let complaintRef = firebase.database().ref('complaint/' + id);
+        complaintRef.remove()
+        $(`#more-action-${i}`).addClass('hidden').removeClass('block')
+    }
+
     return (
         <div className="pt-0 ">
             <ModalReportComplaint
@@ -112,14 +118,14 @@ function Main() {
                                 <li onClick={() => handleStyle(1, 3)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Completed</li>
                                 <li onClick={() => handleStyle(1, 4)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Done</li>
                                 {
-                                    detailUser && detailUser.roleUser == 1 ? 
-                                    <li onClick={() => handleStyle(1, 5)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Declined</li>
-                                    :
-                                    ""
+                                    detailUser && detailUser.roleUser == 1 ?
+                                        <li onClick={() => handleStyle(1, 5)} className="flex items-center justify-end mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"> Declined</li>
+                                        :
+                                        ""
                                 }
                             </ul>
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -146,11 +152,26 @@ function Main() {
                                                                 <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
                                                             </ul>
                                                             :
+                                                            ""
+                                                    }
+                                                    {
+                                                        (detailUser.roleUser == 1) ?
+                                                            <ul>
+                                                                <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
+                                                                <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
+                                                                <li onClick={() => handleDelete(el.key, idx)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiTrash2 className="mr-3" /> Delete</li>
+                                                            </ul>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        detailUser.roleUser == 2 ?
                                                             <ul>
                                                                 <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
                                                                 <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
                                                             </ul>
-
+                                                            :
+                                                            ""
                                                     }
                                                 </div>
 

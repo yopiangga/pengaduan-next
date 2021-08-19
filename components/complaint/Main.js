@@ -255,6 +255,12 @@ function Main(props) {
         })
     }
 
+    const handleDelete = () => {
+        let complaintRef = firebase.database().ref('complaint/' + complaint.key);
+        complaintRef.remove();
+        router.push('/');
+    }
+
     // console.log(allOpini)
 
     return (
@@ -655,7 +661,7 @@ function Main(props) {
 
                     {
                         detailUser && detailUser.roleUser == 1 ?
-                            <div className="admin-chat light-layer-1 active rounded-lg fixed w-72 top-80">
+                            <div className={complaint.status == 4 ? "admin-chat light-layer-1 active rounded-lg fixed w-72" : "admin-chat light-layer-1 active rounded-lg fixed w-72 top-80"}>
                                 <div className="light-layer-2 active rounded-lg p-4 w-full">
                                     <div className="mb-5">
                                         <h3 className="mb-2 font-medium text-xl text-center">Chat Author</h3>
@@ -679,6 +685,25 @@ function Main(props) {
                             </div>
                             :
                             ""
+                    }
+                    {
+                        detailUser && detailUser.roleUser == 1 ?
+                        <div className="admin-chat light-layer-1 active rounded-lg fixed w-72 bottom-10">
+                                <div className="light-layer-2 active rounded-lg p-4 w-full">
+                                    
+                                    <div className="row flex">
+                                        <div className="col w-full">
+                                            <div className="form-group flex">
+                                                <button onClick={handleDelete} className="py-2 w-full mr-3 bg-orange rounded-full text-white font-medium">Delete Complaint</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        :
+                        ""
                     }
                 </div>
             </div>
