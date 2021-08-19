@@ -164,7 +164,7 @@ function Main() {
                 <div className="content w-3/4 h-full">
 
                     <div className="logo h-20 w-14 px-1 pt-2 laptop:my-5">
-                        <Image src={img.logo}  alt="logo-light" />
+                        <Image src={img.logo} width={100} height={100} alt="logo-light" />
                     </div>
                     <h3 className="text-2xl font-medium mb-3">Create Account</h3>
                     <p className="mb-10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, eius.</p>
