@@ -149,7 +149,7 @@ function Main() {
             authorId: detailUser.idUser,
             author: detailUser.fullname,
             key: time,
-            address: "",
+            address: complaint.address.text,
             status: 1
         }).catch(alert);
 

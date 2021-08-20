@@ -203,11 +203,11 @@ function Main(props) {
             message: {
                 [time]: {
                     time: time,
-                text: 'Hallo Author!',
-                status: 1,
-                from: 1
+                    text: 'Hallo Author!',
+                    status: 1,
+                    from: 1
                 }
-            }, 
+            },
 
         }).catch();
 
@@ -427,14 +427,21 @@ function Main(props) {
                         }
                     </div>
 
-                    <div className="maps mb-10 w-full h-96 overflow-hidden relative">
-                        {
-                            complaint.latitude == '' || complaint.longitude == '' ?
-                                ""
-                                :
-                                <GoogelMaps latitude={complaint.latitude} longitude={complaint.longitude} />
-                        }
+                    <div className="description mb-5 light-layer-1 active">
+                        <h4 className="font-medium text-lg mb-3">Detail Location</h4>
+                        <div className="light-layer-2 active p-3">
+                            <p className="mb-3">{complaint.address}</p>
+                        </div>
                     </div>
+
+                    {
+                        complaint.latitude == '' || complaint.longitude == '' ?
+                            ""
+                            :
+                            <div className="maps mb-10 w-full h-96 overflow-hidden relative">
+                                <GoogelMaps latitude={complaint.latitude} longitude={complaint.longitude} />
+                            </div>
+                    }
 
                     <div className="comment">
                         <h2 className="font-medium text-xl mb-8">Reason for support</h2>
@@ -442,12 +449,12 @@ function Main(props) {
                         <div className="light-layer-1 active mb-5">
                             <div className="light-layer-2 active p-3">
                                 {
-                                    allOpini == undefined || allOpini.length == 0 ? 
-                                    <div className="text-center">
-                                        <p>No comments support yet</p>
-                                    </div>
-                                    :
-                                    ""
+                                    allOpini == undefined || allOpini.length == 0 ?
+                                        <div className="text-center">
+                                            <p>No comments support yet</p>
+                                        </div>
+                                        :
+                                        ""
                                 }
                                 {
                                     allOpini && allOpini.map(function (el, idx) {
@@ -563,7 +570,7 @@ function Main(props) {
                                                         :
                                                         <button className="py-2 w-full mr-3 bg-transparent rounded-full text-darkGreen font-medium">Success Support</button>
                                                 }
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -688,9 +695,9 @@ function Main(props) {
                     }
                     {
                         detailUser && detailUser.roleUser == 1 ?
-                        <div className="admin-chat light-layer-1 active rounded-lg fixed w-72 bottom-10">
+                            <div className="admin-chat light-layer-1 active rounded-lg fixed w-72 bottom-10">
                                 <div className="light-layer-2 active rounded-lg p-4 w-full">
-                                    
+
                                     <div className="row flex">
                                         <div className="col w-full">
                                             <div className="form-group flex">
@@ -702,8 +709,8 @@ function Main(props) {
                                 </div>
 
                             </div>
-                        :
-                        ""
+                            :
+                            ""
                     }
                 </div>
             </div>
