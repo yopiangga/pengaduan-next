@@ -175,7 +175,7 @@ function Main() {
         router.push('/')
     }
 
-    console.log(file)
+    // console.log(file)
 
     return (
         <div className="flex justify-center">

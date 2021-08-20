@@ -257,7 +257,9 @@ function Main(props) {
 
     const handleDelete = () => {
         let complaintRef = firebase.database().ref('complaint/' + complaint.key);
+        let chatRef = firebase.database().ref('chats/' + complaint.key);
         complaintRef.remove();
+        chatRef.remove()
         router.push('/');
     }
 

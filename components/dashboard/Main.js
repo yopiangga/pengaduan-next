@@ -9,6 +9,7 @@ import firebase from 'firebase'
 import axios from 'axios'
 import { useAppContext } from 'components/states/GlobalStates';
 import ModalReportComplaint from 'components/all/ModalReportComplaint';
+import ModalInformation from 'components/all/ModalInformation';
 
 function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
@@ -19,6 +20,7 @@ function Main() {
     const router = useRouter();
     const [complaint, setComplaint] = useState({ id: "" });
     const [reportComplaint, setReportComplaint] = useState(false);
+    const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
 
     useEffect(() => {
         const dbComplaints = firebase.database().ref();
@@ -88,17 +90,26 @@ function Main() {
 
     const handleDelete = (id, i) => {
         let complaintRef = firebase.database().ref('complaint/' + id);
+        let chatRef = firebase.database().ref('chats/' + id);
         complaintRef.remove()
+        chatRef.remove()
         $(`#more-action-${i}`).addClass('hidden').removeClass('block')
     }
 
     return (
         <div className="pt-0 ">
             <ModalReportComplaint
-                id={complaint.key}
+                id={complaint.id}
                 isOpen={reportComplaint}
                 onClick={() => setReportComplaint(false)}
                 onReport={(title, description, status) => setModalInformation({ title: title, description: description, status: status, isOpen: true })}
+            />
+            <ModalInformation
+                title={modalInformation.title}
+                description={modalInformation.description}
+                status={modalInformation.status}
+                isOpen={modalInformation.isOpen}
+                onClick={() => setModalInformation({ title: "", description: "", status: "", isOpen: false })}
             />
             <div className="content pt-24 tablet:pl-20 mobile:px-4">
                 <div className="header flex tablet:flex-row mobile:flex-col justify-between mb-5 ">

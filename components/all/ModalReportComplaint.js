@@ -24,6 +24,7 @@ export default function ModalReportComplaint(props) {
         props.onClick()
         const date = new Date();
         const time = date.getTime();
+        // console.log(props)
         firebase.firestore().collection("report").doc(time.toString()).set({
             key: time,
             idUser: detailUser.idUser,

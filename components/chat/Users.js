@@ -8,7 +8,7 @@ import { useAppContext } from "components/states/GlobalStates";
 import firebase from 'firebase'
 
 function Users(props) {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
 
     const [chats, setChats] = useState();
     const [lastMsg, setLastMsg] = useState([]);
