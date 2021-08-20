@@ -11,11 +11,18 @@ import ModalInformationRedirect from 'components/all/ModalInformationRedirect';
 import { FaUpload } from 'react-icons/fa';
 
 function Main() {
-    const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
+    const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
     const [complaint, setComplaint] = useState({
-        title: "", description: "", taggar: "", image: "", latitude: "", longitude: ""
+        title: { error: false, text: "", errortext: "" },
+        description: { error: false, text: "", errortext: "" },
+        taggar: "",
+        image: "",
+        latitude: "",
+        longitude: "",
+        address: { error: false, text: "", errortext: "" }
     })
     const [file, setFile] = useState(null);
+    const [imagePreview, setImagePreview] = useState(false);
     const router = useRouter();
 
     const [modalInformationRedirect, setModalInformationRedirect] = useState({ title: "", description: "", status: "", isOpen: false })
@@ -23,17 +30,39 @@ function Main() {
     const handleImageAsFile = (e) => {
         const file = e.target.files[0];
         var pattern = /image-*/;
-        
+
         if (file.type.match(pattern)) {
             setFile(e.target.files[0]);
+
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setImagePreview(reader.result);
+            }
+            reader.readAsDataURL(e.target.files[0]);
+
             return;
         }
     }
 
     const handleChange = (event) => {
+        let error = false;
+        let textError = "";
+
+        if (event.target.value == '') {
+            textError = "Can not be empty!";
+            error = true;
+        } else {
+            error = false;
+            textError = "";
+        }
+
         setComplaint({
             ...complaint,
-            [event.target.name]: event.target.value
+            [event.target.name]: {
+                text: event.target.value,
+                error: error,
+                textError: textError
+            }
         })
     }
 
@@ -70,7 +99,7 @@ function Main() {
 
     const handleValidation = (event) => {
         event.preventDefault();
-        if (complaint.title == "" || complaint.description == "" || complaint.taggar == "" || complaint.latitude == "" || complaint.longitude == "") {
+        if (complaint.title.error || complaint.description.error || complaint.address.error) {
             setModalInformationRedirect({
                 title: "Complaint Failed",
                 description: "Your complaint failed created, fill in all the data you.",
@@ -109,8 +138,8 @@ function Main() {
 
     const pushData = (time, url) => {
         firebase.database().ref(`complaint/${time}`).set({
-            title: complaint.title,
-            description: complaint.description,
+            title: complaint.title.text,
+            description: complaint.description.text,
             taggar: complaint.taggar,
             image: url,
             latitude: complaint.latitude,
@@ -120,11 +149,12 @@ function Main() {
             authorId: detailUser.idUser,
             author: detailUser.fullname,
             key: time,
+            address: "",
             status: 1
         }).catch(alert);
 
         setComplaint({
-            title: "", description: "", taggar: "", image: "", latitude: "", longitude: ""
+            title: { error: false, text: "", errortext: "" }, description: { error: false, text: "", errortext: "" }, taggar: "", image: "", latitude: "", longitude: "", address: { error: false, text: "", errortext: "" }
         })
 
         $('.bg-loading').removeClass('flex').addClass('hidden');
@@ -140,10 +170,12 @@ function Main() {
 
     const handleCancel = () => {
         setComplaint({
-            title: "", description: "", taggar: "", image: "", latitude: "", longitude: ""
+            title: { error: false, text: "", errortext: "" }, description: { error: false, text: "", errortext: "" }, taggar: "", image: "", latitude: "", longitude: ""
         })
         router.push('/')
     }
+
+    console.log(file)
 
     return (
         <div className="flex justify-center">
@@ -167,7 +199,13 @@ function Main() {
                                     <div className="col w-full">
                                         <div className="form-group flex flex-col">
                                             <label className="font-medium text-sm mb-3">Title</label>
-                                            <input type="text" name="title" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="Type in the title of the complaint" onChange={handleChange} />
+                                            <input type="text" name="title" className={complaint.title.error ? "outline-none border border-orange py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-none" : "text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium"} placeholder="Type in the title of the complaint" onChange={handleChange} />
+                                            {
+                                                complaint.title.error ?
+                                                    <span className="text-sm text-orange">{complaint.title.textError}</span>
+                                                    :
+                                                    ""
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -175,7 +213,13 @@ function Main() {
                                     <div className="col w-full">
                                         <div className="form-group flex flex-col">
                                             <label className="font-medium text-sm mb-3">Description</label>
-                                            <textarea type="text" name="description" rows="5" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="Description your complaint . . . " onChange={handleChange}></textarea>
+                                            <textarea type="text" name="description" rows="5" className={complaint.description.error ? "outline-none border border-orange py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-none" : "text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium"} placeholder="Description your complaint . . . " onChange={handleChange}></textarea>
+                                            {
+                                                complaint.description.error ?
+                                                    <span className="text-sm text-orange">{complaint.description.textError}</span>
+                                                    :
+                                                    ""
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -198,7 +242,14 @@ function Main() {
                                                 </div>
                                                 <input className="cursor-pointer w-full h-40 opacity-0 pin-r pin-t absolute z-10" type="file" id="avatar" name="avatar" onChange={handleImageAsFile} accept="image/png, image/jpeg" />
                                             </div>
-                                            {/* <input type="file" onChange={handleImageAsFile} className="text-lg outline-none py-2 pr-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" /> */}
+                                            {
+                                                imagePreview ?
+                                                    <div className="w-full h-96 relative overflow-hidden mt-5">
+                                                        <Image src={imagePreview} layout="fill" objectFit="cover" alt="image-preview" />
+                                                    </div>
+                                                    :
+                                                    ""
+                                            }
                                         </div>
                                     </div>
                                 </div>
@@ -207,6 +258,20 @@ function Main() {
 
                             <div className="right">
                                 <h3 className="font-bold text-xl mb-5">Location</h3>
+                                <div className="row flex laptop:w-11/12 mobile:w-full mb-5">
+                                    <div className="col w-full">
+                                        <div className="form-group flex flex-col">
+                                            <label className="font-medium text-sm mb-3">Location Description</label>
+                                            <textarea type="text" name="address" className={complaint.address.error ? "outline-none border border-orange py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-none" : "text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium"} placeholder="Description location" onChange={handleChange} rows="3" />
+                                            {
+                                                complaint.address.error ?
+                                                    <span className="text-sm text-orange">{complaint.address.textError}</span>
+                                                    :
+                                                    ""
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="row flex laptop:flex-row mobile:flex-col mb-5 laptop:w-11/12 mobile:w-full justify-between">
                                     <div className="col w-full laptop:pr-2 mobile:pr-0">
                                         <div className="form-group flex flex-col">
@@ -229,18 +294,19 @@ function Main() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="row flex laptop:w-11/12 mobile:w-full mb-5">
-                                    <div className="col w-full">
-                                        <div className="form-group flex h-96 w-full relative">
-                                            {
-                                                complaint.latitude == '' || complaint.longitude == '' ?
-                                                    ""
-                                                    :
+
+                                {
+                                    complaint.latitude == '' || complaint.longitude == '' ?
+                                        ""
+                                        :
+                                        <div className="row flex laptop:w-11/12 mobile:w-full mb-5">
+                                            <div className="col w-full">
+                                                <div className="form-group flex h-96 w-full relative">
                                                     <GoogleMaps latitude={complaint.latitude} longitude={complaint.longitude} />
-                                            }
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                }
 
                             </div>
 
