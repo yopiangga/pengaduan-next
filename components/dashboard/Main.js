@@ -10,6 +10,7 @@ import axios from 'axios'
 import { useAppContext } from 'components/states/GlobalStates';
 import ModalReportComplaint from 'components/all/ModalReportComplaint';
 import ModalInformation from 'components/all/ModalInformation';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
 function Main() {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
@@ -21,6 +22,7 @@ function Main() {
     const [complaint, setComplaint] = useState({ id: "" });
     const [reportComplaint, setReportComplaint] = useState(false);
     const [modalInformation, setModalInformation] = useState({ title: "", description: "", status: "", isOpen: false })
+    const [moreAction, setMoreAction] = useState();
 
     useEffect(() => {
         const dbComplaints = firebase.database().ref();
@@ -50,13 +52,10 @@ function Main() {
     }
 
     const handleMoreAction = (id) => {
-        for (let i = 0; i < complaints.length; i++) {
-            if (id == i)
-                $(`#more-action-${i}`).toggleClass('hidden').toggleClass('block')
-            else
-                $(`#more-action-${i}`).addClass('hidden').removeClass('block')
-        }
-        handleClose();
+        if (id == moreAction)
+            setMoreAction(false);
+        else
+            setMoreAction(id);
     }
 
     const handleClose = () => {
@@ -153,38 +152,41 @@ function Main() {
                                                 <div className="title h-12 overflow-hidden w-full flex justify-between">
                                                     <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
                                                 </div>
-                                                <div onClick={() => handleMoreAction(idx)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
+                                                <div onClick={() => handleMoreAction(idx + 1)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                                     <FiMoreHorizontal />
                                                 </div>
-                                                <div id={`more-action-${idx}`} className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
-                                                    {
-                                                        (detailUser.idUser == null || detailUser.idUser == '') ?
-                                                            <ul>
-                                                                <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
-                                                            </ul>
-                                                            :
-                                                            ""
-                                                    }
-                                                    {
-                                                        (detailUser.roleUser == 1) ?
-                                                            <ul>
-                                                                <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
-                                                                <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
-                                                                <li onClick={() => handleDelete(el.key, idx)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiTrash2 className="mr-3" /> Delete</li>
-                                                            </ul>
-                                                            :
-                                                            ""
-                                                    }
-                                                    {
-                                                        detailUser.roleUser == 2 ?
-                                                            <ul>
-                                                                <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
-                                                                <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
-                                                            </ul>
-                                                            :
-                                                            ""
-                                                    }
-                                                </div>
+
+                                                <FadeTransform in={idx + 1 == moreAction} duration={200} transformProps={{
+                                                    exitTransform: 'scale(0.5) translateY(-50%)'
+                                                }} className="z-10 laptop:-right-14 py-3 mobile:right-0 rounded-b-lg rounded-tr-lg top-3 absolute bg-white shadow-lg">
+                                                        {
+                                                            (detailUser.idUser == null || detailUser.idUser == '') ?
+                                                                <ul className="w-48">
+                                                                    <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
+                                                                </ul>
+                                                                :
+                                                                ""
+                                                        }
+                                                        {
+                                                            (detailUser.roleUser == 1) ?
+                                                                <ul className="w-48">
+                                                                    <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
+                                                                    <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
+                                                                    <li onClick={() => handleDelete(el.key, idx)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiTrash2 className="mr-3" /> Delete</li>
+                                                                </ul>
+                                                                :
+                                                                ""
+                                                        }
+                                                        {
+                                                            detailUser.roleUser == 2 ?
+                                                                <ul className="w-48">
+                                                                    <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
+                                                                    <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
+                                                                </ul>
+                                                                :
+                                                                ""
+                                                        }
+                                                </FadeTransform>
 
                                             </div>
                                             <div className="description mb-3 h-14 overflow-hidden">
@@ -270,7 +272,6 @@ function Main() {
                     }
 
                 </div>
-
 
             </div>
 

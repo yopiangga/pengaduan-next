@@ -1,5 +1,6 @@
 
 import { FiAlertCircle, FiCheckCircle } from 'react-icons/fi';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
 export default function ModalInformation(props) {
 
@@ -11,6 +12,9 @@ export default function ModalInformation(props) {
     return (
         props.isOpen == true ?
         <div className="modal-information bg-dark bg-opacity-20 fixed w-full h-screen z-50 flex justify-center items-center">
+            <FadeTransform in={props.isOpen} duration={200} transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
             <div className="form laptop:w-96 mobile:w-11/12 bg-white rounded-3xl py-5 px-5 relative">
                 <h2 className="font-bold text-center text-xl text-yellow-400 mb-5">{props.title}</h2>
                 <p className="text-center mb-5">{props.description}</p>
@@ -36,6 +40,7 @@ export default function ModalInformation(props) {
 
                 </form>
             </div>
+            </FadeTransform>
         </div>
         :
         ""

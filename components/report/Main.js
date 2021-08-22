@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import ModalInformation from "components/all/ModalInformation";
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
 function Main() {
     const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser, complaints, setComplaints, allReport, setAllReport, allUser, setAllUser } = useAppContext();
@@ -36,19 +37,19 @@ function Main() {
     const getAllReport = () => {
         const v_allReport = firebase.firestore().collection("report");
         var arr_allReport = [];
-    
+
         v_allReport.get().then((res) => {
-          res.forEach((doc) => {
-            arr_allReport.push({
-              id: doc.data().key,
-              idUser: doc.data().idUser,
-              idComplaint: doc.data().idComplaint,
-              text: doc.data().text,
-            })
-          });
-          setAllReport(arr_allReport)
+            res.forEach((doc) => {
+                arr_allReport.push({
+                    id: doc.data().key,
+                    idUser: doc.data().idUser,
+                    idComplaint: doc.data().idComplaint,
+                    text: doc.data().text,
+                })
+            });
+            setAllReport(arr_allReport)
         });
-      }
+    }
 
     const getDataReports = () => {
         setDataReports(allReport)
@@ -92,7 +93,7 @@ function Main() {
             return (
                 allReport.map(function (el, idx) {
                     return (
-                        <div key={idx} className="card laptop:w-11/12 mobile:w-full rounded-lg bg-white shadow-xl mb-6">
+                        <Fade in key={idx} className="card laptop:w-11/12 mobile:w-full rounded-lg bg-white shadow-xl mb-6">
                             <div className="flex p-3 relative overflow-hidden group">
                                 <div className="profile w-1/5">
                                     <div className="image relative rounded-full overflow-hidden w-10 h-10">
@@ -114,7 +115,7 @@ function Main() {
                                     <FiTrash />
                                 </div>
                             </div>
-                        </div>
+                        </Fade>
                     )
                 })
             )
@@ -137,9 +138,9 @@ function Main() {
                     <h1 className="text-3xl font-medium tablet:mb-0 mobile:mb-5">Report Users</h1>
                 </div>
 
-                <div className="content-body grid laptop:grid-cols-4 tablet:grid-cols-2 mobile:grid-cols-1 mini:grid-cols-1">
-                    <Reports />
-                </div>
+                <Stagger in className="content-body grid laptop:grid-cols-4 tablet:grid-cols-2 mobile:grid-cols-1 mini:grid-cols-1">
+                        <Reports />
+                </Stagger>
 
             </div>
 

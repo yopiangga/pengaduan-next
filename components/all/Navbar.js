@@ -7,9 +7,12 @@ import Link from 'next/link'
 import { useAppContext } from 'components/states/GlobalStates';
 import firebase from 'firebase'
 import { useRouter } from 'next/router';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
+import { useState } from 'react';
 
 function Navbar() {
     const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser, menuActive, setMenuActive } = useAppContext();
+    const [notificationOpen, setNotificationOpen] = useState(false);
     const router = useRouter();
 
     const handleShowSidebar = () => {
@@ -20,7 +23,7 @@ function Navbar() {
     }
 
     const handleShowNotification = () => {
-        $('.navbar .notification').toggleClass('hidden')
+        setNotificationOpen(!notificationOpen)
     }
 
     const handleShowProfile = () => {
@@ -57,38 +60,43 @@ function Navbar() {
                                         <h6 className="text-white text-xs font-medium text-center">5</h6>
                                     </div>
                                 </div>
+                                    <FadeTransform in={notificationOpen} duration={200} transformProps={{
+                                        exitTransform: 'scale(0.5) translateY(-50%)'
+                                    }}>
+                                        <div className="notification py-3 w-80 rounded-b-lg rounded-t-lg top-10 mobile:-right-24 absolute bg-white shadow-lg">
+                                            <ul>
+                                                <li className="flex items-center mb-3 py-1 px-3 cursor-pointer hover:bg-gray-50">
+                                                    <div className="circle rounded-full w-10 h-10 mr-3 bg-orange bg-opacity-20 flex justify-center items-center text-xl text-orange">
+                                                        <FiHeart />
+                                                    </div>
+                                                    <div className="text">
+                                                        <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> liked your post</h4>
+                                                        <h6 className="text-xs">10.34</h6>
+                                                    </div>
+                                                </li>
+                                                <li className="flex items-center mb-3 py-1 px-3 cursor-pointer hover:bg-gray-50">
+                                                    <div className="circle rounded-full w-10 h-10 mr-3 bg-yellow bg-opacity-20 flex justify-center items-center text-xl text-yellow">
+                                                        <FiMessageCircle />
+                                                    </div>
+                                                    <div className="text">
+                                                        <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> comments on post</h4>
+                                                        <h6 className="text-xs">10.34</h6>
+                                                    </div>
+                                                </li>
+                                                <li className="flex items-center mb-3 py-1 px-3 cursor-pointer hover:bg-gray-50">
+                                                    <div className="circle rounded-full w-10 h-10 mr-3 bg-darkGreen bg-opacity-20 flex justify-center items-center text-xl text-darkGreen">
+                                                        <FiThumbsUp />
+                                                    </div>
+                                                    <div className="text">
+                                                        <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> support your post</h4>
+                                                        <h6 className="text-xs">10.34</h6>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </FadeTransform>
+                                  
 
-                                <div className="notification py-3 w-80 hidden rounded-b-lg rounded-t-lg top-20 mobile:-right-24 absolute bg-white shadow-lg">
-                                    <ul>
-                                        <li className="flex items-center mb-3 py-1 px-3 cursor-pointer hover:bg-gray-50">
-                                            <div className="circle rounded-full w-10 h-10 mr-3 bg-orange bg-opacity-20 flex justify-center items-center text-xl text-orange">
-                                                <FiHeart />
-                                            </div>
-                                            <div className="text">
-                                                <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> liked your post</h4>
-                                                <h6 className="text-xs">10.34</h6>
-                                            </div>
-                                        </li>
-                                        <li className="flex items-center mb-3 py-1 px-3 cursor-pointer hover:bg-gray-50">
-                                            <div className="circle rounded-full w-10 h-10 mr-3 bg-yellow bg-opacity-20 flex justify-center items-center text-xl text-yellow">
-                                                <FiMessageCircle />
-                                            </div>
-                                            <div className="text">
-                                                <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> comments on post</h4>
-                                                <h6 className="text-xs">10.34</h6>
-                                            </div>
-                                        </li>
-                                        <li className="flex items-center mb-3 py-1 px-3 cursor-pointer hover:bg-gray-50">
-                                            <div className="circle rounded-full w-10 h-10 mr-3 bg-darkGreen bg-opacity-20 flex justify-center items-center text-xl text-darkGreen">
-                                                <FiThumbsUp />
-                                            </div>
-                                            <div className="text">
-                                                <h4 className="text-sm"><span className="font-medium">Alfian Prisma Y</span> support your post</h4>
-                                                <h6 className="text-xs">10.34</h6>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
                             </div>
                     }
 

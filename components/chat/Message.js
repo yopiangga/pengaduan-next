@@ -6,6 +6,7 @@ import $ from 'jquery';
 import firebase from 'firebase'
 import { useAppContext } from "components/states/GlobalStates";
 import Link from "next/link";
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
 function Message(props) {
     const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
@@ -90,65 +91,67 @@ function Message(props) {
                 </div>
             </div>
 
-            <div className="users laptop:w-11/12 mobile:w-full bg-white absolute top-20 bottom-4 flex flex-col items-center rounded-lg">
+            <FadeTransform in duration={200} transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }} className="laptop:w-11/12 mobile:w-full bg-white absolute top-20 bottom-4 flex flex-col items-center rounded-lg">
 
-                <div className="column-chat absolute top-4 bottom-20 left-3 right-3 overflow-scroll">
-                    {
-                        props && props.role == 1 && chats && chats.map(function (el, idx) {
-                            if (el.from == 2)
-                                return (
-                                    <div className="item-group mb-3 flex flex-col items-start">
-                                        <div className="item bg-light max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-br-lg">
-                                            <p className="text-left">{el.text}</p>
+                    <div className="column-chat absolute top-4 bottom-20 left-3 right-3 overflow-scroll">
+                        {
+                            props && props.role == 1 && chats && chats.map(function (el, idx) {
+                                if (el.from == 2)
+                                    return (
+                                        <div className="item-group mb-3 flex flex-col items-start">
+                                            <div className="item bg-light max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-br-lg">
+                                                <p className="text-left">{el.text}</p>
+                                            </div>
+                                            <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
                                         </div>
-                                        <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
-                                    </div>
-                                )
-                            else
-                                return (
-                                    <div className="item-group mb-3 flex flex-col items-end">
-                                        <div className="item bg-darkGreen max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-bl-lg">
-                                            <p className="text-left text-white">{el.text}</p>
+                                    )
+                                else
+                                    return (
+                                        <div className="item-group mb-3 flex flex-col items-end">
+                                            <div className="item bg-darkGreen max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-bl-lg">
+                                                <p className="text-left text-white">{el.text}</p>
+                                            </div>
+                                            <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
                                         </div>
-                                        <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
-                                    </div>
-                                )
-                        })
-                    }
+                                    )
+                            })
+                        }
 
-                    {
-                        props && props.role == 2 && chats && chats.map(function (el, idx) {
-                            if (el.from == 1)
-                                return (
-                                    <div className="item-group mb-3 flex flex-col items-start">
-                                        <div className="item bg-light max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-br-lg">
-                                            <p className="text-left">{el.text}</p>
+                        {
+                            props && props.role == 2 && chats && chats.map(function (el, idx) {
+                                if (el.from == 1)
+                                    return (
+                                        <div className="item-group mb-3 flex flex-col items-start">
+                                            <div className="item bg-light max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-br-lg">
+                                                <p className="text-left">{el.text}</p>
+                                            </div>
+                                            <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
                                         </div>
-                                        <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
-                                    </div>
-                                )
-                            else
-                                return (
-                                    <div className="item-group mb-3 flex flex-col items-end">
-                                        <div className="item bg-darkGreen max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-bl-lg">
-                                            <p className="text-left text-white">{el.text}</p>
+                                    )
+                                else
+                                    return (
+                                        <div className="item-group mb-3 flex flex-col items-end">
+                                            <div className="item bg-darkGreen max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-bl-lg">
+                                                <p className="text-left text-white">{el.text}</p>
+                                            </div>
+                                            <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
                                         </div>
-                                        <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
-                                    </div>
-                                )
-                        })
-                    }
+                                    )
+                            })
+                        }
 
 
-                </div>
+                    </div>
 
-                <form onSubmit={handleSend} className="h-16 bg-white shadow-lg border-4 flex items-center border-gray-50 absolute bottom-4 left-3 right-3 rounded-xl">
-                    <input onChange={handleChangeChat} value={textChat} type="text" name="textChat" className="w-full outline-none px-3" placeholder="Your message ..." />
-                    <button type="submit" className="w-10 h-10 rounded-full bg-darkGreen absolute right-3 flex justify-center items-center text-white text-lg">
-                        <FiSend />
-                    </button>
-                </form>
-            </div>
+                    <form onSubmit={handleSend} className="h-16 bg-white shadow-lg border-4 flex items-center border-gray-50 absolute bottom-4 left-3 right-3 rounded-xl">
+                        <input onChange={handleChangeChat} value={textChat} type="text" name="textChat" className="w-full outline-none px-3" placeholder="Your message ..." />
+                        <button type="submit" className="w-10 h-10 rounded-full bg-darkGreen absolute right-3 flex justify-center items-center text-white text-lg">
+                            <FiSend />
+                        </button>
+                    </form>
+            </FadeTransform>
         </div>
     )
 

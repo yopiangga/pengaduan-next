@@ -9,6 +9,7 @@ import firebase from 'firebase'
 import axios from 'axios'
 import { useAppContext } from 'components/states/GlobalStates';
 import ModalReportComplaint from 'components/all/ModalReportComplaint';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components'
 
 function Main(props) {
     const { url, setUrl, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
@@ -128,24 +129,41 @@ function Main(props) {
                                                 <div className="title h-12 overflow-hidden w-full flex justify-between">
                                                     <h4 onClick={() => handleComplaint(el.key)} className="font-medium text-md cursor-pointer hover:underline">{el.title}</h4>
                                                 </div>
-                                                <div onClick={() => handleMoreAction(el.key)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
+                                                <div onClick={() => handleMoreAction(idx + 1)} className="icon text-xl w-8 h-6 flex justify-center items-center rounded-full cursor-pointer hover:bg-gray-100 ">
                                                     <FiMoreHorizontal />
                                                 </div>
-                                                <div id={`more-action-${el.key}`} className="laptop:-right-14 py-3 mobile:right-0 hidden rounded-b-lg rounded-tr-lg top-6 absolute bg-white shadow-lg">
+
+                                                <FadeTransform in={idx + 1 == moreAction} duration={200} transformProps={{
+                                                    exitTransform: 'scale(0.5) translateY(-50%)'
+                                                }} className="z-10 laptop:-right-14 py-3 mobile:right-0 rounded-b-lg rounded-tr-lg top-3 absolute bg-white shadow-lg">
                                                     {
                                                         (detailUser.idUser == null || detailUser.idUser == '') ?
-                                                            <ul>
+                                                            <ul className="w-48">
                                                                 <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
                                                             </ul>
                                                             :
-                                                            <ul>
-                                                                {/* <li onClick={() => handleSupport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiHeart className="mr-3" /> Support</li> */}
+                                                            ""
+                                                    }
+                                                    {
+                                                        (detailUser.roleUser == 1) ?
+                                                            <ul className="w-48">
+                                                                <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
+                                                                <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
+                                                                <li onClick={() => handleDelete(el.key, idx)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiTrash2 className="mr-3" /> Delete</li>
+                                                            </ul>
+                                                            :
+                                                            ""
+                                                    }
+                                                    {
+                                                        detailUser.roleUser == 2 ?
+                                                            <ul className="w-48">
                                                                 <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
                                                                 <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>
                                                             </ul>
-
+                                                            :
+                                                            ""
                                                     }
-                                                </div>
+                                                </FadeTransform>
 
                                             </div>
                                             <div className="description mb-3 h-14 overflow-hidden">
@@ -163,7 +181,7 @@ function Main(props) {
                                                 }
                                             </div>
                                             <div className="card-footer flex flex-wrap justify-between items-center relative bottom-0">
-                                            <div className="support flex relative h-6 w-24 items-center">
+                                                <div className="support flex relative h-6 w-24 items-center">
                                                     {
                                                         el.status == 1 ?
                                                             <div className="badge px-3 py-1 mr-2 rounded-md font-medium text-xs text-white bg-dark">
