@@ -116,8 +116,8 @@ function Users(props) {
                     {
                         filteredData && filteredData.map(function (el, idx) {
                             return (
-                                <Fade in className="w-full flex justify-center">
-                                    <div key={idx} onClick={() => handleSelectContact(el, lastMsg[idx])} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
+                                <Fade in key={idx} className="w-full flex justify-center">
+                                    <div onClick={() => handleSelectContact(el, lastMsg[idx])} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">
                                         <div className="image rounded-full h-12 w-12 mr-3 overflow-hidden bg-light">
                                             {
                                                 el.image == '' || el.image == undefined ?

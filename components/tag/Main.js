@@ -1,7 +1,7 @@
 const { Component, useState, useEffect } = require("react");
 import Image from 'next/image';
 import example from 'public/assets/images/example.jpg'
-import { FiAlertCircle, FiCalendar, FiChevronDown, FiHeart, FiLink, FiMoreHorizontal, FiShare, FiShare2, FiUsers } from 'react-icons/fi';
+import { FiAlertCircle, FiCalendar, FiChevronDown, FiHeart, FiLink, FiMoreHorizontal, FiShare, FiShare2, FiUsers, FiTrash2 } from 'react-icons/fi';
 import { RiContactsBookUploadLine, RiLayoutGridLine, RiLayoutMasonryLine } from 'react-icons/ri'
 import $ from 'jquery';
 import { useRouter } from 'next/router';

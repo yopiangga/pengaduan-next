@@ -47,7 +47,6 @@ function Main() {
         } else {
             firebase.auth().createUserWithEmailAndPassword(userRegis.email, userRegis.password)
                 .then((res) => {
-                    // console.log(res)
                     createData(res.user, userRegis.fullname)
                     $('.bg-loading').removeClass('flex').addClass('hidden');
                 })
