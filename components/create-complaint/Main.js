@@ -66,6 +66,13 @@ function Main() {
         })
     }
 
+    const handleChangeLocation = (event) => {
+        setComplaint({
+            ...complaint,
+            [event.target.name]: event.target.value
+        })
+    }
+
     const geoLocation = () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(showPosition);
@@ -276,13 +283,13 @@ function Main() {
                                     <div className="col w-full laptop:pr-2 mobile:pr-0">
                                         <div className="form-group flex flex-col">
                                             <label className="font-medium text-sm mb-3">Latitude</label>
-                                            <input type="text" name="latitude" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="" value={complaint.latitude.text} onChange={handleChange} />
+                                            <input type="text" name="latitude" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="" value={complaint.latitude} onChange={handleChangeLocation} />
                                         </div>
                                     </div>
                                     <div className="col w-full laptop:pl-2 mobile:pl-0">
                                         <div className="form-group flex flex-col">
                                             <label className="font-medium text-sm mb-3">Longitude</label>
-                                            <input type="text" name="longitude" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="" value={complaint.longitude.text} onChange={handleChange} />
+                                            <input type="text" name="longitude" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="" value={complaint.longitude} onChange={handleChangeLocation} />
                                         </div>
                                     </div>
                                 </div>

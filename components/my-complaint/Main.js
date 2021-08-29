@@ -20,7 +20,8 @@ function Main() {
     const router = useRouter();
     const [complaint, setComplaint] = useState({ id: "" });
     const [reportComplaint, setReportComplaint] = useState(false);
-
+    const [moreAction, setMoreAction] = useState();
+    
     useEffect(() => {
         if (detailUser) {
             const dbComplaints = firebase.database().ref();

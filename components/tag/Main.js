@@ -20,7 +20,8 @@ function Main(props) {
     const router = useRouter();
     const [complaint, setComplaint] = useState({ id: "" });
     const [reportComplaint, setReportComplaint] = useState(false);
-
+    const [moreAction, setMoreAction] = useState();
+    
     useEffect(() => {
         const dbComplaints = firebase.database().ref();
         dbComplaints.child("complaint").on('value', getComplaints, errorComplaints);
