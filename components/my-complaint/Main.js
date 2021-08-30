@@ -53,7 +53,10 @@ function Main() {
     }
 
     const handleMoreAction = (id) => {
-        $(`#more-action-${id}`).toggleClass('hidden').toggleClass('block')
+        if (id == moreAction)
+            setMoreAction(false);
+        else
+            setMoreAction(id);
     }
 
     const handleClose = () => {
@@ -128,7 +131,7 @@ function Main() {
 
                                                 <FadeTransform in={idx + 1 == moreAction} duration={200} transformProps={{
                                                     exitTransform: 'scale(0.5) translateY(-50%)'
-                                                }} className="z-10 laptop:-right-14 py-3 mobile:right-0 rounded-b-lg rounded-tr-lg top-3 absolute bg-white shadow-lg">
+                                                }} className="z-10 laptop:-right-14 py-3 mobile:right-0 rounded-lg top-3 absolute bg-white shadow-lg">
                                                     <ul className="w-48">
                                                         <li onClick={() => handleCopy(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiLink className="mr-3" /> Copy Link</li>
                                                         <li onClick={() => handleReport(el.key)} className="flex items-center mb-0 py-1 px-3 cursor-pointer hover:bg-gray-50"><FiAlertCircle className="mr-3" /> Report Complaint</li>

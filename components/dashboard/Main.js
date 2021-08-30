@@ -158,7 +158,7 @@ function Main() {
 
                                                 <FadeTransform in={idx + 1 == moreAction} duration={200} transformProps={{
                                                     exitTransform: 'scale(0.5) translateY(-50%)'
-                                                }} className="z-10 laptop:-right-14 py-3 mobile:right-0 rounded-b-lg rounded-tr-lg top-3 absolute bg-white shadow-lg">
+                                                }} className="z-10 laptop:-right-14 py-3 mobile:right-0 rounded-lg top-3 absolute bg-white shadow-lg">
                                                         {
                                                             (detailUser.idUser == null || detailUser.idUser == '') ?
                                                                 <ul className="w-48">
