@@ -156,7 +156,7 @@ function Main() {
                     </div>
                     <h3 className="text-2xl font-medium mb-3">Login</h3>
 
-                    <p className="mb-10">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi, eius.</p>
+                    <p className="mb-10">You need to be logged in to use all features!</p>
 
                     <div onClick={() => handleAuthGoogle()} className="auth-google w-full h-12 mb-5 border border-gray-200 rounded-lg flex justify-center items-center cursor-pointer hover:border-darkGreen">
                         <Image src={googleImage} width="20" height="20" alt="google" />
@@ -196,7 +196,7 @@ function Main() {
                     <div className="image mb-2" style={{ width: "450px" }}>
                         <Image src={ilustration1} alt="login" />
                     </div>
-                    <h4 className="text-center text-lg text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus, facilis?</h4>
+                    <h4 className="text-center text-lg text-white">An integrated environmental problem complaint application to help people voice their opinions regarding environmental pollution around them.</h4>
                 </div>
             </div>
         </div>

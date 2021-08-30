@@ -12,7 +12,7 @@ export function MessageEmpty(){
                     <Image src={img.logo} layout="fill" objectFit="cover" />
                 </div>
                 <h1 className="text-3xl font-bold mb-2">Env<span className="text-darkGreen">Care</span></h1>
-                <p className="w-2/3 text-center">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quasi delectus sint corrupti doloribus asperiores. Veritatis!</p>
+                <p className="w-2/3 text-center">Chat feature to get confirmation of the problem from the owner of the complaint</p>
             </div>
         </div>
     )

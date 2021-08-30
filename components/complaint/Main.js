@@ -249,7 +249,7 @@ function Main(props) {
     const handleShare = () => {
         setShareMediaSocial({
             title: "Share to Media Social",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo, voluptate.",
+            description: "Share with many people to find out the existing problems.",
             isOpen: true,
             link: `${url.baseUrl}complaint/${props.id}`
         })
@@ -561,7 +561,7 @@ function Main(props) {
                                 <div className="light-layer-2 active rounded-lg p-4 w-full">
                                     <div className="mb-5">
                                         <h3 className="mb-2 font-medium text-xl text-center">Form Support</h3>
-                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                        <p className="text-center text-sm">Support the complaints submitted by the owner.</p>
                                     </div>
                                     <div className="row flex mb-5">
                                         <div className="col w-full">
@@ -604,7 +604,7 @@ function Main(props) {
                                 <div className="light-layer-2 active rounded-lg p-4 w-full">
                                     <div className="mb-5">
                                         <h3 className="mb-2 font-medium text-xl text-center">Done Complaint</h3>
-                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                        <p className="text-center text-sm">Resolve the complaint you made if your complaint problem is solved.</p>
                                     </div>
                                     <div className="row flex mb-5">
                                         <div className="col w-full">
@@ -627,7 +627,7 @@ function Main(props) {
                                 <div className="light-layer-2 active rounded-lg p-4 w-full">
                                     <div className="mb-5">
                                         <h3 className="mb-2 font-medium text-xl text-center">Follow Up</h3>
-                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                        <p className="text-center text-sm">Follow up on complaints submitted by the owner</p>
                                     </div>
                                     <div className="row flex mb-5">
                                         <div className="col w-full">
@@ -651,7 +651,7 @@ function Main(props) {
                                 <div className="light-layer-2 active rounded-lg p-4 w-full">
                                     <div className="mb-5">
                                         <h3 className="mb-2 font-medium text-xl text-center">Complete Complaint</h3>
-                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                        <p className="text-center text-sm">Complete the complaint if it has been resolved by the relevant agency.</p>
                                     </div>
                                     <div className="row flex mb-5">
                                         <div className="col w-full">
@@ -674,7 +674,7 @@ function Main(props) {
                                 <div className="light-layer-2 active rounded-lg p-4 w-full">
                                     <div className="mb-5">
                                         <h3 className="mb-2 font-medium text-xl text-center">Chat Author</h3>
-                                        <p className="text-center text-sm">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Amet, sit?</p>
+                                        <p className="text-center text-sm">Look for information related to complaints to the owner of the complaint.</p>
                                     </div>
                                     <div className="row flex mb-5">
                                         <div className="col w-full">
