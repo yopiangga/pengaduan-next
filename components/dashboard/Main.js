@@ -112,7 +112,7 @@ function Main() {
             />
             <div className="content pt-24 tablet:pl-20 mobile:px-4">
                 <div className="header flex tablet:flex-row mobile:flex-col justify-between mb-5 ">
-                    <h1 className="text-3xl font-medium tablet:mb-0 mobile:mb-5">New Complaint</h1>
+                    <h1 className="text-3xl font-medium tablet:mb-0 mobile:mb-5">All Complaints</h1>
                     <div className="filter flex relative justify-end">
                         <div className="light-layer-1 rounded-lg">
                             <div onClick={handleFilter} className="light-layer-2 box cursor-pointer h-10 px-3 rounded-md flex justify-center items-center">
@@ -143,7 +143,7 @@ function Main() {
                 <div onClick={handleClose} className="grid desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 style-1">
 
                     {
-                        complaints && complaints.map((el, idx) => {
+                        complaints && complaints.slice(0).reverse().map((el, idx) => {
                             if (el.status == filter || filter == 0 && el.status != 5 && detailUser.roleUser == 2 || filter == 0 && detailUser.roleUser == 1 || filter == 0 && isLogin == 0 && el.status != 5)
                                 return (
                                     <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">

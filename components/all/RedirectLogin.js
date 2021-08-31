@@ -12,7 +12,7 @@ export default function RedirectLogin(){
                 <Image src={img.redirectLogin} width={270} height={270} alt="redirect login" />
             </div>
 
-            <h3 className="font-medium text-xl mb-5">You need to login to access this page</h3>
+            <h3 className="font-medium text-xl mb-5 text-center">You need to login to access this page</h3>
             <button onClick={()=> router.push('/login')} className="py-2 px-10 mr-3 bg-darkGreen rounded-full text-white font-medium">Log In</button>
         </div>
     )

@@ -116,7 +116,7 @@ function Main() {
                 <div onClick={handleClose} className="grid desktop:grid-cols-4 laptop:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 style-1">
 
                     {
-                        complaints && complaints.map((el, idx) => {
+                        complaints && complaints.slice(0).reverse().map((el, idx) => {
                             if (el.status == filter || filter == 0)
                                 return (
                                     <div key={idx} className="light-layer-1 active mb-4 tablet:w-11/12 rounded-lg">

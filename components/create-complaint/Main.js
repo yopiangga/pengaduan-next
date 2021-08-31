@@ -233,7 +233,7 @@ function Main() {
                                 <div className="row flex laptop:w-11/12 mobile:w-full mb-5">
                                     <div className="col w-full">
                                         <div className="form-group flex flex-col">
-                                            <label className="font-medium text-sm mb-3">Taggar</label>
+                                            <label className="font-medium text-sm mb-3">Tags</label>
                                             <input type="text" name="taggar" className="text-lg outline-none py-2 px-3 rounded-b-lg rounded-tr-lg focus:shadow-2xl font-medium" placeholder="Pollution, Waste, Garbage" onChange={handleChangeTaggar} />
                                         </div>
                                     </div>

@@ -114,7 +114,7 @@ function Users(props) {
                 <div className="users w-full absolute top-16 bottom-0 right-0 overflow-scroll flex flex-col items-center">
 
                     {
-                        filteredData && filteredData.map(function (el, idx) {
+                        filteredData && filteredData.slice(0).reverse().map(function (el, idx) {
                             return (
                                 <Fade in key={idx} className="w-full flex justify-center">
                                     <div onClick={() => handleSelectContact(el, lastMsg[idx])} className="user laptop:w-4/5 mobile:w-full h-16 mb-3 bg-white rounded-lg py-1 px-2 flex items-center relative cursor-pointer laptop:hover:w-11/12 laptop:hover:h-20 duration-300 shadow-sm hover:shadow-2xl">

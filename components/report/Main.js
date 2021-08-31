@@ -91,7 +91,7 @@ function Main() {
             )
         } else {
             return (
-                allReport.map(function (el, idx) {
+                allReport.slice(0).reverse().map(function (el, idx) {
                     return (
                         <Fade in key={idx} className="card laptop:w-11/12 mobile:w-full rounded-lg bg-white shadow-xl mb-6">
                             <div className="flex p-3 relative overflow-hidden group">
