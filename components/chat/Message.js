@@ -107,7 +107,7 @@ function Message(props) {
                                             <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
                                         </div>
                                     )
-                                else
+                                else if (el.from == 1)
                                     return (
                                         <div className="item-group mb-3 flex flex-col items-end">
                                             <div className="item bg-darkGreen max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-bl-lg">
@@ -115,6 +115,10 @@ function Message(props) {
                                             </div>
                                             <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
                                         </div>
+                                    )
+                                else
+                                    return(
+                                        <div></div>
                                     )
                             })
                         }
@@ -130,7 +134,7 @@ function Message(props) {
                                             <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
                                         </div>
                                     )
-                                else
+                                else if(el.from == 2)
                                     return (
                                         <div className="item-group mb-3 flex flex-col items-end">
                                             <div className="item bg-darkGreen max-w-2xl h-auto py-3 px-3 mb-2 rounded-t-lg rounded-bl-lg">
@@ -138,6 +142,10 @@ function Message(props) {
                                             </div>
                                             <h5 className="text-sm text-gray-400">{new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: 'numeric' }).format(new Date(el.time))}</h5>
                                         </div>
+                                    )
+                                else 
+                                    return(
+                                        <div></div>
                                     )
                             })
                         }

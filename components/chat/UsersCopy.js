@@ -12,7 +12,7 @@ function Users(props) {
     const { url, setUrl, img, setImg, isLogin, setIsLogin, detailUser, setDetailUser } = useAppContext();
 
     const [chats, setChats] = useState();
-    const [lastMsg, setLastMsg] = useState([]);
+    const [lastMsg, setLastMsg] = useState([{text : "", time: ""}]);
     const [filteredData, setFilteredData] = useState(chats);
 
     useEffect(() => {
@@ -34,6 +34,7 @@ function Users(props) {
         getLastMessage(dataChats)
         setChats(dataChats)
         setFilteredData(dataChats)
+        // console.log(dataChats)
     }
 
 
@@ -44,19 +45,25 @@ function Users(props) {
     function getLastMessage(dataChats) {
         var dataMessage = [];
 
-        dataChats.slice(0).reverse().map(function (el, idx) {
-            var last;
+        dataChats.map(function (el, idx) {
+            var last = null;
+            console.log(el)
             for (var itemLast in el.message) {
                 last = el.message[itemLast];
             }
-            dataMessage.push(last)
+            if(last != null)
+                dataMessage.push(last)
         })
-        setLastMsg(dataMessage)
+    //     setLastMsg([
+    //         dataMessage
+    //     ])
     }
 
-    function handleSelectContact(el, lastMsg) {
-        if (lastMsg.from != detailUser.roleUser)
-            firebase.database().ref(`chats/${parseInt(el.key)}/message/${lastMsg.time}/status`).set(2)
+    console.log(lastMsg)
+
+    function handleSelectContact(el, LMsg) {
+        // if (lastMsg.from != detailUser.roleUser)
+        //     firebase.database().ref(`chats/${parseInt(el.key)}/message/${LMsg.time.toString()}/status`).set(2)
 
         props.onClick(el)
         $('.contact').addClass('mobile:hidden').removeClass('mobile:flex');
