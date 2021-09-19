@@ -127,6 +127,7 @@ function Main(props) {
             idComplaint: complaint.key,
         })
             .then(() => {
+                getComplaint();
                 setModalInformation({
                     title: "Support Success",
                     description: "Your support complaint success added, wait for follow up complaint.",
