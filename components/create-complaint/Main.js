@@ -21,6 +21,7 @@ function Main() {
         longitude: "",
         address: { error: false, text: "", errortext: "" }
     })
+    const [validationBtn, setValidationBtn] = useState(true);
     const [file, setFile] = useState(null);
     const [imagePreview, setImagePreview] = useState(false);
     const router = useRouter();
@@ -106,7 +107,7 @@ function Main() {
 
     const handleValidation = (event) => {
         event.preventDefault();
-        if (complaint.title.error || complaint.description.error || complaint.address.error) {
+        if (complaint.title.error || complaint.description.error || complaint.address.error || complaint.taggar == "") {
             setModalInformationRedirect({
                 title: "Complaint Failed",
                 description: "Your complaint failed created, fill in all the data you.",
@@ -115,6 +116,7 @@ function Main() {
                 url: ""
             })
         } else {
+            setValidationBtn(false);
             Push();
         }
     }
@@ -182,7 +184,13 @@ function Main() {
         router.push('/')
     }
 
-    // console.log(file)
+    const validationButton = () => {
+        if (complaint.title.error || complaint.description.error || complaint.address.error || complaint.taggar == ""){
+            return(false);
+        } else {
+            return(true);
+        }
+    }
 
     return (
         <div className="flex justify-center">
@@ -322,7 +330,12 @@ function Main() {
                         <div className="row flex laptop:w-11/12 mobile:w-full mb-10">
                             <div className="col w-full">
                                 <div className="form-group flex">
-                                    <button type="submit" className="py-2 px-6 mr-3 bg-darkGreen rounded-full text-white font-medium">Post Complaint</button>
+                                    {
+                                        validationButton() && validationBtn ?
+                                        <button type="submit" className="py-2 px-6 mr-3 bg-darkGreen rounded-full text-white font-medium">Post Complaint</button>
+                                        :
+                                        <button type="button" className="py-2 px-6 mr-3 bg-gray-300 rounded-full text-white font-medium">Post Complaint</button>
+                                    } 
                                     <button onClick={handleCancel} type="button" className="py-2 px-6 mr-3  font-medium">Cancel</button>
                                 </div>
                             </div>

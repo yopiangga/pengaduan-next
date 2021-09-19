@@ -5,8 +5,8 @@ import firebase from 'firebase'
 const AppContext = createContext();
 
 export function AppWrapper({ children }) {
-  const [url, setUrl] = useState({ api: "http://localhost:3000/", baseUrl: "http://localhost:3000/", image: "http://localhost:3000" });
-  // const [url, setUrl] = useState({ api: "https://petikdua.store/", baseUrl: "https://petikdua.store/", image: "https://petikdua.store" });
+  // const [url, setUrl] = useState({ api: "http://localhost:3000/", baseUrl: "http://localhost:3000/", image: "http://localhost:3000" });
+  const [url, setUrl] = useState({ api: "https://petikdua.store/", baseUrl: "https://petikdua.store/", image: "https://petikdua.store" });
   const [img, setImg] = useState({
     user: "https://firebasestorage.googleapis.com/v0/b/pengaduan-e0f12.appspot.com/o/complaint%2Fuser.png?alt=media&token=21aa41c0-4047-49c4-89b0-da9e7f5bb32a",
     redirectLogin: "https://firebasestorage.googleapis.com/v0/b/pengaduan-e0f12.appspot.com/o/complaint%2Fredirect-login.png?alt=media&token=b4f158d2-f33b-4eff-80f2-65190099c8ff",
